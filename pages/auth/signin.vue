@@ -7,8 +7,8 @@
       </button>
     </div>
     <div class="my-10">
-      <h1 class="text-3xl font-bold mb-3">Sign In</h1>
-      <p class="text-gray-400 text-md">Welcome back ! Please enter your detail </p>
+      <h1 class="text-3xl font-bold mb-2 dark:text-white">Sign In</h1>
+      <p class="text-gray-400 text-md dark:text-gray-400">Welcome back!, Please enter your detail </p>
     </div>
     <form>
         <div class="my-6">
@@ -31,7 +31,7 @@
             <hr class="border-gray-300 flex-grow">
         </div>
         <button type="button" class="flex items-center justify-center text-black w-full bg-white border border-gray-100 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
-          <Icon name="bi:google" color="black" />
+          <img src="/assets/img/icon/google.svg" alt="">
           <span class="ml-2">Google</span>
         </button>
     </form>
