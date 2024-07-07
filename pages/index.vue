@@ -1,32 +1,53 @@
 <template>
+  
   <div>
-    <div class="flex justify-between">
+    <div class="mx-[-24px] mt-[-24px] bg-blue-1000 p-5 rounded-b-[50px] bg-center bg-no-repeat bg-[url('/assets/img/shape/hero.svg')] bg-cover">
+      <div class="flex items-center	justify-between ">
+        <span class="font-semibold text-md dark:text-blue-500">logo</span>
+        <div class="flex items-center	 gap-x-4">
+          <Icon name="heroicons:bell-alert" size="22px" class="text-sm text-gray-400 dark:text-gray-400" color="black" />
+          <img class="w-10 h-10 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="avatar">
+        </div>
+      </div>
+      <div class="text-center my-10">
+        <span class="text-sm text-gray-400 dark:text-gray-400">7 Friend are owing you</span>
+        <h1 class="font-bold text-4xl">IDR. 700,000</h1>
+        <div class="mt-10 flex justify-center gap-x-2">
+          <button type="button" class="flex gap-x-1 px-4 py-2.5 text-sm text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <Icon name="mingcute:bill-2-line" size="20px" color="black" />
+            Add Manually
+          </button>
+          <button type="button" class="flex gap-x-1 px-7 py-2.5 text-sm text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+            <Icon name="mingcute:scan-fill" size="18px" color="black" />
+            Quick Scan
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="mt-6 flex justify-between">
       <span class="font-semibold text-md dark:text-blue-500">Friend List</span>
       <a href="#" class="text-sm text-gray-400 dark:text-gray-400">See More</a>
     </div>
-    <div class="mt-6 grid md:grid-cols-5 grid-cols-4 gap-3">
-      <div>
-        <img class="w-20 h-20 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
-        <figure class="text-sm mt-3 text-center">john doe</figure>
-      </div>
-      <div>
-        <img class="w-20 h-20 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
-        <figure class="text-sm mt-3 text-center">john doe</figure>
-      </div>
-      <div>
-        <img class="w-20 h-20 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
-        <figure class="text-sm mt-3 text-center">john doe</figure>
-      </div>
-      <div>
-        <img class="w-20 h-20 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
-        <figure class="text-sm mt-3 text-center">john doe</figure>
-      </div>
-      <div>
-        <img class="w-20 h-20 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
-        <figure class="text-sm mt-3 text-center">john doe</figure>
-      </div>
+    <div class="mt-5">
+      <Swiper
+        :modules="[SwiperAutoplay, SwiperEffectCreative, SwiperFreeMode]"
+        :slides-per-view="5"
+        :loop="true"
+        :effect="'free-mode'"
+        :autoplay="{
+          delay: 8000,
+          disableOnInteraction: true,
+        }"
+      >
+        <SwiperSlide class="pt-1 ps-1" v-for="slide in 10" :key="slide">
+          <div class="pe-3">
+            <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
+            <figure class="text-sm mt-3 text-center text-xs text-gray-600">John Doe</figure>
+          </div>
+        </SwiperSlide>
+      </Swiper>
     </div>
-    <div class="mt-12 flex justify-between">
+    <div class="mt-6 flex justify-between">
       <span class="font-semibold text-md dark:text-blue-500">Split History</span>
       <a href="#" class="text-sm text-gray-400 dark:text-gray-400">See More</a>
     </div>
