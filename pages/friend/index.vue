@@ -15,7 +15,7 @@
         <Icon name="heroicons:plus-16-solid" size="14px" class="mt-1" color="black" />
       </button>
     </div>
-    <a href="#" class="mb-3 block bg-white border border-gray-100 rounded-xl hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+    <div class="mb-3 block bg-white border border-gray-100 rounded-xl dark:bg-gray-800 dark:border-gray-700">
         <div class="p-4">
           <div class="flex justify-between">
             <div class="flex align-middle">
@@ -27,7 +27,7 @@
             </div>
             <div class="flex gap-1">
               <div>
-                <button type="button" class="text-gray-500 bg-gray-100 border border-gray-100 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                <button type="button" class="text-gray-500 bg-gray-100 border border-gray-100 focus:outline-none hover:bg-white focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
                   <Icon name="heroicons:pencil-square" size="14px" class="mt-1" color="black" />
                 </button>
               </div>
@@ -39,8 +39,8 @@
             </div>
           </div>
         </div>
-    </a>
-    <a href="#" class="mb-3 block bg-white border border-gray-100 rounded-xl hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+    </div>
+    <div class="mb-3 block bg-white border border-gray-100 rounded-xl dark:bg-gray-800 dark:border-gray-700">
         <div class="p-4">
           <div class="flex justify-between">
             <div class="flex align-middle">
@@ -52,7 +52,7 @@
             </div>
             <div class="flex gap-1">
               <div>
-                <button type="button" class="text-gray-500 bg-gray-100 border border-gray-100 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                <button type="button" class="text-gray-500 bg-gray-100 border border-gray-100 focus:outline-none hover:bg-white focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
                   <Icon name="heroicons:pencil-square" size="14px" class="mt-1" color="black" />
                 </button>
               </div>
@@ -64,8 +64,8 @@
             </div>
           </div>
         </div>
-    </a>
-    <a href="#" class="mb-3 block bg-white border border-gray-100 rounded-xl hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+    </div>
+    <div class="mb-3 block bg-white border border-gray-100 rounded-xl dark:bg-gray-800 dark:border-gray-700">
         <div class="p-4">
           <div class="flex justify-between">
             <div class="flex align-middle">
@@ -77,7 +77,7 @@
             </div>
             <div class="flex gap-1">
               <div>
-                <button type="button" class="text-gray-500 bg-gray-100 border border-gray-100 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                <button type="button" class="text-gray-500 bg-gray-100 border border-gray-100 focus:outline-none hover:bg-white focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
                   <Icon name="heroicons:pencil-square" size="14px" class="mt-1" color="black" />
                 </button>
               </div>
@@ -89,7 +89,7 @@
             </div>
           </div>
         </div>
-    </a>
+    </div>
     
   </div>
 </template>
