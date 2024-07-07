@@ -10,13 +10,13 @@
       </button>
     </div>
     <div class="mb-6 flex">
-      <input type="text" id="search" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search">
+      <input type="text" id="search" class="block w-full p-2.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search">
     </div>
     <a href="#" class="mb-3 block bg-white border border-gray-100 rounded-xl hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
         <div class="p-4">
           <div class="flex justify-between">
             <div class="flex align-middle">
-              <span class="flex items-center justify-center w-12 h-12 text-xs font-medium text-gray-600 bg-gray-50 rounded-lg">
+              <span class="flex items-center justify-center w-12 h-12 text-xs font-medium text-gray-600 bg-blue-950 rounded-lg">
                 <img src="/assets/img/icon/bill.png" alt="">
               </span>
               <div class="ms-3">
@@ -48,7 +48,7 @@
         <div class="p-4">
           <div class="flex justify-between">
             <div class="flex align-middle">
-              <span class="flex items-center justify-center w-12 h-12 text-xs font-medium text-gray-600 bg-gray-50 rounded-lg">
+              <span class="flex items-center justify-center w-12 h-12 text-xs font-medium text-gray-600 bg-blue-950 rounded-lg">
                 <img src="/assets/img/icon/bill.png" alt="">
               </span>
               <div class="ms-3">

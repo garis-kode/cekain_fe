@@ -36,7 +36,7 @@
         <div class="p-4">
           <div class="flex justify-between">
             <div class="flex align-middle">
-              <span class="flex items-center justify-center w-12 h-12 text-xs font-medium text-gray-600 bg-gray-50 rounded-lg">
+              <span class="flex items-center justify-center w-12 h-12 text-xs font-medium bg-blue-950 rounded-lg">
                 <img src="/assets/img/icon/bill.png" alt="">
               </span>
               <div class="ms-3">
@@ -68,7 +68,7 @@
         <div class="p-4">
           <div class="flex justify-between">
             <div class="flex align-middle">
-              <span class="flex items-center justify-center w-12 h-12 text-xs font-medium text-gray-600 bg-gray-50 rounded-lg">
+              <span class="flex items-center justify-center w-12 h-12 text-xs font-medium bg-blue-950 rounded-lg">
                 <img src="/assets/img/icon/bill.png" alt="">
               </span>
               <div class="ms-3">
