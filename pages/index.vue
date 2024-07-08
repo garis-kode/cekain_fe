@@ -6,7 +6,44 @@
         <span class="font-semibold text-md dark:text-blue-500">logo</span>
         <div class="flex items-center	 gap-x-4">
           <Icon name="heroicons:bell-alert" size="22px" class="text-sm text-gray-400 dark:text-gray-400" color="black" />
-          <img class="w-10 h-10 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="avatar">
+          
+          <div class="relative inline-block text-left">
+            <div>
+              <button @focus="showDropdown" @blur="hideDropdown" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" type="button">
+                <span class="sr-only">Open user menu</span>
+                <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
+              </button>
+            </div>
+            <!-- Dropdown menu -->
+            <div v-if="isOpen" class="origin-top-right absolute right-0 mt-2 z-10" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+              <div class="z-10 bg-white divide-y divide-gray-100 rounded-xl w-44 dark:bg-gray-700 dark:divide-gray-600 w-[250px]">
+                <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                  <div class="flex">
+                    <img class="w-10 h-10 rounded" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Default avatar">
+                    <div class="ms-2">
+                      <div class="font-semibold truncate">Bonnie Green</div>
+                      <div>name@flowbite.com</div>
+                    </div>
+                  </div>
+                </div>
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUserAvatarButton">
+                  <li>
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
+                  </li>
+                  <li>
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Setting</a>
+                  </li>
+                  <li>
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Privacy Policy</a>
+                  </li>
+                </ul>
+                <div class="py-2">
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
       <div class="text-center my-10">
@@ -24,32 +61,68 @@
         </div>
       </div>
     </div>
-    <div class="mt-6 flex justify-between">
+    <div class="mt-5 flex justify-between">
       <span class="font-semibold text-md dark:text-blue-500">Friend List</span>
-      <a href="#" class="text-sm text-gray-400 dark:text-gray-400">See More</a>
+      <a href="#" class="text-sm text-gray-400 dark:text-gray-400 hover:text-blue-700">See More</a>
     </div>
     <div class="mt-5">
       <Swiper
-        :modules="[SwiperAutoplay, SwiperEffectCreative, SwiperFreeMode]"
+        :modules="[SwiperAutoplay, SwiperFreeMode]"
         :slides-per-view="5"
         :loop="true"
         :effect="'free-mode'"
         :autoplay="{
-          delay: 8000,
+          delay: 4000,
           disableOnInteraction: true,
         }"
       >
-        <SwiperSlide class="pt-1 ps-1" v-for="slide in 10" :key="slide">
-          <div class="pe-3">
+        <SwiperSlide class="pt-1 ps-1">
+          <div class="pe-2">
+            <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
+            <figure class="text-sm mt-3 text-center text-xs text-gray-600">Fajar Rivaldi Chan</figure>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide class="pt-1 ps-1">
+          <div class="pe-2">
             <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
             <figure class="text-sm mt-3 text-center text-xs text-gray-600">John Doe</figure>
           </div>
         </SwiperSlide>
+        <SwiperSlide class="pt-1 ps-1">
+          <div class="pe-2">
+            <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
+            <figure class="text-sm mt-3 text-center text-xs text-gray-600">John Doe</figure>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide class="pt-1 ps-1">
+          <div class="pe-2">
+            <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
+            <figure class="text-sm mt-3 text-center text-xs text-gray-600">John Doe</figure>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide class="pt-1 ps-1">
+          <div class="pe-2">
+            <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
+            <figure class="text-sm mt-3 text-center text-xs text-gray-600">John Doe</figure>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide class="pt-1 ps-1">
+          <div class="pe-2">
+            <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
+            <figure class="text-sm mt-3 text-center text-xs text-gray-600">John Doe</figure>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide class="pt-1 ps-1">
+          <div class="pe-2">
+            <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
+            <figure class="text-sm mt-3 text-center text-xs text-gray-600 ">John Doe</figure>
+          </div>
+        </SwiperSlide>
       </Swiper>
     </div>
-    <div class="mt-6 flex justify-between">
+    <div class="mt-5 flex justify-between">
       <span class="font-semibold text-md dark:text-blue-500">Split History</span>
-      <a href="#" class="text-sm text-gray-400 dark:text-gray-400">See More</a>
+      <a href="#" class="text-sm text-gray-400 dark:text-gray-400 hover:text-blue-700">See More</a>
     </div>
     <div class="mt-6">
       
@@ -120,3 +193,21 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      isOpen: false,
+    };
+  },
+  methods: {
+    showDropdown() {
+      this.isOpen = true;
+    },
+    hideDropdown() {
+      this.isOpen = false;
+    },
+  },
+};
+</script>
