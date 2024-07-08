@@ -7,7 +7,7 @@
       </button>
     </div>
     <div class="my-10">
-      <h1 class="text-3xl font-bold mb-2 dark:text-blue-500">Forgot Password ?</h1>
+      <h1 class="text-3xl font-bold mb-2 dark:text-white">Forgot Password ?</h1>
       <p class="text-gray-400 text-md dark:text-gray-400">Enter your email to reset the password</p>
     </div>
     <form>

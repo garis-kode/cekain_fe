@@ -16,8 +16,8 @@
             </div>
             <!-- Dropdown menu -->
             <div v-if="isOpen" class="origin-top-right absolute right-0 mt-2 z-10" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-              <div class="z-10 bg-white divide-y divide-gray-100 rounded-xl w-44 dark:bg-gray-700 dark:divide-gray-600 w-[250px]">
-                <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+              <div class="z-10 bg-white divide-y divide-gray-100 rounded-xl w-44 dark:bg-gray-700 dark:divide-gray-600 w-[280px]">
+                <div class="px-6 py-5 text-sm text-gray-900 dark:text-white">
                   <div class="flex">
                     <img class="w-10 h-10 rounded" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Default avatar">
                     <div class="ms-2">
@@ -26,7 +26,7 @@
                     </div>
                   </div>
                 </div>
-                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUserAvatarButton">
+                <ul class="py-2 px-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUserAvatarButton">
                   <li>
                     <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
                   </li>
@@ -37,7 +37,7 @@
                     <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Privacy Policy</a>
                   </li>
                 </ul>
-                <div class="py-2">
+                <div class="py-2 px-2">
                   <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
                 </div>
               </div>
