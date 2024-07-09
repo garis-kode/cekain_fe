@@ -17,6 +17,7 @@
     "vue": "latest"
   },
   "devDependencies": {
+    "@iconify-json/heroicons": "^1.1.21",
     "@nuxtjs/tailwindcss": "^6.12.0"
   }
 }
