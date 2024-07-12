@@ -19,15 +19,68 @@
           <div class="mb-3">
             <label for="Store" class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Store</label>
             <input type="text" id="Store" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Store" required />
-          </div> 
+          </div>
+          <div class="mb-3">
+            <label for="Store" class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Split With</label>
+            <Swiper
+              :modules="[SwiperAutoplay, SwiperFreeMode]"
+              :slides-per-view="5"
+              :loop="true"
+              :effect="'free-mode'"
+              :autoplay="{
+                delay: 4000,
+                disableOnInteraction: true,
+              }"
+            >
+              <SwiperSlide class="pt-1 ps-1">
+                <div class="pe-2">
+                  <button class="origin-top-right absolute right-0 me-2 z-10 flex items-center justify-center w-4 h-4 bg-red-700 hover:bg-red-800 dark:bg-red-600 dark:hover:bg-red-700 rounded-full">
+                  <Icon name="heroicons:minus-16-solid" class="text-white" size="18px" color="black" />
+                </button>
+                  <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
+                  <figure class="text-sm mt-3 text-center text-xs text-gray-600">Fajar Rivaldi Chan</figure>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide class="pt-1 ps-1">
+                <div class="pe-2">
+                  <button class="origin-top-right absolute right-0 me-2 z-10 flex items-center justify-center w-4 h-4 bg-red-700 hover:bg-red-800 dark:bg-red-600 dark:hover:bg-red-700 rounded-full">
+                  <Icon name="heroicons:minus-16-solid" class="text-white" size="18px" color="black" />
+                </button>
+                  <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
+                  <figure class="text-sm mt-3 text-center text-xs text-gray-600">John Doe</figure>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide class="pt-1 ps-1">
+                <div class="pe-2">
+                  <button class="w-16 h-18 p-5 rounded-full border border-dashed border-blue-600 flex justify-center items-center mb-2">
+                    <Icon name="heroicons:plus-16-solid" class="text-blue-700" size="24px" color="black" />
+                  </button>
+                  <span class="text-sm text-center text-xs text-blue-600">Add Friend</span>
+                </div>
+              </SwiperSlide>
+            </Swiper>
+          </div>
         </div>
     </div>
 
     <div class="mb-3 block bg-white border border-gray-100 rounded-xl dark:bg-gray-800 dark:border-gray-700">
       <div class="p-5">
-        <div class="border dark:border-gray-700 rounded-xl border-dashed p-3 mb-3">
+        <div class="border dark:border-gray-700 rounded-xl border-dashed p-3 mb-3 relative inline-block">
+          <button class="origin-top-right absolute right-0 mt-[-20px] me-[-10px] z-10 flex items-center justify-center w-4 h-4 bg-red-700 hover:bg-red-800 dark:bg-red-600 dark:hover:bg-red-700 rounded-full">
+            <Icon name="heroicons:minus-16-solid" class="text-white" size="18px" color="black" />
+          </button>
           <div class="mb-3">
-            <label for="item-1" class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Item 1</label>
+            <div class="flex justify-between">
+              <label for="item-1" class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Item 1</label>
+              <div class="flex -space-x-3 rtl:space-x-reverse mb-2">
+                <img class="w-6 h-6 border-2 border-white rounded-full dark:border-gray-800" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="">
+                <img class="w-6 h-6 border-2 border-white rounded-full dark:border-gray-800" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="">
+                <img class="w-6 h-6 border-2 border-white rounded-full dark:border-gray-800" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="">
+                <button class="flex items-center justify-center w-6 h-6 bg-white border border-dashed border-blue-600 rounded-full">
+                  <Icon name="heroicons:plus-16-solid" class="text-blue-700" color="black" />
+                </button>
+              </div>
+            </div>
             <input type="text" id="item-1" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Product Item" required />
           </div> 
           <div class="mb-3 grid grid-cols-2">
@@ -47,9 +100,19 @@
           </div> 
         </div>
 
-        <div class="border dark:border-gray-700 rounded-xl border-dashed p-3 mb-3">
+        <div class="border dark:border-gray-700 rounded-xl border-dashed p-3 mb-3 relative inline-block">
+          <button class="origin-top-right absolute right-0 mt-[-20px] me-[-10px] z-10 flex items-center justify-center w-4 h-4 bg-red-700 hover:bg-red-800 dark:bg-red-600 dark:hover:bg-red-700 rounded-full">
+            <Icon name="heroicons:minus-16-solid" class="text-white" size="18px" color="black" />
+          </button>
           <div class="mb-3">
-            <label for="item-2" class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Item 1</label>
+            <div class="flex justify-between">
+              <label for="item-1" class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Item 1</label>
+              <div class="flex -space-x-3 rtl:space-x-reverse mb-2">
+                <button class="flex items-center justify-center w-6 h-6 bg-white border border-dashed border-blue-600 rounded-full">
+                  <Icon name="heroicons:plus-16-solid" class="text-blue-700" color="black" />
+                </button>
+              </div>
+            </div>
             <input type="text" id="item-2" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Product Item" required />
           </div> 
           <div class="mb-3 grid grid-cols-2">
@@ -68,11 +131,13 @@
             <input type="number" id="price" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required />
           </div> 
         </div>
-        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add New Item</button>
+        <button type="button" class="text-white w-full bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+          Add New Item
+        </button>
       </div>
     </div>
 
-    <div class="mb-3 block bg-white border border-gray-100 rounded-xl dark:bg-gray-800 dark:border-gray-700">
+    <div class="mb-3  block bg-white border border-gray-100 rounded-xl dark:bg-gray-800 dark:border-gray-700">
         <div class="p-5">
           <div class="text-center font-bold text-3xl pb-5">
             <span>IDR 45,000</span>
@@ -107,6 +172,8 @@
           </div> 
         </div>
     </div>
+
+    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Preview</button>
     
   </div>
 </template>
