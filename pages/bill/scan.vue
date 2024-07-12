@@ -23,7 +23,10 @@
 
     <div v-if="isCameraOpen" v-show="!isLoading" :class="{ 'flash' : isShotPhoto }">
       <div class="camera-shutter" :class="{'flash' : isShotPhoto}"></div>
-      <video v-show="!isPhotoTaken" ref="camera" class="rounded-lg" autoplay></video>
+      <div class="relative">
+        <video v-show="!isPhotoTaken" ref="camera" class="rounded-lg" autoplay></video>
+        <!-- <Icon  v-show="!isPhotoTaken" name="material-symbols:document-scanner-outline-rounded" size="120px" class="text-white absolute inset-0 m-auto"/> -->
+      </div>
       <canvas v-show="isPhotoTaken" id="photoTaken" ref="canvas" class="w-full rounded-lg" :width="450" :height="600"></canvas>
     </div>
 
