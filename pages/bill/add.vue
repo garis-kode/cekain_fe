@@ -35,8 +35,8 @@
               <SwiperSlide class="pt-1 ps-1">
                 <div class="pe-2">
                   <button class="origin-top-right absolute right-0 me-2 z-10 flex items-center justify-center w-4 h-4 bg-red-700 hover:bg-red-800 dark:bg-red-600 dark:hover:bg-red-700 rounded-full">
-                  <Icon name="heroicons:minus-16-solid" class="text-white" size="18px" color="black" />
-                </button>
+                    <Icon name="heroicons:minus-16-solid" class="text-white" size="18px" color="black" />
+                  </button>
                   <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
                   <figure class="text-sm mt-3 text-center text-xs text-gray-600">Fajar Rivaldi Chan</figure>
                 </div>
@@ -44,8 +44,8 @@
               <SwiperSlide class="pt-1 ps-1">
                 <div class="pe-2">
                   <button class="origin-top-right absolute right-0 me-2 z-10 flex items-center justify-center w-4 h-4 bg-red-700 hover:bg-red-800 dark:bg-red-600 dark:hover:bg-red-700 rounded-full">
-                  <Icon name="heroicons:minus-16-solid" class="text-white" size="18px" color="black" />
-                </button>
+                    <Icon name="heroicons:minus-16-solid" class="text-white" size="18px" color="black" />
+                  </button>
                   <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
                   <figure class="text-sm mt-3 text-center text-xs text-gray-600">John Doe</figure>
                 </div>

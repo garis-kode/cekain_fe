@@ -143,7 +143,7 @@
                 <img class="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="">
                 <img class="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="">
                 <span class="flex items-center justify-center w-8 h-8 text-xs font-medium text-gray-400 bg-gray-100 border-2 border-white rounded-full" href="#">+99</span>
-              </div>
+            </div>
           </div>
           <hr class="border-1 my-4 border-dashed">
           <div class="flex justify-between">

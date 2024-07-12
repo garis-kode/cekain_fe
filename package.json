@@ -19,7 +19,6 @@
   "devDependencies": {
     "@iconify-json/heroicons": "^1.1.21",
     "@iconify-json/mingcute": "^1.1.18",
-    "@nuxtjs/color-mode": "^3.4.2",
     "@nuxtjs/tailwindcss": "^6.12.0"
   }
 }
