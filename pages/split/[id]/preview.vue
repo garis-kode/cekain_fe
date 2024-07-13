@@ -2,10 +2,10 @@
   <div class="flex flex-col min-h-full">
     <navigation :title="'Bill Nov 27, 2023 8:26:02 AM'"/>
     <div class="mb-6">
-      <h1 class="text-xl font-bold text-blue-700 dark:text-white">Starbuck Marelan</h1>
+      <h1 class="text-xl font-bold text-blue-700 dark:text-blue-700">Starbuck Marelan</h1>
       <div class="flex flex-col mt-3 mb-3">
         <span class="text-xs text-gray-400 dark:text-gray-400">Transaction Date:</span>
-        <span class="font-semibold text-xs">06/22/2024 17:20</span>
+        <span class="font-semibold text-xs dark:text-white">06/22/2024 17:20</span>
       </div>
       <h1 class="text-xl font-bold dark:text-white">IDR 20.000</h1>
     </div>

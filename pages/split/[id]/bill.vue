@@ -2,18 +2,18 @@
   <div class="flex flex-col min-h-full">
     <navigation :title="'Bill Nov 27, 2023 8:26:02 AM'"/>
     <div class="mb-3">
-      <h1 class="text-xl font-bold text-blue-700 dark:text-white">Starbuck Marelan</h1>
+      <h1 class="text-xl font-bold text-blue-700 dark:text-blue-700">Starbuck Marelan</h1>
       <div class="flex flex-col mt-3 mb-3">
         <span class="text-xs text-gray-400 dark:text-gray-400">Transaction Date:</span>
-        <span class="font-semibold text-xs">06/22/2024 17:20</span>
+        <span class="font-semibold text-xs dark:text-white">06/22/2024 17:20</span>
       </div>
       <h1 class="text-xl font-bold dark:text-white">IDR 20.000</h1>
     </div>
-    <div class="mb-6 flex items-center justify-between">
-      <div class="w-full bg-gray-200 rounded-full h-1 dark:bg-gray-800">
+    <div class="mb-6 flex items-center justify-between gap-x-4">
+      <div class="w-full bg-gray-200 rounded-full h-1 dark:bg-gray-400">
           <div class="bg-blue-900 h-1 rounded-full" style="width: 45%"></div>
       </div>
-      <span class="md:w-20 w-24 bg-blue-950 text-blue-900 text-xs font-medium px-2 py-1 rounded dark:bg-blue-900 dark:text-blue-950">45% Paid</span>
+      <span class="md:w-15 w-24 bg-blue-950 text-center text-blue-900 text-xs font-medium px-2 py-1 rounded dark:bg-blue-900 dark:text-blue-950">45% Paid</span>
     </div>
 
     <div class="mb-3 block bg-white border border-gray-100 rounded-xl dark:bg-gray-800 dark:border-gray-700">
