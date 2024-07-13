@@ -4,7 +4,7 @@
       <button type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm p-2 text-center inline-flex items-center me- dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
         <Icon name="heroicons:arrow-left-16-solid" size="24px" color="black" />
       </button>
-        <h1 class="text-md font-semibold">Split History</h1>
+        <h1 class="text-md font-semibold dark:text-white">Split History</h1>
       <button type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm p-2 text-center inline-flex items-center me- dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
         <Icon name="heroicons:question-mark-circle" size="24px" color="black" />
       </button>
@@ -16,7 +16,7 @@
         <div class="p-4">
           <div class="flex justify-between">
             <div class="flex align-middle">
-              <span class="flex items-center justify-center w-12 h-12 text-xs font-medium text-gray-600 bg-blue-950 rounded-lg">
+              <span class="flex items-center justify-center w-12 h-12 text-xs font-medium bg-blue-950 rounded-lg dark:bg-gray-700">
                 <img src="/assets/img/icon/bill.png" alt="">
               </span>
               <div class="ms-3">
@@ -33,22 +33,21 @@
           </div>
           <hr class="border-1 my-4 border-dashed">
           <div class="flex justify-between">
-            <span class="text-sm font-medium text-gray-400"><span class="font-semibold text-black">Total:</span> IDR. 78,000</span>
-            <span class="bg-blue-950 text-blue-900 text-xs font-medium px-2 py-1 rounded dark:bg-blue-900 dark:text-blue-300">45% Paid</span>
+            <span class="text-sm font-medium text-gray-400"><span class="font-semibold text-black dark:text-white">Total:</span> IDR. 78,000</span>
+            <span class="bg-blue-950 text-blue-900 text-xs font-medium px-2 py-1 rounded dark:bg-blue-900 dark:text-blue-950">45% Paid</span>
           </div>
         </div>
         
         <div class="w-full bg-gray-200 rounded-full h-1 dark:bg-gray-800">
           <div class="bg-blue-900 h-1 rounded-full" style="width: 45%"></div>
         </div>
-
     </a>
 
     <a href="#" class="mb-3 block bg-white border border-gray-100 rounded-xl hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
         <div class="p-4">
           <div class="flex justify-between">
             <div class="flex align-middle">
-              <span class="flex items-center justify-center w-12 h-12 text-xs font-medium text-gray-600 bg-blue-950 rounded-lg">
+              <span class="flex items-center justify-center w-12 h-12 text-xs font-medium bg-blue-950 rounded-lg dark:bg-gray-700">
                 <img src="/assets/img/icon/bill.png" alt="">
               </span>
               <div class="ms-3">
@@ -65,16 +64,15 @@
           </div>
           <hr class="border-1 my-4 border-dashed">
           <div class="flex justify-between">
-            <span class="text-sm font-medium text-gray-400"><span class="font-semibold text-black">Total:</span> IDR. 78,000</span>
-            <span class="bg-blue-950 text-blue-900 text-xs font-medium px-2 py-1 rounded dark:bg-blue-900 dark:text-blue-300">45% Paid</span>
+            <span class="text-sm font-medium text-gray-400"><span class="font-semibold text-black dark:text-white">Total:</span> IDR. 78,000</span>
+            <span class="bg-blue-950 text-blue-900 text-xs font-medium px-2 py-1 rounded dark:bg-blue-900 dark:text-blue-950">45% Paid</span>
           </div>
         </div>
         
         <div class="w-full bg-gray-200 rounded-full h-1 dark:bg-gray-800">
           <div class="bg-blue-900 h-1 rounded-full" style="width: 45%"></div>
         </div>
-
       </a>
-    
+
   </div>
 </template>

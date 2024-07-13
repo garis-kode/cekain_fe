@@ -1,10 +1,10 @@
 <template>
   
   <div>
-    <div class="mx-[-24px] mt-[-24px] bg-blue-1000 p-5 rounded-b-[50px] bg-center bg-no-repeat bg-[url('/assets/img/shape/hero.svg')] bg-cover">
+    <div class="md:mx-[-24px] mx-[-15px] mt-[-24px] bg-blue-1000 dark:bg-gray-700 p-5 rounded-b-[50px] bg-center bg-no-repeat bg-[url('/assets/img/shape/hero.svg')] dark:bg-[url('/assets/img/shape/hero-dark.svg')] bg-cover">
       <div class="flex items-center	justify-between ">
         <span class="font-semibold text-md dark:text-blue-500">logo</span>
-        <div class="flex items-center	 gap-x-4">
+        <div class="flex items-center	gap-x-4">
           <Icon name="heroicons:bell-alert" size="22px" class="text-sm text-gray-400 dark:text-gray-400" color="black" />
           
           <div class="relative inline-block text-left">
@@ -48,7 +48,7 @@
       </div>
       <div class="text-center my-10">
         <span class="text-sm text-gray-400 dark:text-gray-400">7 Friend are owing you</span>
-        <h1 class="font-bold text-4xl">IDR. 700,000</h1>
+        <h1 class="font-bold text-4xl dark:text-white">IDR. 700,000</h1>
         <div class="mt-10 flex justify-center gap-x-2">
           <button type="button" class="flex gap-x-1 px-4 py-2.5 text-sm text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             <Icon name="mingcute:bill-2-line" size="20px" color="black" />
@@ -62,7 +62,7 @@
       </div>
     </div>
     <div class="mt-5 flex justify-between">
-      <span class="font-semibold text-md dark:text-blue-500">Friend List</span>
+      <span class="font-semibold text-md dark:text-white">Friend List</span>
       <a href="#" class="text-sm text-gray-400 dark:text-gray-400 hover:text-blue-700">See More</a>
     </div>
     <div class="mt-5">
@@ -79,49 +79,49 @@
         <SwiperSlide class="pt-1 ps-1">
           <div class="pe-2">
             <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
-            <figure class="text-sm mt-3 text-center text-xs text-gray-600">Fajar Rivaldi Chan</figure>
+            <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">Fajar Rivaldi Chan</figure>
           </div>
         </SwiperSlide>
         <SwiperSlide class="pt-1 ps-1">
           <div class="pe-2">
             <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
-            <figure class="text-sm mt-3 text-center text-xs text-gray-600">John Doe</figure>
+            <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">John Doe</figure>
           </div>
         </SwiperSlide>
         <SwiperSlide class="pt-1 ps-1">
           <div class="pe-2">
             <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
-            <figure class="text-sm mt-3 text-center text-xs text-gray-600">John Doe</figure>
+            <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">John Doe</figure>
           </div>
         </SwiperSlide>
         <SwiperSlide class="pt-1 ps-1">
           <div class="pe-2">
             <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
-            <figure class="text-sm mt-3 text-center text-xs text-gray-600">John Doe</figure>
+            <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">John Doe</figure>
           </div>
         </SwiperSlide>
         <SwiperSlide class="pt-1 ps-1">
           <div class="pe-2">
             <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
-            <figure class="text-sm mt-3 text-center text-xs text-gray-600">John Doe</figure>
+            <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">John Doe</figure>
           </div>
         </SwiperSlide>
         <SwiperSlide class="pt-1 ps-1">
           <div class="pe-2">
             <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
-            <figure class="text-sm mt-3 text-center text-xs text-gray-600">John Doe</figure>
+            <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">John Doe</figure>
           </div>
         </SwiperSlide>
         <SwiperSlide class="pt-1 ps-1">
           <div class="pe-2">
             <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
-            <figure class="text-sm mt-3 text-center text-xs text-gray-600 ">John Doe</figure>
+            <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">John Doe</figure>
           </div>
         </SwiperSlide>
       </Swiper>
     </div>
     <div class="mt-5 flex justify-between">
-      <span class="font-semibold text-md dark:text-blue-500">Split History</span>
+      <span class="font-semibold text-md dark:text-white">Split History</span>
       <a href="#" class="text-sm text-gray-400 dark:text-gray-400 hover:text-blue-700">See More</a>
     </div>
     <div class="mt-6">
@@ -130,7 +130,7 @@
         <div class="p-4">
           <div class="flex justify-between">
             <div class="flex align-middle">
-              <span class="flex items-center justify-center w-12 h-12 text-xs font-medium bg-blue-950 rounded-lg">
+              <span class="flex items-center justify-center w-12 h-12 text-xs font-medium bg-blue-950 rounded-lg dark:bg-gray-700">
                 <img src="/assets/img/icon/bill.png" alt="">
               </span>
               <div class="ms-3">
@@ -147,8 +147,8 @@
           </div>
           <hr class="border-1 my-4 border-dashed">
           <div class="flex justify-between">
-            <span class="text-sm font-medium text-gray-400"><span class="font-semibold text-black">Total:</span> IDR. 78,000</span>
-            <span class="bg-blue-950 text-blue-900 text-xs font-medium px-2 py-1 rounded dark:bg-blue-900 dark:text-blue-300">45% Paid</span>
+            <span class="text-sm font-medium text-gray-400"><span class="font-semibold text-black dark:text-white">Total:</span> IDR. 78,000</span>
+            <span class="bg-blue-950 text-blue-900 text-xs font-medium px-2 py-1 rounded dark:bg-blue-900 dark:text-blue-950">45% Paid</span>
           </div>
         </div>
         
@@ -162,7 +162,7 @@
         <div class="p-4">
           <div class="flex justify-between">
             <div class="flex align-middle">
-              <span class="flex items-center justify-center w-12 h-12 text-xs font-medium bg-blue-950 rounded-lg">
+              <span class="flex items-center justify-center w-12 h-12 text-xs font-medium bg-blue-950 rounded-lg dark:bg-gray-700">
                 <img src="/assets/img/icon/bill.png" alt="">
               </span>
               <div class="ms-3">
@@ -179,8 +179,8 @@
           </div>
           <hr class="border-1 my-4 border-dashed">
           <div class="flex justify-between">
-            <span class="text-sm font-medium text-gray-400"><span class="font-semibold text-black">Total:</span> IDR. 78,000</span>
-            <span class="bg-blue-950 text-blue-900 text-xs font-medium px-2 py-1 rounded dark:bg-blue-900 dark:text-blue-300">45% Paid</span>
+            <span class="text-sm font-medium text-gray-400"><span class="font-semibold text-black dark:text-white">Total:</span> IDR. 78,000</span>
+            <span class="bg-blue-950 text-blue-900 text-xs font-medium px-2 py-1 rounded dark:bg-blue-900 dark:text-blue-950">45% Paid</span>
           </div>
         </div>
         

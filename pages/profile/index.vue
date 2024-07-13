@@ -4,7 +4,7 @@
       <button type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm p-2 text-center inline-flex items-center me- dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
         <Icon name="heroicons:arrow-left-16-solid" size="24px" color="black" />
       </button>
-        <h1 class="text-md font-semibold">Profile</h1>
+        <h1 class="text-md font-semibold dark:text-white">Profile</h1>
       <button type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm p-2 text-center inline-flex items-center me- dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
         <Icon name="heroicons:question-mark-circle" size="24px" color="black" />
       </button>

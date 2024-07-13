@@ -4,7 +4,7 @@
       <button type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm p-2 text-center inline-flex items-center me- dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
         <Icon name="heroicons:arrow-left-16-solid" size="24px" color="black" />
       </button>
-        <h1 class="text-md font-semibold">Split The Bill</h1>
+        <h1 class="text-md font-semibold dark:text-white">Split The Bill</h1>
       <button type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm p-2 text-center inline-flex items-center me- dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
         <Icon name="heroicons:question-mark-circle" size="24px" color="black" />
       </button>
@@ -38,7 +38,7 @@
                     <Icon name="heroicons:minus-16-solid" class="text-white" size="18px" color="black" />
                   </button>
                   <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
-                  <figure class="text-sm mt-3 text-center text-xs text-gray-600">Fajar Rivaldi Chan</figure>
+                  <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">Fajar Rivaldi Chan</figure>
                 </div>
               </SwiperSlide>
               <SwiperSlide class="pt-1 ps-1">
@@ -47,12 +47,12 @@
                     <Icon name="heroicons:minus-16-solid" class="text-white" size="18px" color="black" />
                   </button>
                   <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
-                  <figure class="text-sm mt-3 text-center text-xs text-gray-600">John Doe</figure>
+                  <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">John Doe</figure>
                 </div>
               </SwiperSlide>
               <SwiperSlide class="pt-1 ps-1">
-                <div class="pe-2">
-                  <button class="w-16 h-18 p-5 rounded-full border border-dashed border-blue-600 flex justify-center items-center mb-2">
+                <div class="pe-2 text-center">
+                  <button class="md:w-16 md:p-5 p-3 rounded-full border border-dashed border-blue-600 flex justify-center items-center mb-2">
                     <Icon name="heroicons:plus-16-solid" class="text-blue-700" size="24px" color="black" />
                   </button>
                   <span class="text-sm text-center text-xs text-blue-600">Add Friend</span>
@@ -76,7 +76,7 @@
                 <img class="w-6 h-6 border-2 border-white rounded-full dark:border-gray-800" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="">
                 <img class="w-6 h-6 border-2 border-white rounded-full dark:border-gray-800" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="">
                 <img class="w-6 h-6 border-2 border-white rounded-full dark:border-gray-800" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="">
-                <button class="flex items-center justify-center w-6 h-6 bg-white border border-dashed border-blue-600 rounded-full">
+                <button class="flex items-center justify-center w-6 h-6 bg-white border border-dashed border-blue-600 rounded-full dark:bg-gray-600">
                   <Icon name="heroicons:plus-16-solid" class="text-blue-700" color="black" />
                 </button>
               </div>
@@ -86,15 +86,15 @@
           <div class="mb-3 grid grid-cols-2">
             <div class="flex items-center gap-x-4 me-4">
               <input type="number" id="ammount" class="bg-white text-center border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required />
-              <span class="text-sm">X</span>
-              <span class="text-sm">IDR</span>
+              <span class="text-sm dark:text-white">X</span>
+              <span class="text-sm dark:text-white">IDR</span>
             </div>
             <input type="number" id="price" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required />
           </div> 
           <div class="mb-3 grid grid-cols-2">
             <div class="flex items-center justify-between gap-x-4 me-4">
-              <span class="text-sm font-semibold">Total</span>
-              <span class="text-sm">IDR</span>
+              <span class="text-sm font-semibold dark:text-white">Total</span>
+              <span class="text-sm dark:text-white">IDR</span>
             </div>
             <input type="number" id="price" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required />
           </div> 
@@ -108,7 +108,7 @@
             <div class="flex justify-between">
               <label for="item-1" class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Item 1</label>
               <div class="flex -space-x-3 rtl:space-x-reverse mb-2">
-                <button class="flex items-center justify-center w-6 h-6 bg-white border border-dashed border-blue-600 rounded-full">
+                <button class="flex items-center justify-center w-6 h-6 bg-white border border-dashed border-blue-600 rounded-full dark:bg-gray-600">
                   <Icon name="heroicons:plus-16-solid" class="text-blue-700" color="black" />
                 </button>
               </div>
@@ -118,15 +118,15 @@
           <div class="mb-3 grid grid-cols-2">
             <div class="flex items-center gap-x-4 me-4">
               <input type="number" id="ammount" class="bg-white text-center border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required />
-              <span class="text-sm">X</span>
-              <span class="text-sm">IDR</span>
+              <span class="text-sm dark:text-white">X</span>
+              <span class="text-sm dark:text-white">IDR</span>
             </div>
             <input type="number" id="price" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required />
           </div> 
           <div class="mb-3 grid grid-cols-2">
             <div class="flex items-center justify-between gap-x-4 me-4">
-              <span class="text-sm font-semibold">Total</span>
-              <span class="text-sm">IDR</span>
+              <span class="text-sm font-semibold dark:text-white">Total</span>
+              <span class="text-sm dark:text-white">IDR</span>
             </div>
             <input type="number" id="price" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required />
           </div> 
@@ -140,33 +140,33 @@
     <div class="mb-3  block bg-white border border-gray-100 rounded-xl dark:bg-gray-800 dark:border-gray-700">
         <div class="p-5">
           <div class="text-center font-bold text-3xl pb-5">
-            <span>IDR 45,000</span>
+            <span class="dark:text-white">IDR 45,000</span>
           </div>
           <div class="mb-3 grid grid-cols-2">
             <div class="flex items-center justify-between me-4">
-              <span class="text-sm font-semibold">Sub Total</span>
-              <span class="text-sm">IDR</span>
+              <span class="text-sm font-semibold dark:text-white">Sub Total</span>
+              <span class="text-sm dark:text-white">IDR</span>
             </div>
-            <span class="text-sm font-semibold text-right py-3">0</span>
+            <span class="text-sm font-semibold text-right py-3 dark:text-white">0</span>
           </div> 
           <div class="mb-3 grid grid-cols-2">
             <div class="flex items-center justify-between me-4">
-              <span class="text-sm font-semibold">Discount</span>
-              <span class="text-sm">IDR</span>
+              <span class="text-sm font-semibold dark:text-white">Discount</span>
+              <span class="text-sm dark:text-white">IDR</span>
             </div>
             <input type="number" id="discount" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required />
           </div> 
           <div class="mb-3 grid grid-cols-2">
             <div class="flex items-center justify-between me-4">
-              <span class="text-sm font-semibold">Tax</span>
-              <span class="text-sm">IDR</span>
+              <span class="text-sm font-semibold dark:text-white">Tax</span>
+              <span class="text-sm dark:text-white">IDR</span>
             </div>
             <input type="number" id="tax" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required />
           </div> 
           <div class="mb-3 grid grid-cols-2">
             <div class="flex items-center justify-between me-4">
-              <span class="text-sm font-semibold">Others</span>
-              <span class="text-sm">IDR</span>
+              <span class="text-sm font-semibold dark:text-white">Others</span>
+              <span class="text-sm dark:text-white">IDR</span>
             </div>
             <input type="number" id="tax" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required />
           </div> 
