@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col min-h-">
+  <div class="flex flex-col min-h-full">
     <navigation :title="'Setting'"/>
     <div class="mb-6">
       <span class="text-sm font-bold text-gray-900 dark:text-white">
