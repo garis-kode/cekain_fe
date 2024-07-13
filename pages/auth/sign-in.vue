@@ -1,9 +1,9 @@
 <template>
   <div class="flex flex-col min-h-full">
     <div class="mb-10">
-      <button type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm p-2 text-center inline-flex items-center me- dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+      <NuxtLink to="./" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm p-2 text-center inline-flex items-center me- dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
         <Icon name="heroicons:arrow-left-16-solid" size="24px" color="black" />
-      </button>
+      </NuxtLink>
     </div>
     <div class="mb-6">
       <h1 class="text-3xl font-bold mb-2 dark:text-white">Sign In</h1>
@@ -20,7 +20,7 @@
               <input type="password" id="password" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
           </div> 
           <div class="flex justify-end mb-3">
-              <a href="#" class="text-blue-600 font-medium hover:underline dark:text-blue-500 text-sm">Forgot Password?</a>
+              <NuxtLink to="/auth/forgot-password" class="text-blue-600 font-medium hover:underline dark:text-blue-500 text-sm">Forgot Password?</NuxtLink>
           </div>
         </div>
         <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Sign In</button>
@@ -35,7 +35,7 @@
         </button>
     </form>
     <div class="mt-auto text-center">
-      <p class="text-sm text-gray-600 dark:text-gray-400">Don’t have an account? <a href="#" class="text-blue-600 hover:underline dark:text-blue-500">Sign Up</a></p>
+      <p class="text-sm text-gray-600 dark:text-gray-400">Don’t have an account? <NuxtLink to="/auth/sign-up" class="text-blue-600 hover:underline dark:text-blue-500">Sign Up</NuxtLink></p>
     </div>
   </div>
 </template>
