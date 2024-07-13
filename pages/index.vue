@@ -50,14 +50,14 @@
         <span class="text-sm text-gray-400 dark:text-gray-400">7 Friend are owing you</span>
         <h1 class="font-bold text-4xl dark:text-white">IDR. 700,000</h1>
         <div class="mt-10 flex justify-center gap-x-2">
-          <button type="button" class="flex gap-x-1 px-4 py-2.5 text-sm text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          <NuxtLink to="split/add" class="flex gap-x-1 px-4 py-2.5 text-sm text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             <Icon name="mingcute:bill-2-line" size="20px" color="black" />
             Add Manually
-          </button>
-          <button type="button" class="flex gap-x-1 px-7 py-2.5 text-sm text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+          </NuxtLink>
+          <NuxtLink to="split/scan" class="flex gap-x-1 px-7 py-2.5 text-sm text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
             <Icon name="mingcute:scan-fill" size="18px" color="black" />
             Quick Scan
-          </button>
+          </NuxtLink>
         </div>
       </div>
     </div>
