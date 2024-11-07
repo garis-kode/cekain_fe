@@ -7,14 +7,17 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "start": ".output/server/index.mjs"
   },
   "dependencies": {
     "@nuxt/icon": "^1.0.0",
+    "@vee-validate/nuxt": "^4.14.6",
     "flowbite": "^2.4.1",
     "nuxt": "^3.12.3",
     "nuxt-swiper": "^1.2.2",
-    "vue": "latest"
+    "vue": "latest",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@iconify-json/heroicons": "^1.1.21",

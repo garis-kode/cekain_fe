@@ -2,7 +2,15 @@
 export default defineNuxtConfig({
   compatibilityDate: '2024-07-12',
   devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss', "@nuxt/icon", 'nuxt-swiper', '@nuxtjs/color-mode', '@vite-pwa/nuxt'],
+  modules: ['@nuxtjs/tailwindcss', "@nuxt/icon", 'nuxt-swiper', '@nuxtjs/color-mode', '@vite-pwa/nuxt', '@vee-validate/nuxt'],
+  runtimeConfig: {
+    public: {
+      apiURL: 'https://api-staging.cekain.com/',
+    },
+  },
+  veeValidate: {
+    autoImports: true,
+  },
   colorMode: {
       classSuffix: '',
       preference: 'light',
