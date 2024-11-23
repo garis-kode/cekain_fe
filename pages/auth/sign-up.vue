@@ -138,9 +138,7 @@ const handleRegister = async (values) => {
       setTimeout(async () => {
         await router.push('/auth/sign-in');
       }, 2000);
-    } else {
-      error.value = response.message;
-    }
+    } 
   } catch (err) {
     error.value = err.data?.message || 'An unexpected error occurred.';
   } finally {

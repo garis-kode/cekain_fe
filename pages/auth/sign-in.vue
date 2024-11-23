@@ -102,24 +102,20 @@ const handleLogin = async (values) => {
   isLoading.value = true 
 
   try {
-    const response = await $fetch(`${apiURL}auth/login`, {
+    const response = await $fetch(`${apiURL}/auth/login`, {
       method: 'POST',
       body: { email: values.email, password: values.password },
     })
 
-    if (response.token) {
-      // Simpan token ke cookie atau local storage
-      document.cookie = `token=${response.token}; path=/`
-      
-      // Arahkan ke halaman setelah login berhasil
-      await router.push('/dashboard')
-    } else {
-      error.value = 'Login failed. Invalid credentials.'
+    if (response.success === true) {
+      localStorage.setItem('accessToken', response.data.accessToken);
+      localStorage.setItem('refreshToken', response.data.refreshToken);
+      await router.push('/')
     }
   } catch (err) {
-    error.value = 'Login failed. Please check your credentials.'
+    error.value = err.data?.message || 'An unexpected error occurred.';
   } finally {
-    isLoading.value = false  // Selesai loading
+    isLoading.value = false 
   }
 }
 </script>

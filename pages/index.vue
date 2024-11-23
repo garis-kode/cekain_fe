@@ -194,20 +194,20 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      isOpen: false,
-    };
-  },
-  methods: {
-    showDropdown() {
-      this.isOpen = true;
-    },
-    hideDropdown() {
-      this.isOpen = false;
-    },
-  },
-};
+<script setup>
+import { ref } from 'vue';
+
+definePageMeta({
+  middleware: 'auth',
+});
+
+const isOpen = ref(false);
+
+function showDropdown() {
+  isOpen.value = true;
+}
+
+function hideDropdown() {
+  isOpen.value = false;
+}
 </script>
