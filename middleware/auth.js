@@ -7,7 +7,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   const accessToken = localStorage.getItem('accessToken');
 
   if (!accessToken) {
-    window.location.href = '/';
+    window.location.href = '/auth';
   }
 
   try {
@@ -29,6 +29,6 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('user');
 
-    window.location.href = '/';
+    window.location.href = '/auth';
   }
 });
