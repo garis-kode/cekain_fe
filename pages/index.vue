@@ -63,7 +63,7 @@
     </div>
     <div class="mt-5 flex justify-between">
       <span class="font-semibold text-md dark:text-white">Friend List</span>
-      <a href="#" class="text-sm text-gray-400 dark:text-gray-400 hover:text-blue-700">See More</a>
+      <NuxtLink to="./friend" class="text-sm text-gray-400 dark:text-gray-400 hover:text-blue-700">See More</NuxtLink>
     </div>
     <div class="mt-5">
       <Swiper
@@ -122,7 +122,7 @@
     </div>
     <div class="mt-5 flex justify-between">
       <span class="font-semibold text-md dark:text-white">Split History</span>
-      <a href="#" class="text-sm text-gray-400 dark:text-gray-400 hover:text-blue-700">See More</a>
+      <NuxtLink to="./split/history" class="text-sm text-gray-400 dark:text-gray-400 hover:text-blue-700">See More</NuxtLink>
     </div>
     <div class="mt-6">
       

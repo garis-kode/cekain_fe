@@ -2,13 +2,13 @@
   <div>
     <navigation :title="'Profile'"/>
     <div class="flex justify-center relative">
-      <img class="w-28 h-28 rounded absolute" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Default avatar">
+      <img class="w-28 h-28 rounded absolute" :src="user?.profilePicturePath ||  defaultAvatar" alt="Default avatar">
     </div>
     <div class="mb-3 block bg-white border border-gray-100 rounded-xl dark:bg-gray-800 dark:border-gray-700 mt-20">
         <div class="p-5 mt-20">
           <div class="mb-3">
             <label for="name" class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Name</label>
-            <input type="text" id="name" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Full Name" required />
+            <Field type="text" id="name" :value="user?.fullName" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Full Name" required />
           </div> 
           <div class="mb-3">
             <label for="email" class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Email address</label>
@@ -46,3 +46,32 @@
     
   </div>
 </template>
+
+<script setup>
+definePageMeta({
+  middleware: 'auth',
+});
+
+import { computed} from 'vue';
+
+const user = computed(() => {
+  if (process.client) {
+    const userData = localStorage.getItem('user');
+    return userData ? JSON.parse(userData) : null;
+  }
+  return null;
+});
+
+const defaultAvatar = computed(() => {
+  return `https://ui-avatars.com/api/?bold=true&background=00a3ff&color=fff&name=${user.value?.fullName}`;
+});
+
+
+const logout = () => {
+  if (process.client) {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('user');
+    window.location.href = '/auth/sign-in';
+  }
+};
+</script>
