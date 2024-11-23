@@ -82,6 +82,10 @@
 </template>
 
 <script setup>
+definePageMeta({
+  middleware: 'guest',
+});
+
 import { ref, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import * as yup from 'yup'
