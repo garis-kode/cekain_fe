@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   modules: ['@nuxtjs/tailwindcss', "@nuxt/icon", 'nuxt-swiper', '@nuxtjs/color-mode', '@vite-pwa/nuxt', '@vee-validate/nuxt'],
   runtimeConfig: {
     public: {
-      apiURL: 'https://api-staging.cekain.com/',
+      apiURL: 'https://api-staging.cekain.com',
     },
   },
   veeValidate: {
