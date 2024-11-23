@@ -24,9 +24,11 @@ export default {
           900: '#00C1FF',
           950: '#F1FAFF',
           1000: '#E4EFF9',
-
         },
-      }
+      },
+      fontFamily: {
+        inter: ['Inter', 'sans-serif'],
+      },
     },
   },
   plugins: [
