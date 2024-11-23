@@ -5,6 +5,6 @@ export default defineNuxtRouteMiddleware(() => {
 
   if (accessToken) {
     const router = useRouter();
-    router.push('/');
+    router.replace('/');
   }
 });

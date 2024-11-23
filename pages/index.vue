@@ -240,7 +240,7 @@ const logout = () => {
   if (process.client) {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('user');
-    router.push('/auth/sign-in');
+    router.replace('/auth/sign-in');
   }
 };
 </script>
