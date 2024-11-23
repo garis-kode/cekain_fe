@@ -8,7 +8,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
   if (!accessToken) {
     const router = useRouter();
-    router.push('/auth');
+    router.push('/auth/sign-in');
   }
 
   try {
@@ -31,5 +31,5 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     localStorage.removeItem('user');
 
     const router = useRouter();
-    router.push('/auth');  }
+    router.push('/auth/sign-in');  }
 });

@@ -7,38 +7,38 @@
         <div class="flex items-center	gap-x-4">
           <Icon name="heroicons:bell-alert" size="22px" class="text-sm text-gray-400 dark:text-gray-400" color="black" />
           
-          <div class="relative inline-block text-left">
+          <div class="relative inline-block text-left" ref="dropdownRef">
             <div>
-              <button @focus="showDropdown" @blur="hideDropdown" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" type="button">
+              <button @click="toggleDropdown" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" type="button">
                 <span class="sr-only">Open user menu</span>
-                <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
+                <img class="w-8 h-8 rounded-full" :src="user?.profilePicturePath ||  defaultAvatar" alt="user photo">
               </button>
             </div>
-            <!-- Dropdown menu -->
+
             <div v-if="isOpen" class="origin-top-right absolute right-0 mt-2 z-10" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
               <div class="z-10 bg-white divide-y divide-gray-100 rounded-xl w-44 dark:bg-gray-700 dark:divide-gray-600 w-[280px]">
                 <div class="px-6 py-5 text-sm text-gray-900 dark:text-white">
                   <div class="flex">
-                    <img class="w-10 h-10 rounded" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Default avatar">
+                    <img class="w-10 h-10 rounded" :src="user?.profilePicturePath || defaultAvatar" alt="Default avatar">
                     <div class="ms-2">
-                      <div class="font-semibold truncate">Bonnie Green</div>
-                      <div>name@flowbite.com</div>
+                      <div class="font-semibold truncate">{{ user?.fullName || 'Guest' }}</div>
+                      <div>{{ user?.email || 'Not Available' }}</div>
                     </div>
                   </div>
                 </div>
                 <ul class="py-2 px-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUserAvatarButton">
                   <li>
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
+                    <NuxtLink to="/profile" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</NuxtLink>
                   </li>
                   <li>
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Setting</a>
+                    <NuxtLink to="/setting" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Setting</NuxtLink>
                   </li>
                   <li>
                     <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Privacy Policy</a>
                   </li>
                 </ul>
                 <div class="py-2 px-2">
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+                  <a href="#" @click="logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
                 </div>
               </div>
             </div>
@@ -193,21 +193,54 @@
     </div>
   </div>
 </template>
-
 <script setup>
-import { ref } from 'vue';
-
 definePageMeta({
   middleware: 'auth',
 });
 
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
+import { useRouter } from 'vue-router';
+
 const isOpen = ref(false);
+const dropdownRef = ref(null);
 
-function showDropdown() {
-  isOpen.value = true;
-}
+const router = useRouter();
 
-function hideDropdown() {
-  isOpen.value = false;
-}
+const user = computed(() => {
+  if (process.client) {
+    const userData = localStorage.getItem('user');
+    return userData ? JSON.parse(userData) : null;
+  }
+  return null;
+});
+
+const defaultAvatar = computed(() => {
+  return `https://ui-avatars.com/api/?bold=true&background=fff&color=00a3ff&name=${user.value?.fullName}`;
+});
+
+const toggleDropdown = () => {
+  isOpen.value = !isOpen.value;
+};
+
+const closeDropdown = (event) => {
+  if (dropdownRef.value && !dropdownRef.value.contains(event.target)) {
+    isOpen.value = false;
+  }
+};
+
+onMounted(() => {
+  document.addEventListener('click', closeDropdown);
+});
+
+onBeforeUnmount(() => {
+  document.removeEventListener('click', closeDropdown);
+});
+
+const logout = () => {
+  if (process.client) {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('user');
+    router.push('/auth/sign-in');
+  }
+};
 </script>
