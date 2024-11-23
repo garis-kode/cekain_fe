@@ -4,7 +4,6 @@ export default defineNuxtRouteMiddleware(() => {
   const accessToken = localStorage.getItem('accessToken');
 
   if (accessToken) {
-    const router = useRouter();
-    router.replace('/');
+    window.location.href = '/';
   }
 });

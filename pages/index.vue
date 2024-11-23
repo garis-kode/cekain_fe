@@ -240,7 +240,7 @@ const logout = () => {
   if (process.client) {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('user');
-    router.replace('/auth/sign-in');
+    window.location.href = '/auth/sign-in';
   }
 };
 </script>
