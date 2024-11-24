@@ -134,6 +134,10 @@
   </div>
 </template>
 <script setup>
+definePageMeta({
+  middleware: 'auth',
+});
+
 import { ref, computed } from 'vue';
 import * as yup from 'yup';
 import ErrorToast from '~/components/ErrorToast.vue';
@@ -173,6 +177,7 @@ const schema = yup.object({
   phone: yup
     .string()
     .matches(/^\+62[0-9]{9,12}$/, 'Must start with +62')
+    .min(12, 'Phone number must be at least 12 characters')
     .required('Phone is required'),
 });
 

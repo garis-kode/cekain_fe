@@ -43,12 +43,12 @@
         Account
       </span>
       <div class="mb-3 bg-white border border-gray-100 rounded-xl dark:bg-gray-800 dark:border-gray-700">
-          <a href="#" class="p-4 flex justify-between items-center">
+          <NuxtLink to="/profile" class="p-4 flex justify-between items-center">
             <span class="text-sm font-semibold text-gray-900 dark:text-white">
               Profile
             </span>
             <Icon name="material-symbols-light:arrow-forward-ios" size="20px" class="dark:text-white" color="black" />
-          </a>
+          </NuxtLink>
           <a href="#" class="p-4 flex justify-between items-center">
             <span class="text-sm font-semibold text-gray-900 dark:text-white">
               Sync with Google Contact
@@ -58,7 +58,7 @@
       </div>
     </div>
     
-    <button type="button" class="mt-auto w-full focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+    <button @click="logout" type="button" class="mt-auto w-full focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
       <div class="flex item-center justify-center gap-x-2">
         <Icon name="heroicons:arrow-left-on-rectangle" size="20px" class="dark:text-white" color="black" />
         Log Out
@@ -69,30 +69,41 @@
 </template>
 
 
-<script>
-export default {
-  data() {
-    return {
-      isDarkMode: false,
-    }
-  },
-  mounted() {
-    this.isDarkMode = localStorage.getItem('darkMode') === 'true';
-    this.setDarkMode(this.isDarkMode);
-  },
-  methods: {
-    toggleDarkMode() {
-      this.isDarkMode = !this.isDarkMode;
-      this.setDarkMode(this.isDarkMode);
-      localStorage.setItem('darkMode', this.isDarkMode);
-    },
-    setDarkMode(isDark) {
-      if (isDark) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-    }
+<script setup>
+definePageMeta({
+  middleware: 'auth',
+});
+
+import { ref, onMounted } from 'vue';
+
+const isDarkMode = ref(false);
+
+const setDarkMode = (isDark) => {
+  if (isDark) {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
   }
-}
+};
+
+const toggleDarkMode = () => {
+  isDarkMode.value = !isDarkMode.value;
+  setDarkMode(isDarkMode.value);
+  localStorage.setItem('darkMode', isDarkMode.value);
+};
+
+onMounted(() => {
+  const storedDarkMode = localStorage.getItem('darkMode') === 'true';
+  isDarkMode.value = storedDarkMode;
+  setDarkMode(storedDarkMode);
+});
+
+const logout = () => {
+  if (process.client) {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('user');
+    window.location.href = '/auth/sign-in';
+  }
+};
 </script>
+

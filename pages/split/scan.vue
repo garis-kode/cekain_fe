@@ -31,10 +31,10 @@
         <button @click="takePhoto" type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full p-1 text-center inline-flex items-center dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
           <span class="p-7 bg-blue-900 rounded-full"></span>
         </button>
-        <button type="button" class="text-gray-900 bg-blue-700 border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm p-2 text-center inline-flex items-center me- dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+        <!-- <button type="button" class="text-gray-900 bg-blue-700 border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm p-2 text-center inline-flex items-center me- dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
           <Icon v-show="!isActiveFlash" name="material-symbols:flash-off-rounded" size="24px" class="text-white" color="white" />
           <Icon v-show="isActiveFlash" name="material-symbols:flash-on-rounded" size="24px" class="text-white" color="white" />
-        </button>
+        </button> -->
       </div>
     </div>
 
