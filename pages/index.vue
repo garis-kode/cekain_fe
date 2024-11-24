@@ -1,5 +1,4 @@
 <template>
-  
   <div>
     <div class="md:mx-[-24px] mx-[-15px] mt-[-24px] bg-blue-1000 dark:bg-gray-700 p-5 rounded-b-[50px] bg-center bg-no-repeat bg-[url('/assets/img/shape/hero.svg')] dark:bg-[url('/assets/img/shape/hero-dark.svg')] bg-cover">
       <div class="flex items-center	justify-between ">
@@ -11,7 +10,7 @@
             <div>
               <button @click="toggleDropdown" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" type="button">
                 <span class="sr-only">Open user menu</span>
-                <img class="w-8 h-8 rounded-full" :src="user?.profilePicturePath ||  defaultAvatar" alt="user photo">
+                <img class="w-8 h-8 rounded-full" :src="user?.profilePictureUrl ||  defaultAvatar" alt="user photo">
               </button>
             </div>
 
@@ -19,10 +18,10 @@
               <div class="z-10 bg-white divide-y divide-gray-100 rounded-xl w-44 dark:bg-gray-700 dark:divide-gray-600 w-[280px]">
                 <div class="px-6 py-5 text-sm text-gray-900 dark:text-white">
                   <div class="flex">
-                    <img class="w-10 h-10 rounded" :src="user?.profilePicturePath || defaultAvatar" alt="Default avatar">
+                    <img class="w-10 h-10 rounded" :src="user?.profilePictureUrl || defaultAvatar" alt="Default avatar">
                     <div class="ms-2">
-                      <div class="font-semibold truncate">{{ user?.fullName || 'Guest' }}</div>
-                      <div>{{ user?.email || 'Not Available' }}</div>
+                      <div class="font-semibold truncate">{{ user?.fullName}}</div>
+                      <div>{{ user?.email }}</div>
                     </div>
                   </div>
                 </div>
