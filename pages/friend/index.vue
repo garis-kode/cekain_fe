@@ -3,6 +3,7 @@
     <navigation :title="'Friend List'" />
     <ErrorToast v-if="error" :message="error" @close="error = null" />
     <SuccessToast v-if="success" :message="success" @close="success = null" />
+
     <!-- Search and Add Button -->
     <div class="mb-6 flex">
       <input
@@ -22,6 +23,7 @@
       </button>
     </div>
 
+    <!-- Skeleton Loading -->
     <div v-if="skeletonLoading">
       <div
         v-for="n in 5"
@@ -46,7 +48,13 @@
       </div>
     </div>
 
-    <div v-else>
+    <!-- Friends List with Infinity Scroll -->
+    <div
+      id="scroll-container"
+      @scroll="onScroll"
+      class="overflow-auto max-h-screen"
+      v-else
+    >
       <div
         v-for="friend in friends"
         :key="friend.id"
@@ -76,7 +84,8 @@
                 <button
                   @click="openEditModal(friend.id)"
                   type="button"
-                  class="text-gray-500 bg-gray-100 border border-gray-100 focus:outline-none hover:bg-white focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                  class="me-2 text-gray-500 bg-gray-100 border border-gray-100 focus:outline-none hover:bg-white focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-2 dark:bg-gray-800 dark:text
+                    white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                 >
                   <Icon
                     name="heroicons:pencil-square"
@@ -85,10 +94,8 @@
                     color="black"
                   />
                 </button>
-              </div>
-              <div>
                 <button
-                @click="openDeleteModal(friend)"
+                  @click="openDeleteModal(friend)"
                   type="button"
                   class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                 >
@@ -104,6 +111,10 @@
           </div>
         </div>
       </div>
+      <!-- Loading More Indicator -->
+      <div v-if="isLoadingMore" class="text-center py-4">
+        <p>Loading...</p>
+      </div>
     </div>
 
     <!-- Modal Konfirmasi Hapus -->
@@ -111,12 +122,26 @@
       v-if="isDeleteModalOpen"
       class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
     >
-      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-sm"> <!-- Ubah max-w-md menjadi max-w-sm -->
-        <div class="p-6 text-center"> <!-- Ubah padding agar proporsional -->
-          <svg class="mx-auto mb-4 text-gray-400 w-10 h-10 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-sm">
+        <div class="p-6 text-center">
+          <svg
+            class="mx-auto mb-4 text-gray-400 w-10 h-10 dark:text-gray-200"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 20 20"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+            />
           </svg>
-          <h2 class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this friend?</h2> <!-- Ubah font-size text menjadi lebih kecil -->
+          <h2 class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">
+            Are you sure you want to delete this friend?
+          </h2>
           <div class="flex justify-center gap-2">
             <button
               @click="closeDeleteModal"
@@ -137,6 +162,7 @@
       </div>
     </div>
 
+    <!-- Add/Edit Friend Modal -->
     <div v-if="showModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md">
         <div class="p-8">
@@ -218,7 +244,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -256,41 +281,38 @@ const friendToDelete = ref(null);
 const error = ref(null);
 const success = ref(null);
 
-// Fetch Friends
-const fetchFriends = async () => {
-  skeletonLoading.value = true;
+// Infinity Scroll States
+const currentPage = ref(1);
+const totalPages = ref(1);
+const isLoadingMore = ref(false);
+
+// Fetch Friends with Pagination
+const fetchFriends = async (query = '', page = 1) => {
+  skeletonLoading.value = page === 1; // Show skeleton only on first load
   try {
     const token = localStorage.getItem('accessToken');
-    const response = await $fetch(`${apiURL}/friend`, {
+    const url = query
+      ? `${apiURL}/friend?search=${query}&page=${page}`
+      : `${apiURL}/friend?page=${page}`;
+    const response = await $fetch(url, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
     if (response.success) {
-      friends.value = response.data;
+      if (page === 1) {
+        // Replace data on the first page
+        friends.value = response.data;
+      } else {
+        // Append new data on subsequent pages
+        friends.value = [...friends.value, ...response.data];
+      }
+      totalPages.value = response.meta.pagination.totalPages;
     }
   } catch (err) {
     error.value = err.data?.message || 'An unexpected error occurred.';
   } finally {
     skeletonLoading.value = false;
-  }
-};
-
-// Search Friends
-const searchFriends = async () => {
-  skeletonLoading.value = true;
-  try {
-    const token = localStorage.getItem('accessToken');
-    const response = await $fetch(`${apiURL}/friend?search=${search.value}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-
-    if (response.success) {
-      friends.value = response.data;
-    }
-  } catch (err) {
-    error.value = err.data?.message || 'An error occurred while searching.';
-  } finally {
-    skeletonLoading.value = false;
+    isLoadingMore.value = false;
   }
 };
 
@@ -339,9 +361,10 @@ const submitForm = async () => {
       success.value = isEdit.value
         ? 'Friend updated successfully!'
         : 'Friend added successfully!';
-      fetchFriends();
+      search.value = ''; // Reset search
+      currentPage.value = 1; // Reset to the first page
+      fetchFriends(); // Refresh friend list
       closeModal();
-      search.value = ''; // Kosongkan pencarian
     }
   } catch (err) {
     error.value = err.data?.message || 'An error occurred.';
@@ -376,8 +399,9 @@ const deleteFriend = async () => {
 
     if (response.success) {
       success.value = 'Friend deleted successfully!';
-      fetchFriends();
-      search.value = ''; // Kosongkan pencarian
+      search.value = ''; // Reset search
+      currentPage.value = 1; // Reset to the first page
+      fetchFriends(); // Refresh friend list
     }
   } catch (err) {
     error.value = err.data?.message || 'An error occurred.';
@@ -387,6 +411,7 @@ const deleteFriend = async () => {
   }
 };
 
+// Reset Form
 const resetForm = () => {
   formData.id = null;
   formData.name = '';
@@ -394,10 +419,35 @@ const resetForm = () => {
   formData.phoneNumber = '';
 };
 
+// Close Modal
 const closeModal = () => {
   resetForm();
   showModal.value = false;
 };
 
-onMounted(fetchFriends);
+// Search Friends
+const searchFriends = () => {
+  currentPage.value = 1; // Reset to the first page
+  fetchFriends(search.value);
+};
+
+// Handle Scroll Event
+const onScroll = (event) => {
+  const container = event.target;
+
+  // Check if user scrolled to the bottom
+  if (
+    container.scrollHeight - container.scrollTop === container.clientHeight &&
+    currentPage.value < totalPages.value &&
+    !isLoadingMore.value
+  ) {
+    isLoadingMore.value = true;
+    currentPage.value += 1;
+    fetchFriends(search.value, currentPage.value);
+  }
+};
+
+// Mounted Hook
+onMounted(() => fetchFriends());
 </script>
+

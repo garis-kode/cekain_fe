@@ -137,7 +137,7 @@ const handleRegister = async (values) => {
       },
     });
 
-    if (response.success === true) {
+    if (response.success) {
       success.value = 'Registration successful! You have been redirected to the sign-in page.';  
       setTimeout(async () => {
         await router.push('/auth/sign-in');
