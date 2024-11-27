@@ -67,7 +67,7 @@
           </div>
           <div class="mb-3 grid grid-cols-2">
             <div class="flex items-center gap-x-4 me-4">
-              <input type="number" v-model="item.amount" @input="saveItems" class="bg-white text-center border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required />
+              <input type="number" v-model="item.quantity" @input="saveItems" class="bg-white text-center border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required />
               <span class="text-sm dark:text-white">X</span>
               <span class="text-sm dark:text-white">IDR</span>
             </div>
@@ -78,7 +78,7 @@
               <span class="text-sm font-semibold dark:text-white">Total</span>
               <span class="text-sm dark:text-white">IDR</span>
             </div>
-            <input type="number" :value="item.amount * item.price" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" readonly />
+            <input type="number" :value="item.quantity * item.price" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" readonly />
           </div>
         </div>
 
@@ -142,7 +142,7 @@ export default {
   },
   computed: {
     subTotal() {
-      return this.items.reduce((acc, item) => acc + (item.amount * item.price), 0);
+      return this.items.reduce((acc, item) => acc + (item.quantity * item.price), 0);
     },
     total() {
       return this.subTotal - this.discount + this.tax + this.others;
@@ -150,7 +150,7 @@ export default {
   },
   methods: {
     addItem() {
-      this.items.push({ name: '', amount: 0, price: 0 });
+      this.items.push({ name: '', quantity: 0, price: 0 });
       this.saveItems();
     },
     removeItem(index) {
@@ -179,7 +179,7 @@ export default {
         this.others = parsedData.others;
         return parsedData.items;
       } else {
-        return [{ name: '', amount: 0, price: 0 }];
+        return [{ name: '', quantity: 0, price: 0 }];
       }
     },
   },
