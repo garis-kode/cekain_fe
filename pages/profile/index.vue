@@ -133,6 +133,7 @@
     
   </div>
 </template>
+
 <script setup>
 definePageMeta({
   middleware: 'auth',
@@ -142,10 +143,9 @@ import { ref, computed } from 'vue';
 import * as yup from 'yup';
 import ErrorToast from '~/components/ErrorToast.vue';
 import SuccessToast from '~/components/SuccessToast.vue';
-import { useRuntimeConfig } from '#app';
+import { useProfileAPI } from '~/api/profile';
 
-const config = useRuntimeConfig();
-const apiURL = config.public.apiURL;
+const { updateProfileAPI } = useProfileAPI();
 
 const user = computed(() => {
   if (process.client) {
@@ -156,7 +156,7 @@ const user = computed(() => {
 });
 
 const defaultAvatar = computed(() => {
-  return `https://ui-avatars.com/api/?bold=true&background=00a3ff&color=fff&name=${user.value?.fullName || 'User'}`;
+  return `https://ui-avatars.com/api/?bold=true&background=00a3ff&color=fff&name=${user.value?.fullName}`;
 });
 
 const formValues = ref({
@@ -200,14 +200,11 @@ const handleFileChange = (e) => {
   }
 };
 
-
 const handleUpdateProfile = async (values) => {
   error.value = null;
   isLoading.value = true;
 
   try {
-    const token = localStorage.getItem('accessToken');
-
     const formData = new FormData();
     formData.append('fullName', String(values.name));
     formData.append('email', String(values.email));
@@ -216,13 +213,7 @@ const handleUpdateProfile = async (values) => {
       formData.append('profilePicture', formValues.value.profilePicture);
     }
 
-    const response = await $fetch(`${apiURL}/profile`, {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: formData,
-    });
+    const response = await updateProfileAPI(formData);
 
     if (response.success) {
       success.value = 'Profile updated successfully!';
@@ -233,5 +224,5 @@ const handleUpdateProfile = async (values) => {
     isLoading.value = false;
   }
 };
-
 </script>
+

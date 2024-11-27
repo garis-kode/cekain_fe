@@ -72,8 +72,8 @@
         :key="n"
         class="w-20 h-28 p-2 flex-shrink-0 animate-pulse"
       >
-        <div class="w-20 h-20 bg-gray-400 rounded-full mb-2"></div>
-        <div class="w-20 h-4 bg-gray-400 rounded-md mx-auto"></div>
+        <div class="w-20 h-20 bg-gray-300 rounded-full mb-2"></div>
+        <div class="w-20 h-4 bg-gray-300 rounded-md mx-auto"></div>
       </div>
     </div>
 
@@ -88,18 +88,31 @@
         disableOnInteraction: true,
       }"
     >
-        <SwiperSlide 
+      <SwiperSlide
         v-for="friend in friends"
         :key="friend.id"
-          class="pt-1 ps-1"
-        >
-          <div class="pe-2">
-            <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" :src="`https://ui-avatars.com/api/?bold=true&background=00a3ff&color=fff&name=${friend.name}`" alt="Bordered avatar">
-            <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">
-              {{ friend.name }}
-            </figure>
-          </div>
-        </SwiperSlide>
+        class="pt-1 ps-1"
+      >
+        <div class="pe-2">
+          <img
+            class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
+            :src="`https://ui-avatars.com/api/?bold=true&background=00a3ff&color=fff&name=${friend.name}`"
+            alt="Bordered avatar"
+          />
+          <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">
+            {{ friend.name }}
+          </figure>
+        </div>
+      </SwiperSlide>
+      <SwiperSlide class="pt-1 ps-1" v-if="friends.length === 0">
+        <div class="pe-2 text-center leading-3">
+          <NuxtLink to="./friend" class="md:w-16 md:p-5 p-3 ms-1 lg:ms-1.5 rounded-full border border-dashed border-blue-600 flex justify-center items-center mb-2">
+            <Icon name="heroicons:plus-16-solid" class="text-blue-700" size="22px" color="black" />
+          </NuxtLink>
+          <span class="text-sm text-center text-xs text-blue-600">Add Friend</span>
+        </div>
+      </SwiperSlide>
+      
     </Swiper>
   </div>
     <div class="mt-5 flex justify-between">
@@ -204,6 +217,10 @@ const user = computed(() => {
     }
   }
   return null;
+});
+
+const defaultAvatar = computed(() => {
+  return `https://ui-avatars.com/api/?bold=true&background=00a3ff&color=fff&name=${user.value?.fullName || 'User'}`;
 });
 
 const fetchFriends = async () => {
