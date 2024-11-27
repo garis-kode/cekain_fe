@@ -175,16 +175,17 @@
     </div>
   </div>
 </template>
+
+
 <script setup>
 definePageMeta({
   middleware: 'auth',
 });
 
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
-import { useRuntimeConfig } from '#app';
+import { useFriendAPI } from '~/api/friend';
 
-const config = useRuntimeConfig();
-const apiURL = config.public.apiURL;
+const { fetchFriendsAPI } = useFriendAPI();
 
 const isOpen = ref(false);
 const dropdownRef = ref(null);
@@ -208,15 +209,7 @@ const user = computed(() => {
 const fetchFriends = async () => {
   skeletonLoading.value = true;
   try {
-    const token = localStorage.getItem('accessToken');
-    if (!token) {
-      throw new Error('No access token found. Please login again.');
-    }
-
-    const response = await $fetch(`${apiURL}/friend`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-
+    const response = await fetchFriendsAPI();
     if (response.success) {
       friends.value = response.data;
     }
@@ -262,3 +255,4 @@ const logout = () => {
   }
 };
 </script>
+

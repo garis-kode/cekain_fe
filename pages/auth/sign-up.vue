@@ -81,20 +81,20 @@
   </div>
 </template>
 
+
 <script setup>
 definePageMeta({
   middleware: 'guest',
 });
 
-import { ref, nextTick } from 'vue'
-import { useRouter } from 'vue-router'
-import * as yup from 'yup'
-import ErrorToast from '~/components/ErrorToast.vue'
-import SuccessToast from '~/components/SuccessToast.vue'
-import { useRuntimeConfig } from '#app'
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import * as yup from 'yup';
+import ErrorToast from '~/components/ErrorToast.vue';
+import SuccessToast from '~/components/SuccessToast.vue';
+import { useAuthAPI } from '~/api/auth';
 
-const config = useRuntimeConfig()
-const apiURL = config.public.apiURL
+const { registerAPI } = useAuthAPI();
 
 const schema = yup.object({
   name: yup.string().required('Name is required'),
@@ -115,39 +115,36 @@ const schema = yup.object({
     .required('Password confirmation is required'),
 });
 
-const error = ref(null)
-const success = ref(null)
-const emailError = ref(null)
-const isLoading = ref(false) 
-const router = useRouter()
+const error = ref(null);
+const success = ref(null);
+const emailError = ref(null);
+const isLoading = ref(false);
+const router = useRouter();
 
 const handleRegister = async (values) => {
-  error.value = null
-  emailError.value = null
-  isLoading.value = true 
+  error.value = null;
+  emailError.value = null;
+  isLoading.value = true;
 
   try {
-    const response = await $fetch(`${apiURL}/auth/register`, {
-      method: 'POST',
-      body: {
-        fullName: values.name,
-        email: values.email,
-        password: values.password,
-        passwordConfirmation: values.passwordConfirm,
-      },
-    });
+    const response = await registerAPI(
+      values.name,
+      values.email,
+      values.password,
+      values.passwordConfirm
+    );
 
     if (response.success) {
-      success.value = 'Registration successful! You have been redirected to the sign-in page.';  
+      success.value = 'Registration successful! You will be redirected to the sign-in page.';
       setTimeout(async () => {
         await router.push('/auth/sign-in');
       }, 2000);
-    } 
+    }
   } catch (err) {
     error.value = err.data?.message || 'An unexpected error occurred.';
   } finally {
     isLoading.value = false;
   }
-}
+};
 </script>
 

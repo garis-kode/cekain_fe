@@ -240,25 +240,17 @@
     </div>
   </div>
 </template>
-
 <script setup>
-definePageMeta({
-  middleware: 'auth',
-});
-
 import { ref, reactive, onMounted } from 'vue';
 import * as yup from 'yup';
 import ErrorToast from '~/components/ErrorToast.vue';
 import SuccessToast from '~/components/SuccessToast.vue';
-import { useRuntimeConfig } from '#app';
-
-const config = useRuntimeConfig();
-const apiURL = config.public.apiURL;
+import { useFriendAPI } from '~/api/friend';
 
 const schema = yup.object({
   name: yup.string().required('Name is required'),
-  email: yup.string().email('Enter a valid email').notRequired().nullable(),
-  phone: yup.string().notRequired().nullable(),
+  email: yup.string().email('Enter a valid email').nullable(),
+  phone: yup.string().nullable(),
 });
 
 const friends = ref([]);
@@ -277,23 +269,16 @@ const currentPage = ref(1);
 const totalPages = ref(1);
 const isLoadingMore = ref(false);
 
+const { fetchFriendsAPI, fetchFriendDetailsAPI, saveFriendAPI, deleteFriendAPI } = useFriendAPI();
+
 const fetchFriends = async (query = '', page = 1) => {
-  skeletonLoading.value = page === 1;
   try {
-    const token = localStorage.getItem('accessToken');
-    const url = query
-      ? `${apiURL}/friend?search=${query}&page=${page}`
-      : `${apiURL}/friend?page=${page}`;
-    const response = await $fetch(url, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    skeletonLoading.value = page === 1;
+    const response = await fetchFriendsAPI(query, page);
 
     if (response.success) {
-      if (page === 1) {
-        friends.value = response.data;
-      } else {
-        friends.value = [...friends.value, ...response.data];
-      }
+      if (page === 1) friends.value = response.data;
+      else friends.value = [...friends.value, ...response.data];
       totalPages.value = response.meta.pagination.totalPages;
     }
   } catch (err) {
@@ -311,12 +296,9 @@ const openAddModal = () => {
 };
 
 const openEditModal = async (id) => {
-  isEdit.value = true;
   try {
-    const token = localStorage.getItem('accessToken');
-    const response = await $fetch(`${apiURL}/friend/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    isEdit.value = true;
+    const response = await fetchFriendDetailsAPI(id);
 
     if (response.success) {
       Object.assign(formData, response.data);
@@ -328,27 +310,17 @@ const openEditModal = async (id) => {
 };
 
 const submitForm = async () => {
-  isLoading.value = true;
-  const token = localStorage.getItem('accessToken');
-  const url = isEdit.value
-    ? `${apiURL}/friend/${formData.id}`
-    : `${apiURL}/friend`;
-  const method = isEdit.value ? 'PUT' : 'POST';
-
   try {
-    const response = await $fetch(url, {
-      method,
-      headers: { Authorization: `Bearer ${token}` },
-      body: { name: formData.name, email: formData.email, phoneNumber: formData.phoneNumber },
-    });
+    isLoading.value = true;
+    const response = await saveFriendAPI(formData, isEdit.value);
 
     if (response.success) {
       success.value = isEdit.value
         ? 'Friend updated successfully!'
         : 'Friend added successfully!';
-      search.value = ''; 
-      currentPage.value = 1
-      fetchFriends();
+      search.value = '';
+      currentPage.value = 1;
+      await fetchFriends();
       closeModal();
     }
   } catch (err) {
@@ -371,19 +343,15 @@ const closeDeleteModal = () => {
 const deleteFriend = async () => {
   if (!friendToDelete.value) return;
 
-  isLoading.value = true;
   try {
-    const token = localStorage.getItem('accessToken');
-    const response = await $fetch(`${apiURL}/friend/${friendToDelete.value.id}`, {
-      method: 'DELETE',
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    isLoading.value = true;
+    const response = await deleteFriendAPI(friendToDelete.value.id);
 
     if (response.success) {
       success.value = 'Friend deleted successfully!';
       search.value = '';
-      currentPage.value = 1; 
-      fetchFriends();
+      currentPage.value = 1;
+      await fetchFriends();
     }
   } catch (err) {
     error.value = err.data?.message || 'An error occurred.';
@@ -426,4 +394,3 @@ const onScroll = (event) => {
 
 onMounted(() => fetchFriends());
 </script>
-

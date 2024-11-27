@@ -81,45 +81,42 @@ definePageMeta({
   middleware: 'guest',
 });
 
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import * as yup from 'yup'
-import ErrorToast from '~/components/ErrorToast.vue'
-import SuccessToast from '~/components/SuccessToast.vue'
-import { useRuntimeConfig } from '#app'
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import * as yup from 'yup';
+import ErrorToast from '~/components/ErrorToast.vue';
+import SuccessToast from '~/components/SuccessToast.vue';
+import { useAuthAPI } from '~/api/auth';
 
-const config = useRuntimeConfig()
-const apiURL = config.public.apiURL
+const { loginAPI } = useAuthAPI();
 
 const schema = yup.object({
   email: yup.string().email('Please enter a valid email address.').required('Email is required'),
-  password: yup.string().min(6, 'Password must be at least 6 characters long.').required('Password is required')
-})
+  password: yup.string().min(6, 'Password must be at least 6 characters long.').required('Password is required'),
+});
 
-const error = ref(null)
-const success = ref(null)
-const isLoading = ref(false) 
-const router = useRouter()
+const error = ref(null);
+const success = ref(null);
+const isLoading = ref(false);
+const router = useRouter();
 
 const handleLogin = async (values) => {
-  error.value = null
-  isLoading.value = true 
+  error.value = null;
+  isLoading.value = true;
 
   try {
-    const response = await $fetch(`${apiURL}/auth/login`, {
-      method: 'POST',
-      body: { email: values.email, password: values.password },
-    })
+    const response = await loginAPI(values.email, values.password);
 
     if (response.success) {
       localStorage.setItem('accessToken', response.data.accessToken);
       localStorage.setItem('refreshToken', response.data.refreshToken);
-      await router.push('/')
+      await router.push('/');
     }
   } catch (err) {
     error.value = err.data?.message || 'An unexpected error occurred.';
   } finally {
-    isLoading.value = false 
+    isLoading.value = false;
   }
-}
+};
 </script>
+
