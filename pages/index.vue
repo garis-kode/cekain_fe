@@ -1,5 +1,6 @@
 <template>
   <div>
+    <ErrorToast v-if="error" :message="error" @close="error = null" />
     <div class="md:mx-[-24px] mx-[-15px] mt-[-24px] bg-blue-1000 dark:bg-gray-700 p-5 rounded-b-[50px] bg-center bg-no-repeat bg-[url('/assets/img/shape/hero.svg')] dark:bg-[url('/assets/img/shape/hero-dark.svg')] bg-cover">
       <div class="flex items-center	justify-between ">
         <span class="font-semibold text-md dark:text-blue-500">logo</span>
@@ -65,60 +66,42 @@
       <NuxtLink to="./friend" class="text-sm text-gray-400 dark:text-gray-400 hover:text-blue-700">See More</NuxtLink>
     </div>
     <div class="mt-5">
-      <Swiper
-        :modules="[SwiperAutoplay, SwiperFreeMode]"
-        :slides-per-view="5"
-        :loop="true"
-        :effect="'free-mode'"
-        :autoplay="{
-          delay: 4000,
-          disableOnInteraction: true,
-        }"
+    <div v-if="skeletonLoading" class="flex gap-4 overflow-x-auto">
+      <div
+        v-for="n in 5"
+        :key="n"
+        class="w-20 h-28 p-2 flex-shrink-0 animate-pulse"
       >
-        <SwiperSlide class="pt-1 ps-1">
-          <div class="pe-2">
-            <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
-            <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">Fajar Rivaldi Chan</figure>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide class="pt-1 ps-1">
-          <div class="pe-2">
-            <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
-            <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">John Doe</figure>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide class="pt-1 ps-1">
-          <div class="pe-2">
-            <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
-            <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">John Doe</figure>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide class="pt-1 ps-1">
-          <div class="pe-2">
-            <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
-            <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">John Doe</figure>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide class="pt-1 ps-1">
-          <div class="pe-2">
-            <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
-            <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">John Doe</figure>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide class="pt-1 ps-1">
-          <div class="pe-2">
-            <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
-            <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">John Doe</figure>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide class="pt-1 ps-1">
-          <div class="pe-2">
-            <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
-            <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">John Doe</figure>
-          </div>
-        </SwiperSlide>
-      </Swiper>
+        <div class="w-20 h-20 bg-gray-400 rounded-full mb-2"></div>
+        <div class="w-20 h-4 bg-gray-400 rounded-md mx-auto"></div>
+      </div>
     </div>
+
+    <Swiper
+      v-else
+      :modules="[SwiperAutoplay, SwiperFreeMode]"
+      :slides-per-view="5"
+      :loop="true"
+      :effect="'free-mode'"
+      :autoplay="{
+        delay: 4000,
+        disableOnInteraction: true,
+      }"
+    >
+        <SwiperSlide 
+        v-for="friend in friends"
+        :key="friend.id"
+          class="pt-1 ps-1"
+        >
+          <div class="pe-2">
+            <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" :src="`https://ui-avatars.com/api/?bold=true&background=00a3ff&color=fff&name=${friend.name}`" alt="Bordered avatar">
+            <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">
+              {{ friend.name }}
+            </figure>
+          </div>
+        </SwiperSlide>
+    </Swiper>
+  </div>
     <div class="mt-5 flex justify-between">
       <span class="font-semibold text-md dark:text-white">Split History</span>
       <NuxtLink to="./split/history" class="text-sm text-gray-400 dark:text-gray-400 hover:text-blue-700">See More</NuxtLink>
@@ -198,24 +181,51 @@ definePageMeta({
 });
 
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRuntimeConfig } from '#app';
+
+const config = useRuntimeConfig();
+const apiURL = config.public.apiURL;
 
 const isOpen = ref(false);
 const dropdownRef = ref(null);
-
-const router = useRouter();
+const friends = ref([]);
+const skeletonLoading = ref(true);
+const error = ref(null);
 
 const user = computed(() => {
   if (process.client) {
-    const userData = localStorage.getItem('user');
-    return userData ? JSON.parse(userData) : null;
+    try {
+      const userData = localStorage.getItem('user');
+      return userData ? JSON.parse(userData) : null;
+    } catch (e) {
+      console.error('Error parsing user data from localStorage:', e);
+      return null;
+    }
   }
   return null;
 });
 
-const defaultAvatar = computed(() => {
-  return `https://ui-avatars.com/api/?bold=true&background=fff&color=00a3ff&name=${user.value?.fullName}`;
-});
+const fetchFriends = async () => {
+  skeletonLoading.value = true;
+  try {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      throw new Error('No access token found. Please login again.');
+    }
+
+    const response = await $fetch(`${apiURL}/friend`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (response.success) {
+      friends.value = response.data;
+    }
+  } catch (err) {
+    error.value = err.data?.message || 'An unexpected error occurred.';
+  } finally {
+    skeletonLoading.value = false;
+  }
+};
 
 const toggleDropdown = () => {
   isOpen.value = !isOpen.value;
@@ -227,12 +237,21 @@ const closeDropdown = (event) => {
   }
 };
 
-onMounted(() => {
-  document.addEventListener('click', closeDropdown);
+const handleDocumentClick = (event) => {
+  closeDropdown(event);
+};
+
+onMounted(async () => {
+  try {
+    await fetchFriends();
+    document.addEventListener('click', handleDocumentClick);
+  } catch (err) {
+    console.error('Error during component mount:', err);
+  }
 });
 
 onBeforeUnmount(() => {
-  document.removeEventListener('click', closeDropdown);
+  document.removeEventListener('click', handleDocumentClick);
 });
 
 const logout = () => {

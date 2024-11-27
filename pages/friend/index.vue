@@ -4,7 +4,6 @@
     <ErrorToast v-if="error" :message="error" @close="error = null" />
     <SuccessToast v-if="success" :message="success" @close="success = null" />
 
-    <!-- Search and Add Button -->
     <div class="mb-6 flex">
       <input
         type="text"
@@ -23,7 +22,6 @@
       </button>
     </div>
 
-    <!-- Skeleton Loading -->
     <div v-if="skeletonLoading">
       <div
         v-for="n in 5"
@@ -48,7 +46,6 @@
       </div>
     </div>
 
-    <!-- Friends List with Infinity Scroll -->
     <div
       id="scroll-container"
       @scroll="onScroll"
@@ -111,13 +108,11 @@
           </div>
         </div>
       </div>
-      <!-- Loading More Indicator -->
       <div v-if="isLoadingMore" class="text-center py-4">
         <p>Loading...</p>
       </div>
     </div>
 
-    <!-- Modal Konfirmasi Hapus -->
     <div
       v-if="isDeleteModalOpen"
       class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
@@ -162,7 +157,6 @@
       </div>
     </div>
 
-    <!-- Add/Edit Friend Modal -->
     <div v-if="showModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md">
         <div class="p-8">
@@ -261,14 +255,12 @@ import { useRuntimeConfig } from '#app';
 const config = useRuntimeConfig();
 const apiURL = config.public.apiURL;
 
-// Validation Schema
 const schema = yup.object({
   name: yup.string().required('Name is required'),
   email: yup.string().email('Enter a valid email').notRequired().nullable(),
   phone: yup.string().notRequired().nullable(),
 });
 
-// States
 const friends = ref([]);
 const search = ref('');
 const showModal = ref(false);
@@ -281,14 +273,12 @@ const friendToDelete = ref(null);
 const error = ref(null);
 const success = ref(null);
 
-// Infinity Scroll States
 const currentPage = ref(1);
 const totalPages = ref(1);
 const isLoadingMore = ref(false);
 
-// Fetch Friends with Pagination
 const fetchFriends = async (query = '', page = 1) => {
-  skeletonLoading.value = page === 1; // Show skeleton only on first load
+  skeletonLoading.value = page === 1;
   try {
     const token = localStorage.getItem('accessToken');
     const url = query
@@ -300,10 +290,8 @@ const fetchFriends = async (query = '', page = 1) => {
 
     if (response.success) {
       if (page === 1) {
-        // Replace data on the first page
         friends.value = response.data;
       } else {
-        // Append new data on subsequent pages
         friends.value = [...friends.value, ...response.data];
       }
       totalPages.value = response.meta.pagination.totalPages;
@@ -316,14 +304,12 @@ const fetchFriends = async (query = '', page = 1) => {
   }
 };
 
-// Open Add Modal
 const openAddModal = () => {
   resetForm();
   isEdit.value = false;
   showModal.value = true;
 };
 
-// Open Edit Modal
 const openEditModal = async (id) => {
   isEdit.value = true;
   try {
@@ -341,7 +327,6 @@ const openEditModal = async (id) => {
   }
 };
 
-// Submit Form (Add or Edit)
 const submitForm = async () => {
   isLoading.value = true;
   const token = localStorage.getItem('accessToken');
@@ -361,9 +346,9 @@ const submitForm = async () => {
       success.value = isEdit.value
         ? 'Friend updated successfully!'
         : 'Friend added successfully!';
-      search.value = ''; // Reset search
-      currentPage.value = 1; // Reset to the first page
-      fetchFriends(); // Refresh friend list
+      search.value = ''; 
+      currentPage.value = 1
+      fetchFriends();
       closeModal();
     }
   } catch (err) {
@@ -373,19 +358,16 @@ const submitForm = async () => {
   }
 };
 
-// Open Delete Modal
 const openDeleteModal = (friend) => {
   friendToDelete.value = friend;
   isDeleteModalOpen.value = true;
 };
 
-// Close Delete Modal
 const closeDeleteModal = () => {
   friendToDelete.value = null;
   isDeleteModalOpen.value = false;
 };
 
-// Delete Friend
 const deleteFriend = async () => {
   if (!friendToDelete.value) return;
 
@@ -399,9 +381,9 @@ const deleteFriend = async () => {
 
     if (response.success) {
       success.value = 'Friend deleted successfully!';
-      search.value = ''; // Reset search
-      currentPage.value = 1; // Reset to the first page
-      fetchFriends(); // Refresh friend list
+      search.value = '';
+      currentPage.value = 1; 
+      fetchFriends();
     }
   } catch (err) {
     error.value = err.data?.message || 'An error occurred.';
@@ -411,7 +393,6 @@ const deleteFriend = async () => {
   }
 };
 
-// Reset Form
 const resetForm = () => {
   formData.id = null;
   formData.name = '';
@@ -419,23 +400,19 @@ const resetForm = () => {
   formData.phoneNumber = '';
 };
 
-// Close Modal
 const closeModal = () => {
   resetForm();
   showModal.value = false;
 };
 
-// Search Friends
 const searchFriends = () => {
-  currentPage.value = 1; // Reset to the first page
+  currentPage.value = 1;
   fetchFriends(search.value);
 };
 
-// Handle Scroll Event
 const onScroll = (event) => {
   const container = event.target;
 
-  // Check if user scrolled to the bottom
   if (
     container.scrollHeight - container.scrollTop === container.clientHeight &&
     currentPage.value < totalPages.value &&
@@ -447,7 +424,6 @@ const onScroll = (event) => {
   }
 };
 
-// Mounted Hook
 onMounted(() => fetchFriends());
 </script>
 

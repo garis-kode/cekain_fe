@@ -208,7 +208,6 @@ const handleUpdateProfile = async (values) => {
   try {
     const token = localStorage.getItem('accessToken');
 
-    // Buat FormData
     const formData = new FormData();
     formData.append('fullName', String(values.name));
     formData.append('email', String(values.email));
@@ -217,7 +216,6 @@ const handleUpdateProfile = async (values) => {
       formData.append('profilePicture', formValues.value.profilePicture);
     }
 
-    // Kirim request ke API
     const response = await $fetch(`${apiURL}/profile`, {
       method: 'PUT',
       headers: {
