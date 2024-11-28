@@ -71,6 +71,9 @@
   </div>
 </template>
 <script>
+definePageMeta({
+  middleware: 'auth',
+});
 import { useBillAPI } from '@/api/bill';
 
 export default {

@@ -122,7 +122,7 @@
       <NuxtLink to="./split/history" class="text-sm text-gray-400 dark:text-gray-400 hover:text-blue-700">See More</NuxtLink>
     </div>
     <div class="mt-6">  
-      <!-- Skeleton Loading for Bills -->
+
       <div v-if="skeletonLoadingBill">
         <a
           v-for="index in 3"
@@ -188,7 +188,7 @@
                   :key="participant.id"
                   class="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800" 
                   :src="`https://ui-avatars.com/api/?bold=true&background=00a3ff&color=fff&name=${participant.name}`"
-                  alt=""
+                  :alt="`${participant.name}`"
                 >
                 <span
                   v-if="bill.participants.length > 3"
@@ -229,7 +229,6 @@ const { fetchBillsAPI } = useBillAPI();
 
 const isOpen = ref(false);
 const dropdownRef = ref(null);
-// const participants = ref([]);
 const friends = ref([]);
 const bills = ref([]);
 const skeletonLoadingFriend = ref(true);

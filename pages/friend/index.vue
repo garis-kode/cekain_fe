@@ -132,6 +132,9 @@
 </template>
 
 <script setup>
+definePageMeta({
+  middleware: 'auth',
+});
 import { ref, reactive, computed, onMounted } from 'vue';
 import * as yup from 'yup';
 import DeleteModal from '~/components/DeleteModal.vue';
