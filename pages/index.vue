@@ -1,9 +1,11 @@
 <template>
   <div>
     <ErrorToast v-if="error" :message="error" @close="error = null" />
-    <div class="md:mx-[-24px] mx-[-15px] mt-[-24px] bg-blue-1000 dark:bg-gray-700 p-5 rounded-b-[50px] bg-center bg-no-repeat bg-[url('/assets/img/shape/hero.svg')] dark:bg-[url('/assets/img/shape/hero-dark.svg')] bg-cover">
+    <div class="md:mx-[-24px] mx-[-15px] mt-[-40px] bg-blue-1000 dark:bg-gray-700 p-5 rounded-b-[50px] bg-center bg-no-repeat bg-[url('/assets/img/shape/hero.svg')] dark:bg-[url('/assets/img/shape/hero-dark.svg')] bg-cover">
       <div class="flex items-center	justify-between ">
-        <span class="font-semibold text-md dark:text-blue-500">logo</span>
+        <span class="font-semibold text-md dark:text-blue-500">
+          <img src="/assets/img/icon/logo-bg-white.png" class="h-20" alt="">
+        </span>
         <div class="flex items-center	gap-x-4">
           <Icon name="heroicons:bell-alert" size="22px" class="text-sm text-gray-400 dark:text-gray-400" color="black" />
           
@@ -19,7 +21,7 @@
               <div class="z-10 bg-white divide-y divide-gray-100 rounded-xl w-44 dark:bg-gray-700 dark:divide-gray-600 w-[280px]">
                 <div class="px-6 py-5 text-sm text-gray-900 dark:text-white">
                   <div class="flex">
-                    <img class="w-10 h-10 rounded" :src="user?.profilePictureUrl || defaultAvatar" alt="Default avatar">
+                    <img class="h-10 rounded" :src="user?.profilePictureUrl || defaultAvatar" alt="Default avatar">
                     <div class="ms-2">
                       <div class="font-semibold truncate">{{ user?.fullName}}</div>
                       <div>{{ user?.email }}</div>
@@ -46,10 +48,10 @@
 
         </div>
       </div>
-      <div class="text-center my-10">
+      <div class="text-center mb-10 mt-3">
         <span class="text-sm text-gray-400 dark:text-gray-400">7 Friend are owing you</span>
         <h1 class="font-bold text-4xl dark:text-white">IDR. 700,000</h1>
-        <div class="mt-10 flex justify-center gap-x-2">
+        <div class="mt-8 flex justify-center gap-x-2">
           <NuxtLink to="split/add" class="flex gap-x-1 px-4 py-2.5 text-sm text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             <Icon name="mingcute:bill-2-line" size="20px" color="black" />
             Add Manually
