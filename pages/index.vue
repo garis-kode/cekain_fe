@@ -4,7 +4,7 @@
     <div class="md:mx-[-24px] mx-[-15px] mt-[-40px] bg-blue-1000 dark:bg-gray-700 p-5 rounded-b-[50px] bg-center bg-no-repeat bg-[url('/assets/img/shape/hero.svg')] dark:bg-[url('/assets/img/shape/hero-dark.svg')] bg-cover">
       <div class="flex items-center	justify-between ">
         <span class="font-semibold text-md dark:text-blue-500">
-          <img src="/assets/img/icon/logo-bg-white.png" class="h-20" alt="">
+          <img :src="`/assets/img/icon/logo-bg-white.png`" class="h-20" alt="">
         </span>
         <div class="flex items-center	gap-x-4">
           <Icon name="heroicons:bell-alert" size="22px" class="text-sm text-gray-400 dark:text-gray-400" color="black" />
@@ -68,7 +68,7 @@
       <NuxtLink to="./friend" class="text-sm text-gray-400 dark:text-gray-400 hover:text-blue-700">See More</NuxtLink>
     </div>
     <div class="mt-5">
-    <div v-if="skeletonLoading" class="flex gap-4 overflow-x-auto">
+    <div v-if="skeletonLoadingFriend" class="flex gap-4 overflow-x-auto pb-2">
       <div
         v-for="n in 5"
         :key="n"
@@ -121,72 +121,95 @@
       <span class="font-semibold text-md dark:text-white">Split History</span>
       <NuxtLink to="./split/history" class="text-sm text-gray-400 dark:text-gray-400 hover:text-blue-700">See More</NuxtLink>
     </div>
-    <div class="mt-6">
-      
-      <a href="#" class="mb-3 block bg-white border border-gray-100 rounded-xl hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-        <div class="p-4">
-          <div class="flex justify-between">
-            <div class="flex align-middle">
-              <span class="flex items-center justify-center w-12 h-12 text-xs font-medium bg-blue-950 rounded-lg dark:bg-gray-700">
-                <img src="/assets/img/icon/bill.png" alt="">
-              </span>
-              <div class="ms-3">
-                <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Ngopi Time</h5>
-                <p class="text-xs text-gray-400 dark:text-gray-400">June 19, 2024 10:35 PM</p>
+    <div class="mt-6">  
+      <!-- Skeleton Loading for Bills -->
+      <div v-if="skeletonLoadingBill">
+        <a
+          v-for="index in 3"
+          :key="'skeleton-' + index"
+          class="mb-3 block bg-white border border-gray-100 rounded-xl animate-pulse dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+        >
+          <div class="p-4">
+            <div class="flex justify-between">
+              <div class="flex align-middle">
+                <span class="flex items-center justify-center w-12 h-12 text-xs font-medium bg-gray-300 rounded-lg dark:bg-gray-700"></span>
+                <div class="ms-3">
+                  <div class="h-6 bg-gray-300 rounded w-36 mb-2"></div>
+                  <div class="h-4 bg-gray-300 rounded w-24"></div>
+                </div>
+              </div>
+              <div class="flex -space-x-4 rtl:space-x-reverse">
+                <div class="w-8 h-8 bg-gray-300 rounded-full dark:bg-gray-700"></div>
+                <div class="w-8 h-8 bg-gray-300 rounded-full dark:bg-gray-700"></div>
+                <div class="w-8 h-8 bg-gray-300 rounded-full dark:bg-gray-700"></div>
+                <div class="w-8 h-8 bg-gray-300 rounded-full dark:bg-gray-700"></div>
               </div>
             </div>
-            <div class="flex -space-x-4 rtl:space-x-reverse">
-                <img class="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="">
-                <img class="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="">
-                <img class="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="">
-                <span class="flex items-center justify-center w-8 h-8 text-xs font-medium text-gray-400 bg-gray-100 border-2 border-white rounded-full" href="#">+99</span>
+            <hr class="border-1 my-4 border-dashed">
+            <div class="flex justify-between">
+              <div class="h-4 bg-gray-300 rounded w-28"></div>
+              <div class="w-24 h-6 bg-gray-300 rounded"></div>
             </div>
           </div>
-          <hr class="border-1 my-4 border-dashed">
-          <div class="flex justify-between">
-            <span class="text-sm font-medium text-gray-400"><span class="font-semibold text-black dark:text-white">Total:</span> IDR. 78,000</span>
-            <span class="bg-blue-950 text-blue-900 text-xs font-medium px-2 py-1 rounded dark:bg-blue-900 dark:text-blue-950">45% Paid</span>
+          <div class="w-full bg-gray-200 rounded-full h-1 dark:bg-gray-800">
+            <div class="bg-gray-300 h-1 rounded-full"></div>
           </div>
-        </div>
-        
-        <div class="w-full bg-gray-200 rounded-full h-1 dark:bg-gray-800">
-          <div class="bg-blue-900 h-1 rounded-full" style="width: 45%"></div>
-        </div>
-
-      </a>
-
-      <a href="#" class="mb-3 block bg-white border border-gray-100 rounded-xl hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-        <div class="p-4">
-          <div class="flex justify-between">
-            <div class="flex align-middle">
-              <span class="flex items-center justify-center w-12 h-12 text-xs font-medium bg-blue-950 rounded-lg dark:bg-gray-700">
-                <img src="/assets/img/icon/bill.png" alt="">
-              </span>
-              <div class="ms-3">
-                <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Ngopi Time</h5>
-                <p class="text-xs text-gray-400 dark:text-gray-400">June 19, 2024 10:35 PM</p>
+        </a>
+      </div>
+      <div v-else>
+        <NuxtLink 
+          v-for="bill in bills"
+          :key="bill.id"
+          :to="`/split/${bill.id}/bill`"
+          class="mb-3 block bg-white border border-gray-100 rounded-xl hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+          <div class="p-4">
+            <div class="flex justify-between">
+              <div class="flex align-middle">
+                <span class="flex items-center justify-center w-12 h-12 text-xs font-medium bg-blue-950 rounded-lg dark:bg-gray-700">
+                  <img src="/assets/img/icon/bill.png" alt="">
+                </span>
+                <div class="ms-3">
+                  <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">{{ bill.name }}</h5>
+                  <p class="text-xs text-gray-400 dark:text-gray-400">
+                    {{ new Date(bill.createdAt).toLocaleString('en-US', { 
+                      month: 'long', 
+                      day: 'numeric', 
+                      year: 'numeric', 
+                      hour: 'numeric', 
+                      minute: 'numeric', 
+                      hour12: true 
+                    }) }}
+                  </p>
+                </div>
+              </div>
+              <div class="flex -space-x-4 rtl:space-x-reverse">
+                <img
+                  v-for="(participant,) in bill.participants.slice(0, 3)"
+                  :key="participant.id"
+                  class="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800" 
+                  :src="`https://ui-avatars.com/api/?bold=true&background=00a3ff&color=fff&name=${participant.name}`"
+                  alt=""
+                >
+                <span
+                  v-if="bill.participants.length > 3"
+                  class="flex items-center justify-center w-8 h-8 text-xs font-medium text-gray-400 bg-gray-100 border-2 border-white rounded-full"
+                >
+                  +{{ bill.participants.length - 3 }}
+                </span>
               </div>
             </div>
-            <div class="flex -space-x-4 rtl:space-x-reverse">
-                <img class="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="">
-                <img class="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="">
-                <img class="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="">
-                <span class="flex items-center justify-center w-8 h-8 text-xs font-medium text-gray-400 bg-gray-100 border-2 border-white rounded-full" href="#">+99</span>
-              </div>
+            <hr class="border-1 my-4 border-dashed">
+            <div class="flex justify-between">
+              <span class="text-sm font-medium text-gray-400"><span class="font-semibold text-black dark:text-white">Total:</span> IDR. {{ new Intl.NumberFormat().format(bill.total) }}</span>
+              <span class="bg-blue-950 text-blue-900 text-xs font-medium px-2 py-1 rounded dark:bg-blue-900 dark:text-blue-950">{{ bill.paidPercentage }}% Paid</span>
+            </div>
           </div>
-          <hr class="border-1 my-4 border-dashed">
-          <div class="flex justify-between">
-            <span class="text-sm font-medium text-gray-400"><span class="font-semibold text-black dark:text-white">Total:</span> IDR. 78,000</span>
-            <span class="bg-blue-950 text-blue-900 text-xs font-medium px-2 py-1 rounded dark:bg-blue-900 dark:text-blue-950">45% Paid</span>
+          
+          <div class="w-full bg-gray-200 rounded-full h-1 dark:bg-gray-800">
+            <div class="bg-blue-900 h-1 rounded-full" :style="{ width: bill.paidPercentage + '%' }"></div>
           </div>
-        </div>
-        
-        <div class="w-full bg-gray-200 rounded-full h-1 dark:bg-gray-800">
-          <div class="bg-blue-900 h-1 rounded-full" style="width: 45%"></div>
-        </div>
-
-      </a>
-
+        </NuxtLink>
+      </div>
     </div>
   </div>
 </template>
@@ -199,13 +222,18 @@ definePageMeta({
 
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import { useFriendAPI } from '~/api/friend';
+import { useBillAPI } from '~/api/bill';
 
 const { fetchFriendsAPI } = useFriendAPI();
+const { fetchBillsAPI } = useBillAPI();
 
 const isOpen = ref(false);
 const dropdownRef = ref(null);
+// const participants = ref([]);
 const friends = ref([]);
-const skeletonLoading = ref(true);
+const bills = ref([]);
+const skeletonLoadingFriend = ref(true);
+const skeletonLoadingBill = ref(true);
 const error = ref(null);
 
 const user = computed(() => {
@@ -219,6 +247,7 @@ const user = computed(() => {
     }
   }
   return null;
+  
 });
 
 const defaultAvatar = computed(() => {
@@ -226,7 +255,7 @@ const defaultAvatar = computed(() => {
 });
 
 const fetchFriends = async () => {
-  skeletonLoading.value = true;
+  skeletonLoadingFriend.value = true;
   try {
     const response = await fetchFriendsAPI();
     if (response.success) {
@@ -235,7 +264,21 @@ const fetchFriends = async () => {
   } catch (err) {
     error.value = err.data?.message || 'An unexpected error occurred.';
   } finally {
-    skeletonLoading.value = false;
+    skeletonLoadingFriend.value = false;
+  }
+};
+
+const fetchBills = async () => {
+  skeletonLoadingBill.value = true;
+  try {
+    const response = await fetchBillsAPI(null, 1, 5);
+    if (response.success) {
+      bills.value = response.data;
+    }
+  } catch (err) {
+    error.value = err.data?.message || 'An unexpected error occurred.';
+  } finally {
+    skeletonLoadingBill.value = false;
   }
 };
 
@@ -256,6 +299,13 @@ const handleDocumentClick = (event) => {
 onMounted(async () => {
   try {
     await fetchFriends();
+    document.addEventListener('click', handleDocumentClick);
+  } catch (err) {
+    console.error('Error during component mount:', err);
+  }
+
+  try {
+    await fetchBills();
     document.addEventListener('click', handleDocumentClick);
   } catch (err) {
     console.error('Error during component mount:', err);

@@ -15,5 +15,11 @@ export const useBillAPI = () => {
         body: formData,
       });
     },
+    fetchBillsAPI: async (query = '', page = 1, limit = '') => {
+      const url = query
+        ? `${apiURL}/bill/history?search=${query}&page=${page}&limit=${limit}`
+        : `${apiURL}/bill/history?page=${page}&limit=${limit}`;
+      return await $fetch(url, { headers: getAuthHeaders() });
+    },
   };
 };
