@@ -43,7 +43,12 @@
           </div>
         </a>
       </div>
-      <div v-else>
+      <div
+        id="scroll-container"
+        @scroll="onScroll"
+        class="overflow-auto max-h-screen"
+        v-else
+      >
         <NuxtLink
           v-for="bill in bills"
           :key="bill.id"
