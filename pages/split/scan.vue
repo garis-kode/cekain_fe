@@ -28,7 +28,7 @@
     </div>
 
     <!-- Camera Stream -->
-    <div v-if="isCameraOpen" v-show="!isUploaded" :class="{ 'flash' : isShotPhoto }">
+    <div v-if="isCameraOpen" v-show="!isUploaded && !isLoading" :class="{ 'flash' : isShotPhoto }">
       <div class="camera-shutter" :class="{'flash' : isShotPhoto}"></div>
       <div class="relative">
         <video v-show="!isPhotoTaken" ref="camera" class="rounded-lg" autoplay></video>
@@ -37,12 +37,17 @@
       <canvas v-show="isPhotoTaken" id="photoTaken" ref="canvas" class="w-full rounded-lg" :width="450" :height="600"></canvas>
     </div>
 
-    <div v-if="isUploaded">
-      <img src="/assets/img/loading.gif" alt="">
+    <div v-if="isUploaded" class="text-center">
+      <div class="flex justify-center">
+        <img src="/assets/img/loading.gif" class="h-40 text-center" alt="">
+      </div>
+      <span class="text-gray-600">
+        Please wait...
+      </span>
     </div>
 
     <!-- Buttons -->
-    <div v-if="!isPhotoTaken && !isUploaded" class="camera-shoot text-center mt-5 flex justify-center items-center gap-x-6">
+    <div v-if="!isPhotoTaken && !isUploaded && !isLoading" class="camera-shoot text-center mt-5 flex justify-center items-center gap-x-6">
       <button
         type="button"
         class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm p-2 text-center inline-flex items-center dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
@@ -59,14 +64,13 @@
     </div>
   </div>
 </template>
-
 <script>
 import { useBillAPI } from '@/api/bill';
 
 export default {
   data() {
     return {
-      isUploaded : false,
+      isUploaded: false,
       isCameraOpen: true,
       isPhotoTaken: false,
       isShotPhoto: false,
@@ -74,6 +78,7 @@ export default {
       error: null,
       success: null,
       FLASH_TIMEOUT: 200,
+      cameraStream: null,
     };
   },
   mounted() {
@@ -92,6 +97,7 @@ export default {
         .getUserMedia(constraints)
         .then((stream) => {
           this.isLoading = false;
+          this.cameraStream = stream;
           this.$refs.camera.srcObject = stream;
         })
         .catch(() => {
@@ -109,7 +115,7 @@ export default {
       this.isUploaded = true;
 
       const video = this.$refs.camera;
-      const canvas = document.createElement('canvas'); // Create canvas dynamically
+      const canvas = document.createElement('canvas');
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
 
@@ -125,10 +131,15 @@ export default {
             const { uploadBillPhotoAPI } = useBillAPI();
             const response = await uploadBillPhotoAPI(formData);
             this.success = 'Photo uploaded successfully!';
+            localStorage.removeItem('billData');
             localStorage.setItem('billData', JSON.stringify(response.data));
 
+            this.cameraStream.getTracks().forEach(track => track.stop());
+            this.isCameraOpen = false;
+
+            this.$router.push('/split/add');
           } catch (error) {
-            this.error = error.message;
+            this.error = error.data?.message || 'An error occurred.';
           } finally {
             this.isUploaded = false;
           }
@@ -138,6 +149,10 @@ export default {
         }
       }, 'image/jpeg');
     },
+
+    async uploadPhoto() {
+      // Your upload logic here (if needed)
+    }
   },
 };
 </script>

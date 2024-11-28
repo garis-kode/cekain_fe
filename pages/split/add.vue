@@ -160,7 +160,7 @@ export default {
     saveItems() {
       const data = {
         billName: this.billName,
-        storeName: this.storeName,
+        storeName: this.storeName,  // Pastikan storeName termasuk di sini
         items: this.items,
         discount: this.discount,
         tax: this.tax,
