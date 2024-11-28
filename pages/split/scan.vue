@@ -32,7 +32,7 @@
       <div class="camera-shutter" :class="{'flash' : isShotPhoto}"></div>
       <div class="relative">
         <video v-show="!isPhotoTaken" ref="camera" class="rounded-lg" autoplay></video>
-        <Icon  v-show="!isPhotoTaken" name="material-symbols:document-scanner-outline-rounded" size="120px" class="text-white absolute inset-0 m-auto"/>
+        <Icon v-show="!isPhotoTaken" name="material-symbols:document-scanner-outline-rounded" size="120px" class="text-white absolute inset-0 m-auto"/>
       </div>
       <canvas v-show="isPhotoTaken" id="photoTaken" ref="canvas" class="w-full rounded-lg" :width="450" :height="600"></canvas>
     </div>
@@ -50,8 +50,14 @@
     <div v-if="!isPhotoTaken && !isUploaded && !isLoading" class="camera-shoot text-center mt-5 flex justify-center items-center gap-x-6">
       <button
         type="button"
-        class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm p-2 text-center inline-flex items-center dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+        class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm p-2 text-center inline-flex items-center dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 relative"
       >
+        <input
+          type="file"
+          accept="image/*"
+          class="absolute inset-0 opacity-0 cursor-pointer"
+          @change="uploadPhoto"
+        />
         <Icon name="material-symbols:image-outline" size="24px" color="black" />
       </button>
       <button
@@ -150,9 +156,33 @@ export default {
       }, 'image/jpeg');
     },
 
-    async uploadPhoto() {
-      // Your upload logic here (if needed)
-    }
+    async uploadPhoto(event) {
+      const file = event.target.files[0];
+
+      if (!file) {
+        this.error = 'No file selected.';
+        return;
+      }
+
+      this.isUploaded = true;
+
+      const formData = new FormData();
+      formData.append('image', file);
+
+      try {
+        const { uploadBillPhotoAPI } = useBillAPI();
+        const response = await uploadBillPhotoAPI(formData);
+        this.success = 'Photo uploaded successfully!';
+        localStorage.removeItem('billData');
+        localStorage.setItem('billData', JSON.stringify(response.data));
+
+        this.$router.push('/split/add');
+      } catch (error) {
+        this.error = error.data?.message || 'An error occurred.';
+      } finally {
+        this.isUploaded = false;
+      }
+    } 
   },
 };
 </script>

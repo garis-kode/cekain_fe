@@ -9,7 +9,15 @@
         </div>
         <div class="mb-3">
           <label for="Store" class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Store</label>
-          <input type="text" id="Store" v-model="storeName" @input="saveItems" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Store" required />
+          <input 
+            type="text" 
+            id="Store" 
+            v-model="storeName" 
+            @input="saveItems" 
+            class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+            placeholder="Store" 
+            required
+          /> 
         </div>
         <div class="mb-3">
           <label for="Store" class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Split With</label>
@@ -127,8 +135,7 @@
     <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Preview</button>
   </div>
 </template>
-
-<script>
+<<script>
 export default {
   data() {
     return {
@@ -142,10 +149,19 @@ export default {
   },
   computed: {
     subTotal() {
-      return this.items.reduce((acc, item) => acc + (item.quantity * item.price), 0);
+      return this.items.reduce((acc, item) => {
+        const quantity = Number(item.quantity) || 0;
+        const price = Number(item.price) || 0;
+        return acc + (quantity * price);
+      }, 0);
     },
     total() {
-      return this.subTotal - this.discount + this.tax + this.others;
+      const subTotal = this.subTotal;
+      const discount = Number(this.discount) || 0;
+      const tax = Number(this.tax) || 0;
+      const others = Number(this.others) || 0;
+
+      return subTotal - discount + tax + others;
     },
   },
   methods: {
@@ -160,7 +176,7 @@ export default {
     saveItems() {
       const data = {
         billName: this.billName,
-        storeName: this.storeName,  // Pastikan storeName termasuk di sini
+        storeName: this.storeName,
         items: this.items,
         discount: this.discount,
         tax: this.tax,
@@ -177,11 +193,18 @@ export default {
         this.discount = parsedData.discount;
         this.tax = parsedData.tax;
         this.others = parsedData.others;
-        return parsedData.items;
+        return parsedData.items.map(item => ({
+          ...item,
+          quantity: item.quantity || 0,
+          price: item.price || 0,
+        }));
       } else {
         return [{ name: '', quantity: 0, price: 0 }];
       }
     },
   },
+  mounted() {
+    this.loadItems();
+  }
 };
 </script>
