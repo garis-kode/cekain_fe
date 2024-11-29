@@ -21,5 +21,16 @@ export const useBillAPI = () => {
         : `${apiURL}/bill/history?page=${page}&limit=${limit}`;
       return await $fetch(url, { headers: getAuthHeaders() });
     },
+    fetchBillDetailsAPI: async (id) => {
+      const url = `${apiURL}/bill/${id}/detail`;
+      return await $fetch(url, { headers: getAuthHeaders() });
+    },
+    markAsPaidAPI: async (billId, formData) => {
+      return await $fetch(`${apiURL}/bill/${billId}/mark-paid`, {
+        method: 'PUT',
+        headers: getAuthHeaders(),
+        body: formData,
+      });
+    },
   };
 };
