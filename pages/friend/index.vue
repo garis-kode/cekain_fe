@@ -49,7 +49,7 @@
     <div
       id="scroll-container"
       @scroll="onScroll"
-      class="overflow-auto max-h-screen"
+      class="overflow-y-auto max-h-screen"
       v-else
     >
       <div
@@ -62,7 +62,7 @@
             <div class="flex align-middle">
               <img
                 class="w-12 h-12 border-2 border-white rounded-lg dark:border-gray-800"
-                :src="`https://ui-avatars.com/api/?bold=true&background=00a3ff&color=fff&name=${friend.name}`"
+                :src="`https://api.dicebear.com/9.x/lorelei/jpg?seed=${friend.name}`"
                 alt="Friend Avatar"
               />
               <div class="ms-3">

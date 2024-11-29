@@ -80,7 +80,7 @@
                   v-for="(participant,) in bill.participants.slice(0, 3)"
                   :key="participant.id"
                   class="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800" 
-                  :src="`https://ui-avatars.com/api/?bold=true&background=00a3ff&color=fff&name=${participant.name}`"
+                  :src="`https://api.dicebear.com/9.x/lorelei/jpg?seed=${participant.name}`"
                   :alt="`${participant.name}`"
                 >
                 <span
@@ -97,13 +97,21 @@
                 <span class="font-semibold text-black dark:text-white">Total:</span> IDR. 
                 {{ new Intl.NumberFormat().format(bill.total) }}
               </span>
-              <span class="bg-blue-950 text-blue-900 text-xs font-medium px-2 py-1 rounded dark:bg-blue-900 dark:text-blue-950">
-                {{ bill.paidPercentage }}% Paid
+              <span 
+                v-if="bill.status === 'draft'" 
+                class="bg-yellow-100 text-yellow-400 text-xs font-medium px-2 py-1 rounded dark:bg-yellow-400 dark:text-yellow-400">
+                draft
               </span>
+
+              <span 
+                v-else-if="bill.status === 'confirmed'" 
+                class="bg-blue-950 text-blue-900 text-xs font-medium px-2 py-1 rounded dark:bg-blue-900 dark:text-blue-950">
+                {{ bill.paidPercentage }}% Paid
+              </span>  
             </div>
           </div>
           
-          <div class="w-full bg-gray-200 rounded-full h-1 dark:bg-gray-800">
+          <div v-if="bill.status === 'confirmed'"  class="w-full bg-gray-200 rounded-full h-1 dark:bg-gray-800">
             <div class="bg-blue-900 h-1 rounded-full" :style="{ width: bill.paidPercentage + '%' }"></div>
           </div>
         </NuxtLink>

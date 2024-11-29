@@ -98,7 +98,7 @@
         <div class="pe-2">
           <img
             class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
-            :src="`https://ui-avatars.com/api/?bold=true&background=00a3ff&color=fff&name=${friend.name}`"
+            :src="`https://api.dicebear.com/9.x/lorelei/jpg?seed=${friend.name}`"
             alt="Bordered avatar"
           />
           <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">
@@ -187,7 +187,7 @@
                   v-for="(participant,) in bill.participants.slice(0, 3)"
                   :key="participant.id"
                   class="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800" 
-                  :src="`https://ui-avatars.com/api/?bold=true&background=00a3ff&color=fff&name=${participant.name}`"
+                  :src="`https://api.dicebear.com/9.x/lorelei/jpg?seed=${participant.name}`"
                   :alt="`${participant.name}`"
                 >
                 <span
@@ -201,11 +201,21 @@
             <hr class="border-1 my-4 border-dashed">
             <div class="flex justify-between">
               <span class="text-sm font-medium text-gray-400"><span class="font-semibold text-black dark:text-white">Total:</span> IDR. {{ new Intl.NumberFormat().format(bill.total) }}</span>
-              <span class="bg-blue-950 text-blue-900 text-xs font-medium px-2 py-1 rounded dark:bg-blue-900 dark:text-blue-950">{{ bill.paidPercentage }}% Paid</span>
+              <span 
+                v-if="bill.status === 'draft'" 
+                class="bg-yellow-100 text-yellow-400 text-xs font-medium px-2 py-1 rounded dark:bg-yellow-400 dark:text-yellow-400">
+                draft
+              </span>
+
+              <span 
+                v-else-if="bill.status === 'confirmed'" 
+                class="bg-blue-950 text-blue-900 text-xs font-medium px-2 py-1 rounded dark:bg-blue-900 dark:text-blue-950">
+                {{ bill.paidPercentage }}% Paid
+              </span>         
             </div>
           </div>
           
-          <div class="w-full bg-gray-200 rounded-full h-1 dark:bg-gray-800">
+          <div v-if="bill.status === 'confirmed'"  class="w-full bg-gray-200 rounded-full h-1 dark:bg-gray-800">
             <div class="bg-blue-900 h-1 rounded-full" :style="{ width: bill.paidPercentage + '%' }"></div>
           </div>
         </NuxtLink>
