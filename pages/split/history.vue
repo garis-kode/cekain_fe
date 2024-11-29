@@ -52,7 +52,7 @@
         <NuxtLink
           v-for="bill in bills"
           :key="bill.id"
-          :to="`/split/${bill.id}/bill`"
+          :to="bill.status === 'draft' ? `/split/${bill.id}/preview` : `/split/${bill.id}/bill`"
           class="mb-3 block bg-white border border-gray-100 rounded-xl hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
         >
           <div class="p-4">

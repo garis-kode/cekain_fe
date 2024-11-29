@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col min-h-full">
-    <navigation :title="`${billDetails?.storeName || 'Loading...'}`" />
+    <navigation :title="`${billDetails?.name || 'Loading...'}`" />
     <ErrorToast v-if="error" :message="error" @close="error = null" />
     <SuccessToast v-if="success" :message="success" @close="success = null" />
 
@@ -178,6 +178,7 @@ const participants = ref([]);
 const openAccordions = ref([]);
 const error = ref(null);
 const success = ref(null);
+const router = useRouter();
 
 const toggleAccordion = (id) => {
   const index = openAccordions.value.indexOf(id);
@@ -190,6 +191,9 @@ const detailBill = async () => {
   try {
     const response = await fetchBillDetailsAPI(billId);
     if (response.success) {
+      if(response.data.status == 'draft') {
+        await router.push(`/`);
+      }
       billDetails.value = response.data;
       participants.value = response.data.participants;
     }

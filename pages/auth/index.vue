@@ -1,10 +1,11 @@
 <template>
-  <div class="flex flex-col min-h-full">
-    <div class="mt-auto text-center">
+  <div class="flex flex-col min-h-screen">
+    <div class="bg-blue-1000 rounded-3xl flex-1">s</div> <!-- Ensure this takes up the full height of the screen -->
+    <div class="mt-auto text-center pt-10">
       <div class="text-center px-6 mb-10">
-        <h1 class="text-2xl font-semibold text-blue-700 mb-2">Cekain - Teman Seru Hangout</h1>
+        <h1 class="text-2xl font-semibold text-blue-700 mb-2">Cekain - Hangout jadi enak</h1>
         <p class="text-gray-600 text-sm leading-relaxed">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non laudantium ex necessitatibus quasi tenetur itaque architecto sed omnis, autem eum inventore sequi blanditiis corrupti aliquid velit nemo harum ipsam expedita!
+          Aplikasi split bill nomor 1 <br> buat kamu yang sering hangout bareng teman
         </p>
       </div>
       <button

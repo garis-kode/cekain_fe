@@ -25,6 +25,12 @@ export const useBillAPI = () => {
       const url = `${apiURL}/bill/${id}/detail`;
       return await $fetch(url, { headers: getAuthHeaders() });
     },
+    confirmBillsAPI: async (id) => {
+      return await $fetch(`${apiURL}/bill/${id}/confirm`, {
+        method: 'PUT',
+        headers: getAuthHeaders(),
+      });
+    },
     markAsPaidAPI: async (billId, formData) => {
       return await $fetch(`${apiURL}/bill/${billId}/mark-paid`, {
         method: 'PUT',
