@@ -15,5 +15,13 @@ export const useProfileAPI = () => {
         body: formData,
       });
     },
+    changePasswordAPI: async (formData) => {
+      const url = `${apiURL}/profile/change-password/`;
+      return await $fetch(url, {
+        method: 'PUT',
+        headers: getAuthHeaders(),
+        body: formData,
+      });
+    },
   };
 };

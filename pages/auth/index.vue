@@ -5,7 +5,7 @@
       <div class="text-center px-6 mb-10">
         <h1 class="text-2xl font-semibold text-blue-700 mb-2">Cekain - Hangout jadi enak</h1>
         <p class="text-gray-600 text-sm leading-relaxed">
-          Aplikasi split bill nomor 1 <br> buat kamu yang sering hangout bareng teman
+          Aplikasi split bill berbasis A.I <br> buat kamu yang sering hangout bareng teman
         </p>
       </div>
       <button
