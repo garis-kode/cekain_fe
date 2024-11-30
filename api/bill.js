@@ -38,5 +38,9 @@ export const useBillAPI = () => {
         body: formData,
       });
     },
+    shareBillAPI: async (id) => {
+      const url = `${apiURL}/bill/shareable/${id}`;
+      return await $fetch(url);
+    },
   };
 };

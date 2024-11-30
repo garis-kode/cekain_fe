@@ -17,7 +17,7 @@
     <!-- Bill Details Section -->
     <div v-else>
       <div class="mb-3">
-        <h1 class="text-xl font-bold text-blue-700 dark:text-blue-700">{{ billDetails?.name || 'Loading...' }}</h1>
+        <h1 class="text-xl font-bold text-blue-700 dark:text-blue-700">{{ billDetails?.storeName }}</h1>
         <div class="flex flex-col mt-3 mb-3">
           <span class="text-xs text-gray-400 dark:text-gray-400">Transaction Date:</span>
           <span class="font-semibold text-xs dark:text-white">
@@ -91,7 +91,7 @@
             </div>
           </div>
           <hr class="border-1 my-4 border-dashed">
-          <h5 class="text-xs font-bold mb-2">Items</h5>
+          <h5 class="text-xs font-bold mb-2 dark:text-white">Items</h5>
           <div 
             v-for="item in participant.items"
             :key="item.id"
@@ -100,7 +100,7 @@
             <span>x {{ item.quantity }}</span>
             <span>IDR {{ new Intl.NumberFormat().format(item.price) }}</span>
           </div>
-          <h5 class="text-xs font-bold mt-4 mb-2">Other Charges</h5>
+          <h5 class="text-xs font-bold mt-4 mb-2 dark:text-white">Other Charges</h5>
           <div 
             v-for="other in participant.others"
             :key="other.name"
