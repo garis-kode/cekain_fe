@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col min-h-screen">
-    <div class="bg-blue-1000 rounded-3xl flex-1">s</div> <!-- Ensure this takes up the full height of the screen -->
+  <div class="flex flex-col min-h-full">
+    <div class="bg-blue-1000 bg-[url('/assets/img/bg.png')] bg-cover rounded-3xl flex-1"></div> <!-- Ensure this takes up the full height of the screen -->
     <div class="mt-auto text-center pt-10">
       <div class="text-center px-6 mb-10">
         <h1 class="text-2xl font-semibold text-blue-700 mb-2">Cekain - Hangout jadi enak</h1>
