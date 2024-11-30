@@ -168,6 +168,11 @@ import { ref, onMounted } from "vue";
 import { useBillAPI } from "~/api/bill";
 import ErrorToast from '~/components/ErrorToast.vue';
 import SuccessToast from '~/components/SuccessToast.vue';
+import { useHead } from '@vueuse/head';
+
+useHead({
+  title: `Cekain - Split Bill`
+});
 
 const { fetchBillDetailsAPI, markAsPaidAPI } = useBillAPI();
 const route = useRoute();

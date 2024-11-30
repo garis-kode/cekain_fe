@@ -19,39 +19,50 @@ export default defineNuxtConfig({
   css: [
     'public/assets/css/main.css'
   ],
+  app: {
+    head: {
+      title: 'Cekain - Hangout jadi enak',
+      meta: [
+        { name: 'description', content: 'Aplikasi split bill berbasis A.I buat kamu yang sering hangout bareng teman' }
+      ],
+      link: [
+        { rel: 'icon', href: 'assets/img/icon/logo-bg-white.png' }
+      ]
+    }
+  },
   pwa: {
     registerType: 'autoUpdate',
     manifest: {
       name: "Cekain - Hangout Jadi Enak",
       short_name: "Cekain",
-      description: "Aplikasi split bill buat kamu yang sering hangout bareng teman",
+      description: "Aplikasi split bill berbasis A.I buat kamu yang sering hangout bareng teman",
       lang: 'en',
       display: 'standalone',
       background_color: '#ffffff',
       theme_color: '#4DBA87',
       icons: [
         {
-          src: "public/assets/img/icons/icon_64x64.png",
+          src: "assets/img/icons/icon_64x64.png",
           sizes: "64x64",
           type: "image/png",
         },
         {
-          src: "public/assets/img/icons/icon_144x144.png",
+          src: "assets/img/icons/icon_144x144.png",
           sizes: "144x144",
           type: "image/png",
         },
         {
-          src: "public/assets/img/icons/icon_192x192.png",
+          src: "assets/img/icons/icon_192x192.png",
           sizes: "192x192",
           type: "image/png",
         },
         {
-          src: "public/assets/img/icons/icon_384x384.png",
+          src: "assets/img/icons/icon_384x384.png",
           sizes: "384x384",
           type: "image/png",
         },
         {
-          src: "public/assets/img/icons/icon_512x512.png",
+          src: "assets/img/icons/icon_512x512.png",
           sizes: "512x512",
           type: "image/png",
         },

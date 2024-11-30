@@ -127,6 +127,11 @@ definePageMeta({
 
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import { useBillAPI } from '~/api/bill';
+import { useHead } from '@vueuse/head';
+
+useHead({
+  title: 'Cekain - History'
+});
 
 const { fetchBillsAPI } = useBillAPI();
 

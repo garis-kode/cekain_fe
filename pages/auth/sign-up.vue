@@ -93,6 +93,11 @@ import * as yup from 'yup';
 import ErrorToast from '~/components/ErrorToast.vue';
 import SuccessToast from '~/components/SuccessToast.vue';
 import { useAuthAPI } from '~/api/auth';
+import { useHead } from '@vueuse/head';
+
+useHead({
+  title: 'Cekain - Sign Up'
+});
 
 const { registerAPI } = useAuthAPI();
 

@@ -172,6 +172,11 @@
 import { ref, onMounted } from "vue";
 import { useBillAPI } from "~/api/bill";
 import ErrorToast from '~/components/ErrorToast.vue';
+import { useHead } from '@vueuse/head';
+
+useHead({
+  title: `Cekain - Bill Shared`
+});
 
 const { fetchBillDetailsAPI} = useBillAPI();
 const route = useRoute();

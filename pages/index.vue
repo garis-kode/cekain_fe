@@ -233,6 +233,11 @@ definePageMeta({
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import { useFriendAPI } from '~/api/friend';
 import { useBillAPI } from '~/api/bill';
+import { useHead } from '@vueuse/head';
+
+useHead({
+  title: 'Cekain - Hangout jadi enak'
+});
 
 const { fetchFriendsAPI } = useFriendAPI();
 const { fetchBillsAPI } = useBillAPI();

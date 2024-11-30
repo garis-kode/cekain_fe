@@ -75,6 +75,11 @@ definePageMeta({
   middleware: 'auth',
 });
 import { useBillAPI } from '@/api/bill';
+import { useHead } from '@vueuse/head';
+
+useHead({
+  title: 'Cekain - Quick Scan'
+});
 
 export default {
   data() {

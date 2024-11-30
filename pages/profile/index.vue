@@ -175,6 +175,11 @@ import * as yup from 'yup';
 import ErrorToast from '~/components/ErrorToast.vue';
 import SuccessToast from '~/components/SuccessToast.vue';
 import { useProfileAPI } from '~/api/profile';
+import { useHead } from '@vueuse/head';
+
+useHead({
+  title: 'Cekain - My Profile'
+});
 
 const { updateProfileAPI, changePasswordAPI } = useProfileAPI();
 

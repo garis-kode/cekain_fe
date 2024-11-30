@@ -75,6 +75,11 @@ definePageMeta({
 });
 
 import { ref, onMounted } from 'vue';
+import { useHead } from '@vueuse/head';
+
+useHead({
+  title: 'Cekain - Setting'
+});
 
 const isDarkMode = ref(false);
 
