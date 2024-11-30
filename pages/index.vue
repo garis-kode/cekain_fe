@@ -2,9 +2,9 @@
   <div>
     <ErrorToast v-if="error" :message="error" @close="error = null" />
     <div class="md:mx-[-24px] mx-[-15px] mt-[-40px] bg-blue-1000 dark:bg-gray-700 p-5 rounded-b-[50px] bg-center bg-no-repeat bg-[url('/assets/img/shape/hero.svg')] dark:bg-[url('/assets/img/shape/hero-dark.svg')] bg-cover">
-      <div class="flex items-center	justify-between ">
+      <div class="flex items-center	justify-between mt-4">
         <span class="font-semibold text-md dark:text-blue-500">
-          <img :src="`/assets/img/icon/logo-bg-white.png`" class="h-20" alt="">
+          <img :src="`/assets/img/icon/logo-no-bg.png`" class="h-12" alt="">
         </span>
         <div class="flex items-center	gap-x-4">
           <Icon name="heroicons:bell-alert" size="22px" class="text-sm text-gray-400 dark:text-gray-400" color="black" />
