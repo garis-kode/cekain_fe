@@ -144,13 +144,17 @@ export default {
 
             const { uploadBillPhotoAPI } = useBillAPI();
             const response = await uploadBillPhotoAPI(formData);
+            localStorage.setItem('billData', JSON.stringify(response.data));
             this.success = 'Photo uploaded successfully!';
             localStorage.removeItem('billData');
-            localStorage.setItem('billData', JSON.stringify(response.data));
-
+            const currentDate = `Bill ${new Date().toLocaleString()}`;
+            const dataWithDate = {
+              name: currentDate,
+              ...response.data
+            };
+            localStorage.setItem('billData', JSON.stringify(dataWithDate));
             this.cameraStream.getTracks().forEach(track => track.stop());
             this.isCameraOpen = false;
-
             this.$router.push('/split/add');
           } catch (error) {
             this.error = error.data?.message || 'An error occurred.';

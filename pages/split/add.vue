@@ -90,7 +90,7 @@
           </div>
         </div>
 
-        <button @click="addItem" type="button" class="text-white w-full bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+        <button @click="addItem" type="button" class="text-white w-full bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
           Add New Item
         </button>
       </div>
@@ -122,12 +122,44 @@
           </div>
           <input type="number" v-model="tax" @input="saveItems" id="tax" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required />
         </div>
-        <div class="mb-3 grid grid-cols-2">
-          <div class="flex items-center justify-between me-4">
-            <span class="text-sm font-semibold dark:text-white">Others</span>
-            <span class="text-sm dark:text-white">IDR</span>
+        <div class="font-semibold pt-5 pb-3 flex justify-between items-center">
+          <span class="dark:text-white">Other</span>
+          <button
+            type="button"
+            @click="addAdjustment"
+            class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+          >
+            <Icon name="heroicons:plus" size="14px" class="mt-1" color="black" />
+          </button>
+        </div>
+        <div v-for="(adjustment, index) in adjustments" :key="index" class="mb-3 flex items-center">
+          <div class="flex items-center">
+            <span class="text-sm dark:text-white me-2">IDR</span>
+            <input
+              type="number"
+              v-model="adjustment.amount"
+              class="me-2 bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="0"
+            />
           </div>
-          <input type="number" v-model="others" @input="saveItems" id="others" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required />
+          <div class="flex items-center">
+            <span class="text-sm dark:text-white me-2">Note</span>
+            <input
+              type="text"
+              v-model="adjustment.note"
+              class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Optional Note"
+            />
+          </div>
+          <div>
+            <button
+              type="button"
+              @click="removeAdjustment(index)"
+              class="ms-3 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+            >
+              <Icon name="heroicons:trash" size="14px" class="mt-1" color="black" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -135,76 +167,97 @@
     <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Preview</button>
   </div>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      billName: '',
-      storeName: '',
-      items: this.loadItems(),
-      discount: 0,
-      tax: 0,
-      others: 0,
-    };
-  },
-  computed: {
-    subTotal() {
-      return this.items.reduce((acc, item) => {
-        const quantity = Number(item.quantity) || 0;
-        const price = Number(item.price) || 0;
-        return acc + (quantity * price);
-      }, 0);
-    },
-    total() {
-      const subTotal = this.subTotal;
-      const discount = Number(this.discount) || 0;
-      const tax = Number(this.tax) || 0;
-      const others = Number(this.others) || 0;
+<script setup>
+import { ref, reactive, computed, onMounted } from 'vue';
 
-      return subTotal - discount + tax + others;
-    },
-  },
-  methods: {
-    addItem() {
-      this.items.push({ name: '', quantity: 0, price: 0 });
-      this.saveItems();
-    },
-    removeItem(index) {
-      this.items.splice(index, 1);
-      this.saveItems();
-    },
-    saveItems() {
-      const data = {
-        billName: this.billName,
-        storeName: this.storeName,
-        items: this.items,
-        discount: this.discount,
-        tax: this.tax,
-        others: this.others,
-      };
-      localStorage.setItem('billData', JSON.stringify(data));
-    },
-    loadItems() {
-      const data = localStorage.getItem('billData');
-      if (data) {
-        const parsedData = JSON.parse(data);
-        this.billName = parsedData.billName;
-        this.storeName = parsedData.storeName;
-        this.discount = parsedData.discount;
-        this.tax = parsedData.tax;
-        this.others = parsedData.others;
-        return parsedData.items.map(item => ({
-          ...item,
-          quantity: item.quantity || 0,
-          price: item.price || 0,
-        }));
-      } else {
-        return [{ name: '', quantity: 0, price: 0 }];
-      }
-    },
-  },
-  mounted() {
-    this.loadItems();
+const billName = ref('');
+const storeName = ref('');
+const discount = ref(0);
+const tax = ref(0);
+const adjustments = reactive([]);
+const items = reactive([]); 
+
+// Now you can safely use adjustments and items
+const loadItems = () => {
+  if (typeof window !== 'undefined' && window.localStorage) {
+    const data = localStorage.getItem('billData');
+    if (data) {
+      const parsedData = JSON.parse(data);
+      billName.value = parsedData.name;
+      storeName.value = parsedData.storeName;
+      discount.value = parsedData.discount;
+      tax.value = parsedData.tax;
+      
+      // Push the adjustments data into the reactive array
+      adjustments.push(...parsedData.adjustments || []);
+      
+      // Return the items with default values if they are missing
+      return parsedData.items.map(item => ({
+        ...item,
+        quantity: item.quantity || 0,
+        price: item.price || 0,
+      }));
+    }
+  }
+  return [{ name: '', quantity: 0, price: 0 }];
+};
+
+// Load items on mounted lifecycle hook
+onMounted(() => {
+  const loadedItems = loadItems();
+  items.push(...loadedItems);
+});
+
+// Computed properties for subtotal and total
+const subTotal = computed(() => {
+  return items.reduce((acc, item) => {
+    const quantity = Number(item.quantity) || 0;
+    const price = Number(item.price) || 0;
+    return acc + (quantity * price);
+  }, 0);
+});
+
+const total = computed(() => {
+  const subTotalValue = subTotal.value;
+  const discountValue = Number(discount.value) || 0;
+  const taxValue = Number(tax.value) || 0;
+  const adjustmentTotal = adjustments.reduce((acc, adj) => acc + (Number(adj.amount) || 0), 0);
+  return subTotalValue - discountValue + taxValue + adjustmentTotal;
+});
+
+// Methods to modify the items and adjustments
+const addItem = () => {
+  items.push({ name: '', quantity: 0, price: 0 });
+  saveItems();
+};
+
+const removeItem = (index) => {
+  items.splice(index, 1);
+  saveItems();
+};
+
+const addAdjustment = () => {
+  adjustments.push({ type: 'addition', amount: 0, note: '' });
+  saveItems();
+};
+
+const removeAdjustment = (index) => {
+  adjustments.splice(index, 1);
+  saveItems();
+};
+
+// Save items to localStorage
+const saveItems = () => {
+  if (typeof window !== 'undefined' && window.localStorage) {
+    const data = {
+      name: billName.value,
+      storeName: storeName.value,
+      discount: discount.value,
+      tax: tax.value,
+      adjustments: adjustments,
+      items: items,
+    };
+    localStorage.setItem('billData', JSON.stringify(data));
   }
 };
 </script>
