@@ -146,6 +146,7 @@ export default {
             const response = await uploadBillPhotoAPI(formData);
             localStorage.setItem('billData', JSON.stringify(response.data));
             this.success = 'Photo uploaded successfully!';
+            localStorage.removeItem('selectedFriends');
             localStorage.removeItem('billData');
             const currentDate = `Bill ${new Date().toLocaleString()}`;
             const dataWithDate = {

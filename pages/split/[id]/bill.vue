@@ -113,7 +113,7 @@
             class="flex items-center justify-between w-full"
           >
             <span class="text-xs font-semibold dark:text-white">Details</span>
-            <Icon name="heroicons:arrow-down-circle dark:text-white" size="18px" color="black" />
+            <Icon name="heroicons:arrow-down-circle" class="dark:text-white" size="18px" color="black" />
           </button>
           <div v-if="isOpen(participant.id)" class="mt-3">
             <h5 class="text-xs font-bold mb-2 dark:text-white">Items</h5>

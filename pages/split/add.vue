@@ -21,26 +21,27 @@
         </div>
         <div class="mb-3">
           <label for="Store" class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Split With</label>
-          <Swiper :modules="[SwiperAutoplay, SwiperFreeMode]" :slides-per-view="5" :loop="true" :effect="'free-mode'" :autoplay="{ delay: 4000, disableOnInteraction: true }">
-            <SwiperSlide class="pt-1 ps-1">
+          <Swiper :modules="[SwiperAutoplay, SwiperFreeMode]" :slides-per-view="5" :loop="false" :autoplay="false" :effect="'slide'">
+            <SwiperSlide v-for="(friend) in selectedFriends" :key="friend.id" class="pt-1 ps-1">
               <div class="pe-2">
-                <button class="origin-top-right absolute right-0 me-2 z-10 flex items-center justify-center w-4 h-4 bg-red-700 hover:bg-red-800 dark:bg-red-600 dark:hover:bg-red-700 rounded-full">
+                <button 
+                  @click="removeFriend(friend)"
+                  class="origin-top-right absolute right-0 me-2 z-10 flex items-center justify-center w-4 h-4 bg-red-700 hover:bg-red-800 dark:bg-red-600 dark:hover:bg-red-700 rounded-full">
                   <Icon name="heroicons:minus-16-solid" class="text-white" size="18px" color="black" />
                 </button>
-                <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
-                <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">Fajar Rivaldi Chan</figure>
+
+                <img 
+                  class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" 
+                  :src="`https://api.dicebear.com/9.x/lorelei/jpg?seed=${friend.name}`" 
+                  :alt="friend.name" 
+                />
+                <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">
+                  {{ friend.name }}
+                </figure>
               </div>
             </SwiperSlide>
-            <SwiperSlide class="pt-1 ps-1">
-              <div class="pe-2">
-                <button class="origin-top-right absolute right-0 me-2 z-10 flex items-center justify-center w-4 h-4 bg-red-700 hover:bg-red-800 dark:bg-red-600 dark:hover:bg-red-700 rounded-full">
-                  <Icon name="heroicons:minus-16-solid" class="text-white" size="18px" color="black" />
-                </button>
-                <img class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
-                <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">John Doe</figure>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide class="pt-1 ps-1">
+
+            <SwiperSlide @click="inviteFriendModal = true" class="pt-1 ps-1">
               <div class="pe-2 text-center">
                 <button class="md:w-16 md:p-5 p-3 rounded-full border border-dashed border-blue-600 flex justify-center items-center mb-2">
                   <Icon name="heroicons:plus-16-solid" class="text-blue-700" size="24px" color="black" />
@@ -165,10 +166,75 @@
     </div>
 
     <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Preview</button>
+  
+    <div v-if="inviteFriendModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md">
+        <div class="p-8">
+          <div class="flex justify-between items-center mb-6">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+              Invite Friend
+            </h3>
+            <button @click="closeModal" class="flex align-middle text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg p-2">
+              <Icon name="heroicons:x-mark" size="20px" />
+            </button>
+          </div>
+          
+          <div class="mb-6 flex items-center">
+            <input
+              type="text"
+              id="search"
+              v-model="search"
+              @input="searchFriends"
+              class="block w-full p-2.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Search"
+            />
+          </div>
+          
+          <div v-if="skeletonLoading">
+            <div v-for="i in 5" :key="i" class="flex justify-between mb-2 border border-dashed p-3 animate-pulse">
+              <div class="flex items-center">
+                <div class="w-8 h-8 rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                <div class="ml-3 w-24 h-4 bg-gray-300 dark:bg-gray-600 rounded"></div>
+              </div>
+            </div>
+          </div>
+
+          <div v-else
+            ref="friendsListContainer"
+            @scroll="onScroll"
+            class="overflow-auto max-h-64"
+          >
+            <div v-for="friend in friends" :key="friend.id" class="flex justify-between items-center py-3 border-b border-gray-200 dark:border-gray-700">
+              <div class="flex items-center">
+                <img
+                  class="w-8 h-8 border-2 border-white rounded-lg dark:border-gray-800"
+                  :src="`https://api.dicebear.com/9.x/lorelei/jpg?seed=${friend.name}`"
+                  alt=""
+                />
+                <span class="text-xs ps-3 font-semibold dark:text-white">{{ friend.name }}</span>
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  v-model="friend.isChecked"
+                  class="w-4 h-4 text-blue-600 me-2 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  @change="updateCheckedStatus(friend)"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div v-if="isLoadingMore" class="text-center py-3 text-gray-500">
+            Loading more...
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script setup>
-import { ref, reactive, computed, onMounted } from 'vue';
+import { ref, reactive, computed, onMounted, watch } from 'vue';
+import { useFriendAPI } from '~/api/friend';
 
 const billName = ref('');
 const storeName = ref('');
@@ -177,7 +243,68 @@ const tax = ref(0);
 const adjustments = reactive([]);
 const items = reactive([]); 
 
-// Now you can safely use adjustments and items
+const inviteFriendModal = ref(false);
+const search = ref('');
+const skeletonLoading = ref(true);
+const isLoadingMore = ref(false);
+const friends = ref([]);
+const error = ref(null);
+const currentPage = ref(1);
+const totalPages = ref(1);
+const selectedFriends = ref([]);
+
+const { fetchFriendsAPI } = useFriendAPI();
+
+const removeFriend = (friend) => {
+  selectedFriends.value = selectedFriends.value.filter(f => f.id !== friend.id);
+  const savedFriends = JSON.parse(localStorage.getItem('selectedFriends')) || [];
+  const updatedFriends = savedFriends.filter(f => f.id !== friend.id);
+  localStorage.setItem('selectedFriends', JSON.stringify(updatedFriends));
+};
+
+const closeModal = () => {
+  inviteFriendModal.value = false;
+  loadSelectedFriends();
+};
+
+const fetchFriends = async (query = '', page = 1) => {
+  try {
+    skeletonLoading.value = page === 1;
+    isLoadingMore.value = false;
+
+    const response = await fetchFriendsAPI(query, page);
+    if (response.success) {
+      friends.value = page === 1 ? response.data : [...friends.value, ...response.data];
+      totalPages.value = response.meta.pagination.totalPages;
+      loadSelectedFriends();
+    }
+  } catch (err) {
+    console.error('Error fetching friends:', err);
+    error.value = err.data?.message || 'An unexpected error occurred.';
+  } finally {
+    skeletonLoading.value = false;
+    isLoadingMore.value = false;
+  }
+};
+
+const searchFriends = () => {
+  currentPage.value = 1;
+  fetchFriends(search.value, currentPage.value);
+};
+
+const onScroll = (event) => {
+  const container = event.target;
+  if (
+    container.scrollHeight - container.scrollTop === container.clientHeight &&
+    currentPage.value < totalPages.value &&
+    !isLoadingMore.value
+  ) {
+    isLoadingMore.value = true;
+    currentPage.value += 1;
+    fetchFriends(search.value, currentPage.value);
+  }
+};
+
 const loadItems = () => {
   if (typeof window !== 'undefined' && window.localStorage) {
     const data = localStorage.getItem('billData');
@@ -188,10 +315,8 @@ const loadItems = () => {
       discount.value = parsedData.discount;
       tax.value = parsedData.tax;
       
-      // Push the adjustments data into the reactive array
       adjustments.push(...parsedData.adjustments || []);
       
-      // Return the items with default values if they are missing
       return parsedData.items.map(item => ({
         ...item,
         quantity: item.quantity || 0,
@@ -202,13 +327,61 @@ const loadItems = () => {
   return [{ name: '', quantity: 0, price: 0 }];
 };
 
-// Load items on mounted lifecycle hook
+watch(inviteFriendModal, (newValue) => {
+  if (newValue) {
+    fetchFriends(search.value, currentPage.value);
+  } else {
+    friends.value = [];
+  }
+});
+
 onMounted(() => {
+  loadSelectedFriends();
   const loadedItems = loadItems();
   items.push(...loadedItems);
 });
 
-// Computed properties for subtotal and total
+watch(search, (newSearch) => {
+  if (newSearch === '') {
+    fetchFriends('', 1);
+  } else {
+    searchFriends();
+  }
+});
+
+const updateCheckedStatus = (friend) => {
+  if (friend.isChecked) {
+    saveFriendToLocalStorage(friend);
+  } else {
+    removeFriendFromLocalStorage(friend);
+  }
+};
+
+const saveFriendToLocalStorage = (friend) => {
+  let savedFriends = JSON.parse(localStorage.getItem('selectedFriends')) || [];
+  if (!savedFriends.some(f => f.id === friend.id)) {
+    savedFriends.push(friend);
+  }
+  localStorage.setItem('selectedFriends', JSON.stringify(savedFriends));
+};
+
+const removeFriendFromLocalStorage = (friend) => {
+  let savedFriends = JSON.parse(localStorage.getItem('selectedFriends')) || [];
+  savedFriends = savedFriends.filter(f => f.id !== friend.id);
+  localStorage.setItem('selectedFriends', JSON.stringify(savedFriends));
+};
+
+const loadSelectedFriends = () => {
+  const savedFriends = JSON.parse(localStorage.getItem('selectedFriends')) || [];
+  selectedFriends.value = savedFriends;
+  savedFriends.forEach(savedFriend => {
+    const friend = friends.value.find(f => f.id === savedFriend.id);
+    if (friend) {
+      friend.isChecked = true;
+    }
+  });
+};
+
 const subTotal = computed(() => {
   return items.reduce((acc, item) => {
     const quantity = Number(item.quantity) || 0;
@@ -225,7 +398,6 @@ const total = computed(() => {
   return subTotalValue - discountValue + taxValue + adjustmentTotal;
 });
 
-// Methods to modify the items and adjustments
 const addItem = () => {
   items.push({ name: '', quantity: 0, price: 0 });
   saveItems();
@@ -246,7 +418,6 @@ const removeAdjustment = (index) => {
   saveItems();
 };
 
-// Save items to localStorage
 const saveItems = () => {
   if (typeof window !== 'undefined' && window.localStorage) {
     const data = {
@@ -261,3 +432,5 @@ const saveItems = () => {
   }
 };
 </script>
+
+
