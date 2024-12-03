@@ -188,6 +188,20 @@ const detailBill = async () => {
   }
 };
 
+const editBill = async () => {
+  isLoading.value = true;
+  try {
+    const response = await confirmBillsAPI(billId);
+    if (response.success) {
+      await router.push(`/split/${billId}/edit`);
+    }
+  } catch (err) {
+    error.value = err.data?.message || 'An unexpected error occurred.';
+  } finally {
+    skeletonLoading.value = false;
+  }
+};
+
 const confirmBill = async () => {
   isLoading.value = true;
   try {

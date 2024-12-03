@@ -21,6 +21,15 @@ export const useBillAPI = () => {
         : `${apiURL}/bill/history?page=${page}&limit=${limit}`;
       return await $fetch(url, { headers: getAuthHeaders() });
     },
+    createBillsAPI: async (data) => {
+      const url = `${apiURL}/bill/`;
+      return await $fetch(url, { 
+        method: 'POST',
+        headers: getAuthHeaders(),
+        body: data,
+        
+      });
+    },
     fetchBillDetailsAPI: async (id) => {
       const url = `${apiURL}/bill/${id}/detail`;
       return await $fetch(url, { headers: getAuthHeaders() });
