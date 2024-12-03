@@ -64,10 +64,13 @@
             <div class="flex justify-between">
               <label :for="'item-' + index" class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Item {{ index + 1 }}</label>
               <div class="flex -space-x-3 rtl:space-x-reverse mb-2">
-                <img class="w-6 h-6 border-2 border-white rounded-full dark:border-gray-800" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="">
-                <img class="w-6 h-6 border-2 border-white rounded-full dark:border-gray-800" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="">
-                <img class="w-6 h-6 border-2 border-white rounded-full dark:border-gray-800" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="">
-                <button class="flex items-center justify-center w-6 h-6 bg-white border border-dashed border-blue-600 rounded-full dark:bg-gray-600">
+                <span v-for="(participant, pIndex) in item.participants" :key="pIndex" class="border rounded-full">
+                  <img  class="w-6 h-6 border-2 border-white rounded-full dark:border-gray-800" 
+                    :src="`https://api.dicebear.com/9.x/lorelei/jpg?seed=${participant.name}`" 
+                    :alt="participant.name"
+                  >
+                </span>
+                <button @click="openFriendSplitModal(item)"  class="flex items-center justify-center w-6 h-6 bg-white border border-dashed border-blue-600 rounded-full dark:bg-gray-600">
                   <Icon name="heroicons:plus-16-solid" class="text-blue-700" color="black" />
                 </button>
               </div>
@@ -88,6 +91,25 @@
               <span class="text-sm dark:text-white">IDR</span>
             </div>
             <input type="number" :value="item.quantity * item.price" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" readonly />
+          </div>
+          <div v-if="isQuantityMismatch(item)" class="text-xs text-red-500 flex items-center">
+            <span class="flex items-center justify-center me-2 w-4 h-4 bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 rounded-full">
+             <span class="text-white font-bold">!</span>
+            </span>
+            Total quantity of participants does not match the item quantity.
+          </div>
+          <div v-if="item.participants && item.participants.length > 0" class="mt-4">
+            <h4 class="text-sm font-semibold dark:text-white mb-2">Participants</h4>
+            <ul class="list-none p-0">
+              <li v-for="(participant, pIndex) in item.participants" :key="pIndex" class="flex justify-between items-center border-b pb-2">
+                <span class="text-sm font-light dark:text-white">{{ participant.name }} ({{ participant.quantity }})</span>
+                <div>
+                  <button @click="removeParticipant(item, pIndex)" class="text-red-500 ml-2">
+                    <Icon name="heroicons:trash" size="16px" class="mt-1" color="black" />
+                  </button>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
 
@@ -134,23 +156,40 @@
           </button>
         </div>
         <div v-for="(adjustment, index) in adjustments" :key="index" class="mb-3 flex items-center">
-          <div class="flex items-center">
-            <span class="text-sm dark:text-white me-2">IDR</span>
-            <input
-              type="number"
-              v-model="adjustment.amount"
-              class="me-2 bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="0"
-            />
-          </div>
-          <div class="flex items-center">
-            <span class="text-sm dark:text-white me-2">Note</span>
-            <input
-              type="text"
-              v-model="adjustment.note"
-              class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Optional Note"
-            />
+          <div class="flex-grow mt-3">
+            <div class="flex items-center mb-3">
+              <span class="text-sm dark:text-white me-2">Type</span>
+              <select
+                v-model="adjustment.type"
+                class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="0"
+                @change="saveItems"
+              >
+                <option value="deduction">deduction</option>
+                <option value="addition">addition</option>
+              </select>
+            </div>
+            <div class="flex items-center mb-3">
+              <span class="text-sm dark:text-white me-5">IDR</span>
+              <input
+                type="number"
+                v-model="adjustment.amount"
+                @input="saveItems"
+                class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="0"
+              />
+            </div>
+            <div class="flex items-center mb-3">
+              <span class="text-sm dark:text-white me-3">Note</span>
+              <textarea
+                type="text"
+                v-model="adjustment.note"
+                @input="saveItems"
+                class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Optional Note"
+              >\
+              </textarea>
+            </div>
           </div>
           <div>
             <button
@@ -165,8 +204,14 @@
       </div>
     </div>
 
-    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Preview</button>
-  
+    <button 
+      type="button" 
+      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      :disabled="isPreviewDisabled"
+    >
+      Preview
+    </button>
+
     <div v-if="inviteFriendModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md">
         <div class="p-8">
@@ -204,8 +249,9 @@
             @scroll="onScroll"
             class="overflow-auto max-h-64"
           >
-            <div v-for="friend in friends" :key="friend.id" class="flex justify-between items-center py-3 border-b border-gray-200 dark:border-gray-700">
-              <div class="flex items-center">
+            <div v-for="friend in friends" :key="friend.id" class="py-1">
+              <div class="flex justify-between items-center ">
+                <div class="flex items-center">
                 <img
                   class="w-8 h-8 border-2 border-white rounded-lg dark:border-gray-800"
                   :src="`https://api.dicebear.com/9.x/lorelei/jpg?seed=${friend.name}`"
@@ -221,6 +267,8 @@
                   @change="updateCheckedStatus(friend)"
                 />
               </div>
+              </div>
+              <div class="border-b border-dashed border-gray-200 dark:border-gray-700 py-1"></div>
             </div>
           </div>
 
@@ -230,18 +278,78 @@
         </div>
       </div>
     </div>
+
+    <div v-if="friendSplitModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md">
+      <div class="p-8">
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+            Item: {{ selectedItem.name }}
+          </h3>
+          <button @click="closeModal" class="flex align-middle text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg p-2">
+            <Icon name="heroicons:x-mark" size="20px" />
+          </button>
+        </div>
+
+        <div v-for="(friend, index) in selectedFriends" :key="index" class="py-3">
+          <div class="flex justify-between items-center">
+            <div class="flex items-center">
+              <img
+                class="w-10 h-10 border-2 border-white rounded-lg dark:border-gray-800"
+                :src="`https://api.dicebear.com/9.x/lorelei/jpg?seed=${friend.name}`"
+                alt=""
+              />
+              <span class="text-sm ps-3 font-semibold dark:text-white">{{ friend.name }}</span>
+            </div>
+            <div class="flex items-center">
+              <button
+                type="button"
+                @click="decreaseQuantity(friend)"
+                class="text-white bg-blue-700 font-medium rounded-lg text-sm px-2 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                <Icon name="heroicons:minus" size="14px" class="mt-1" color="black" />
+              </button>
+              <input
+                type="number"
+                v-model="friend.quantity"
+                :placeholder="'Quantity for ' + friend.name"
+                class="w-14 h-8 border border-gray-300 rounded-md mx-1"
+                min="0"
+              />
+              <button
+                type="button"
+                @click="increaseQuantity(friend)"
+                class="text-white bg-blue-700 font-medium rounded-lg text-sm px-2 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                <Icon name="heroicons:plus" size="14px" class="mt-1" color="black" />
+              </button>
+            </div>
+          </div>
+          <div class="border-b border-dashed border-gray-200 dark:border-gray-700 py-1"></div>
+
+        </div>
+
+        <div class="flex justify-between mt-4">
+          <button @click="addOrUpdateParticipants" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            Add/Update Participants
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
   </div>
 </template>
 <script setup>
 import { ref, reactive, computed, onMounted, watch } from 'vue';
 import { useFriendAPI } from '~/api/friend';
 
+// State variables
 const billName = ref('');
 const storeName = ref('');
 const discount = ref(0);
 const tax = ref(0);
 const adjustments = reactive([]);
-const items = reactive([]); 
+const items = reactive([]);
 
 const inviteFriendModal = ref(false);
 const search = ref('');
@@ -251,20 +359,99 @@ const friends = ref([]);
 const error = ref(null);
 const currentPage = ref(1);
 const totalPages = ref(1);
+const selectedItem = ref(null);
 const selectedFriends = ref([]);
+const friendSplitModal = ref(false);
 
 const { fetchFriendsAPI } = useFriendAPI();
 
+const decreaseQuantity = (friend) => {
+  if (friend.quantity > 0) {
+    friend.quantity -= 1;
+  }
+};
+
+const increaseQuantity = (friend) => {
+  friend.quantity += 1;
+};
+
+const removeParticipant = (item, pIndex) => {
+  item.participants.splice(pIndex, 1);  
+  saveItems();
+};
+
+const isPreviewDisabled = computed(() => {
+  return items.some(item => {
+    if (!item.participants || item.participants.length === 0) {
+      return true;
+    }
+    
+    const totalParticipantQuantity = item.participants.reduce((acc, participant) => acc + participant.quantity, 0);
+    return totalParticipantQuantity !== item.quantity;
+  });
+});
+
+const isQuantityMismatch = (item) => {
+  const totalParticipantsQuantity = item.participants ? item.participants.reduce((sum, participant) => sum + participant.quantity, 0) : 0;
+  return totalParticipantsQuantity !== item.quantity;
+};
+
 const removeFriend = (friend) => {
   selectedFriends.value = selectedFriends.value.filter(f => f.id !== friend.id);
-  const savedFriends = JSON.parse(localStorage.getItem('selectedFriends')) || [];
-  const updatedFriends = savedFriends.filter(f => f.id !== friend.id);
-  localStorage.setItem('selectedFriends', JSON.stringify(updatedFriends));
+  items.forEach(item => {
+    if (item.participants && Array.isArray(item.participants)) {
+      item.participants = item.participants.filter(participant => participant.id !== friend.id);
+    }
+  });
+  saveItems();
+
+  // Update localStorage
+  let savedFriends = JSON.parse(localStorage.getItem('selectedFriends')) || [];
+  savedFriends = savedFriends.filter(f => f.id !== friend.id);
+  localStorage.setItem('selectedFriends', JSON.stringify(savedFriends));
+};
+
+const openFriendSplitModal = (item) => {
+  selectedItem.value = item;
+  selectedFriends.value.forEach(friend => friend.quantity = 0);
+  friendSplitModal.value = true;
 };
 
 const closeModal = () => {
   inviteFriendModal.value = false;
+  friendSplitModal.value = false;
   loadSelectedFriends();
+};
+
+const addOrUpdateParticipants = () => {
+  const participants = selectedFriends.value
+    .filter(friend => friend.quantity > 0)
+    .map(friend => ({
+      id: friend.id,
+      name: friend.name,
+      quantity: friend.quantity,
+    }));
+
+  if (participants.length > 0 && selectedItem.value) {
+    if (!selectedItem.value.participants) {
+      selectedItem.value.participants = [];
+    }
+    selectedItem.value.participants = updateParticipants(selectedItem.value.participants, participants);
+    saveItems();
+    closeModal();
+  }
+};
+
+const updateParticipants = (existingParticipants, newParticipants) => {
+  newParticipants.forEach(newParticipant => {
+    const existingParticipantIndex = existingParticipants.findIndex(participant => participant.id === newParticipant.id);
+    if (existingParticipantIndex !== -1) {
+      existingParticipants[existingParticipantIndex].quantity = newParticipant.quantity;
+    } else {
+      existingParticipants.push(newParticipant);
+    }
+  });
+  return existingParticipants;
 };
 
 const fetchFriends = async (query = '', page = 1) => {
@@ -305,6 +492,7 @@ const onScroll = (event) => {
   }
 };
 
+// Local Storage Management
 const loadItems = () => {
   if (typeof window !== 'undefined' && window.localStorage) {
     const data = localStorage.getItem('billData');
@@ -382,6 +570,7 @@ const loadSelectedFriends = () => {
   });
 };
 
+// Computed properties
 const subTotal = computed(() => {
   return items.reduce((acc, item) => {
     const quantity = Number(item.quantity) || 0;
@@ -394,10 +583,20 @@ const total = computed(() => {
   const subTotalValue = subTotal.value;
   const discountValue = Number(discount.value) || 0;
   const taxValue = Number(tax.value) || 0;
-  const adjustmentTotal = adjustments.reduce((acc, adj) => acc + (Number(adj.amount) || 0), 0);
+  
+  const adjustmentTotal = adjustments.reduce((acc, adj) => {
+    const amount = Number(adj.amount) || 0;
+    if (adj.type === 'deduction') {
+      return acc - amount;
+    } else if (adj.type === 'addition') {
+      return acc + amount;
+    }
+    return acc;
+  }, 0);
   return subTotalValue - discountValue + taxValue + adjustmentTotal;
 });
 
+// Item and adjustment management
 const addItem = () => {
   items.push({ name: '', quantity: 0, price: 0 });
   saveItems();
@@ -409,7 +608,7 @@ const removeItem = (index) => {
 };
 
 const addAdjustment = () => {
-  adjustments.push({ type: 'addition', amount: 0, note: '' });
+  adjustments.push({ type: '', amount: 0, note: '' });
   saveItems();
 };
 
@@ -426,11 +625,14 @@ const saveItems = () => {
       discount: discount.value,
       tax: tax.value,
       adjustments: adjustments,
-      items: items,
+      items: items.map(item => {
+        if (item.name === selectedItem.value?.name) {
+          return selectedItem.value;
+        }
+        return item;
+      }),
     };
     localStorage.setItem('billData', JSON.stringify(data));
   }
 };
 </script>
-
-
