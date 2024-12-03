@@ -30,6 +30,10 @@ export const useBillAPI = () => {
         
       });
     },
+    fetchBillShowAPI: async (id) => {
+      const url = `${apiURL}/bill/${id}`;
+      return await $fetch(url, { headers: getAuthHeaders() });
+    },
     fetchBillDetailsAPI: async (id) => {
       const url = `${apiURL}/bill/${id}/detail`;
       return await $fetch(url, { headers: getAuthHeaders() });
