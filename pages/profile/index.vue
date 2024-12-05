@@ -4,7 +4,9 @@
     <ErrorToast v-if="error" :message="error" @close="error = null" />
     <SuccessToast v-if="success" :message="success" @close="success = null" />
     <div class="flex justify-center relative">
+      <div v-if="isLoadingUser" class="w-28 h-28 bg-gray-200 rounded animate-pulse absolute"></div>
       <img
+        v-else
         class="w-28 h-28 rounded absolute"
         :src="previewImage || user?.profilePictureUrl || defaultAvatar"
         alt="Default avatar"
@@ -30,6 +32,7 @@
         @change="handleFileChange"
       />
     </div>
+
 
     <div class="mb-3 block bg-white border border-gray-100 rounded-xl dark:bg-gray-800 dark:border-gray-700 mt-10">
       <Form @submit="handleUpdateProfile" :validation-schema="schema">
@@ -78,6 +81,7 @@
 
           <div class="flex justify-end">
             <button
+              v-if="!isLoadingUser"
               type="submit"
               :disabled="isLoadingProfile"
               class="flex text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -183,10 +187,15 @@ useHead({
 
 const { updateProfileAPI, changePasswordAPI } = useProfileAPI();
 
+const isLoadingUser = ref(true);
+
 const user = computed(() => {
   if (process.client) {
     const userData = localStorage.getItem('user');
-    return userData ? JSON.parse(userData) : null;
+    if (userData) {
+      isLoadingUser.value = false; // Data berhasil dimuat
+      return JSON.parse(userData);
+    }
   }
   return null;
 });

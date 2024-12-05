@@ -11,9 +11,19 @@
           
           <div class="relative inline-block text-left" ref="dropdownRef">
             <div>
-              <button @click="toggleDropdown" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" type="button">
+              <button 
+                @click="toggleDropdown" 
+                class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" 
+                type="button">
                 <span class="sr-only">Open user menu</span>
-                <img class="w-8 h-8 rounded-full" :src="user?.profilePictureUrl ||  defaultAvatar" alt="user photo">
+
+                <template v-if="loadingUser">
+                  <div class="w-8 h-8 bg-gray-300 rounded-full animate-pulse"></div> <!-- Skeleton loader -->
+                </template>
+
+                <template v-else>
+                  <img class="w-8 h-8 rounded-full" :src="user?.profilePictureUrl || defaultAvatar" alt="user photo">
+                </template>
               </button>
             </div>
 
@@ -249,19 +259,26 @@ const bills = ref([]);
 const skeletonLoadingFriend = ref(true);
 const skeletonLoadingBill = ref(true);
 const error = ref(null);
+const loadingUser = ref(true);
+const user = ref(null);
 
-const user = computed(() => {
+const fetchUserData = () => {
   if (process.client) {
     try {
       const userData = localStorage.getItem('user');
-      return userData ? JSON.parse(userData) : null;
+      if (userData) {
+        user.value = JSON.parse(userData);
+      }
+      loadingUser.value = false;
     } catch (e) {
       console.error('Error parsing user data from localStorage:', e);
-      return null;
+      loadingUser.value = false;
     }
   }
-  return null;
-  
+};
+
+onMounted(() => {
+  fetchUserData(); 
 });
 
 const defaultAvatar = computed(() => {
