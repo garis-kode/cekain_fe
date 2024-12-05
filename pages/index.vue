@@ -4,7 +4,7 @@
     <div class="md:mx-[-24px] mx-[-15px] mt-[-40px] bg-blue-1000 dark:bg-gray-700 p-5 rounded-b-[50px] bg-center bg-no-repeat bg-[url('/assets/img/shape/hero.svg')] dark:bg-[url('/assets/img/shape/hero-dark.svg')] bg-cover">
       <div class="flex items-center	justify-between mt-4">
         <span class="font-semibold text-md dark:text-blue-500">
-          <img :src="`/assets/img/icon/logo-no-bg.png`" class="h-12" alt="">
+          <img :src="`/assets/img/icon/logo-wide.png`" class="h-5" alt="">
         </span>
         <div class="flex items-center	gap-x-4">
           <Icon name="heroicons:bell-alert" size="22px" class="text-sm text-gray-400 dark:text-gray-400" color="black" />
@@ -58,7 +58,7 @@
 
         </div>
       </div>
-      <div class="text-center mb-10 mt-3">
+      <div class="text-center mb-10 mt-8">
         <span class="text-sm text-gray-400 dark:text-gray-400">7 Friend are owing you</span>
         <h1 class="font-bold text-4xl dark:text-white">IDR. 700,000</h1>
         <div class="mt-8 flex justify-center gap-x-2">
@@ -229,6 +229,9 @@
             <div class="bg-blue-900 h-1 rounded-full" :style="{ width: bill.paidPercentage + '%' }"></div>
           </div>
         </NuxtLink>
+        <div class="text-center" v-if="bills.length === 0">
+          <small class="text-gray-400 font-light dark:text-gray-400 hover:text-blue-700">~ No history yet ~</small>
+        </div>
       </div>
     </div>
   </div>
