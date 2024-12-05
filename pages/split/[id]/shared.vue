@@ -178,7 +178,7 @@ useHead({
   title: `Cekain - Bill Shared`
 });
 
-const { fetchBillDetailsAPI} = useBillAPI();
+const { shareBillAPI } = useBillAPI();
 const route = useRoute();
 const billId = route.params.id;
 
@@ -198,7 +198,7 @@ const isOpen = (id) => openAccordions.value.includes(id);
 
 const shareBill = async () => {
   try {
-    const response = await fetchBillDetailsAPI(billId);
+    const response = await shareBillAPI(billId);
     if (response.success) {
       if(response.data.status == 'draft') {
         await router.push(`/`);

@@ -264,6 +264,8 @@ const user = ref(null);
 
 const fetchUserData = () => {
   if (process.client) {
+    localStorage.removeItem('selectedFriends');
+    localStorage.removeItem('billData');
     try {
       const userData = localStorage.getItem('user');
       if (userData) {
