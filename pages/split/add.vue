@@ -207,11 +207,11 @@
     </div>
 
     <button v-if="!isPreviewDisabled" type="button"
-      :disabled="isLoading"
+      :disabled="isLoadingConfirm"
       v-on:click="createBill"
       class="w-full flex justify-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
     >
-      <span v-if="isLoading" role="status" class="flex items-center">
+      <span v-if="isLoadingConfirm" role="status" class="flex items-center">
         <svg
           aria-hidden="true"
           class="w-5 h-5 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600 mr-2"
@@ -230,7 +230,7 @@
         </svg>
         <span class="sr-only">Loading...</span>
       </span>
-      <span>{{ isLoading ? 'Loading...' : 'Confirm' }}</span>
+      <span>{{ isLoadingConfirm ? 'Loading...' : 'Confirm' }}</span>
     </button>
     <button 
       type="button" 
@@ -259,9 +259,16 @@
               id="search"
               v-model="search"
               @input="searchFriends"
-              class="block w-full p-2.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              class="me-3 block w-full p-2.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Search"
             />
+            <button
+              @click="openAddModal"
+              type="button"
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              <Icon name="heroicons:plus" size="14px" class="mt-1" color="black" />
+            </button>
           </div>
           
           <div v-if="skeletonLoading">
@@ -309,69 +316,87 @@
     </div>
 
     <div v-if="friendSplitModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md">
-      <div class="p-8">
-        <div class="flex justify-between items-center mb-6">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-            Item: {{ selectedItem.name }}
-          </h3>
-          <button @click="closeModal" class="flex align-middle text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg p-2">
-            <Icon name="heroicons:x-mark" size="20px" />
-          </button>
-        </div>
-
-        <div v-for="(friend, index) in selectedFriends" :key="index" class="py-3">
-          <div class="flex justify-between items-center">
-            <div class="flex items-center">
-              <img
-                class="w-10 h-10 border-2 border-white rounded-lg dark:border-gray-800"
-                :src="`https://api.dicebear.com/9.x/lorelei/jpg?seed=${friend.name}`"
-                alt=""
-              />
-              <span class="text-sm ps-3 font-semibold dark:text-white">{{ friend.name }}</span>
-            </div>
-            <div class="flex items-center">
-              <button
-                type="button"
-                @click="decreaseQuantity(friend)"
-                class="text-white bg-blue-700 font-medium rounded-lg text-sm px-2 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                <Icon name="heroicons:minus" size="14px" class="mt-1" color="black" />
-              </button>
-              <input
-                type="number"
-                v-model="friend.quantity"
-                :placeholder="'Quantity for ' + friend.name"
-                class="w-14 h-8 border border-gray-300 rounded-md mx-1"
-                min="0"
-              />
-              <button
-                type="button"
-                @click="increaseQuantity(friend)"
-                class="text-white bg-blue-700 font-medium rounded-lg text-sm px-2 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                <Icon name="heroicons:plus" size="14px" class="mt-1" color="black" />
-              </button>
-            </div>
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md">
+        <div class="p-8">
+          <div class="flex justify-between items-center mb-6">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+              Item: {{ selectedItem.name }}
+            </h3>
+            <button @click="closeModal" class="flex align-middle text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg p-2">
+              <Icon name="heroicons:x-mark" size="20px" />
+            </button>
           </div>
-          <div class="border-b border-dashed border-gray-200 dark:border-gray-700 py-1"></div>
 
-        </div>
+          <div v-for="(friend, index) in selectedFriends" :key="index" class="py-3">
+            <div class="flex justify-between items-center">
+              <div class="flex items-center">
+                <img
+                  class="w-10 h-10 border-2 border-white rounded-lg dark:border-gray-800"
+                  :src="`https://api.dicebear.com/9.x/lorelei/jpg?seed=${friend.name}`"
+                  alt=""
+                />
+                <span class="text-sm ps-3 font-semibold dark:text-white">{{ friend.name }}</span>
+              </div>
+              <div class="flex items-center">
+                <button
+                  type="button"
+                  @click="decreaseQuantity(friend)"
+                  class="text-white bg-blue-700 font-medium rounded-lg text-sm px-2 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                >
+                  <Icon name="heroicons:minus" size="14px" class="mt-1" color="black" />
+                </button>
+                <input
+                  type="number"
+                  v-model="friend.quantity"
+                  :placeholder="'Quantity for ' + friend.name"
+                  class="w-14 h-8 border border-gray-300 rounded-md mx-1"
+                  min="0"
+                />
+                <button
+                  type="button"
+                  @click="increaseQuantity(friend)"
+                  class="text-white bg-blue-700 font-medium rounded-lg text-sm px-2 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                >
+                  <Icon name="heroicons:plus" size="14px" class="mt-1" color="black" />
+                </button>
+              </div>
+            </div>
+            <div class="border-b border-dashed border-gray-200 dark:border-gray-700 py-1"></div>
 
-        <div class="flex justify-between mt-4">
-          <button @click="addOrUpdateParticipants" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            Add/Update Participants
-          </button>
+          </div>
+
+          <div class="flex justify-between mt-4">
+            <button @click="addOrUpdateParticipants" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              Add/Update Participants
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+
+    <FriendModal
+      :isOpen="showModalAdd"
+      :isEdit="isEdit"
+      :formData="formData"
+      :validationSchema="schema"
+      :isLoading="isLoading"
+      :onSubmit="submitForm"
+      :onClose="closeModalAdd"
+    />
+
   </div>
 </template>
 <script setup>
+definePageMeta({
+  middleware: 'auth',
+});
 import { ref, reactive, computed, onMounted, watch } from 'vue';
+import * as yup from 'yup';
 import { useFriendAPI } from '~/api/friend';
 import { useBillAPI } from "~/api/bill";
+import FriendModal from '~/components/FriendModal.vue';
+import ErrorToast from '~/components/ErrorToast.vue';
+import SuccessToast from '~/components/SuccessToast.vue';
 
 // State variables
 const billName = ref('');
@@ -392,14 +417,62 @@ const totalPages = ref(1);
 const selectedItem = ref(null);
 const selectedFriends = ref([]);
 const friendSplitModal = ref(false);
+const isLoadingConfirm = ref(false);
+const showModal = ref(false);
+const isEdit = ref(false);
+const formData = reactive({ id: null, name: '', email: '', phoneNumber: '' });
 const isLoading = ref(false);
+const success = ref(null);
 const router = useRouter();
+const showModalAdd = ref(false);
 
-const { fetchFriendsAPI } = useFriendAPI();
+const { fetchFriendsAPI, saveFriendAPI, } = useFriendAPI();
 const { createBillsAPI } = useBillAPI();
 
+const schema = yup.object({
+  name: yup.string().required('Name is required'),
+  email: yup.string().email('Enter a valid email').nullable(),
+  phone: yup.string().nullable(),
+});
+
+
+const resetForm = () => {
+  Object.assign(formData, { id: null, name: '', email: '', phoneNumber: '' });
+};
+
+const openAddModal = () => {
+  resetForm();
+  isEdit.value = false;
+  showModalAdd.value = true;
+};
+
+const closeModalAdd = () => {
+  resetForm();
+  showModalAdd.value = false;
+};
+
+const submitForm = async () => {
+  try {
+    isLoading.value = true;
+    const response = await saveFriendAPI(formData, isEdit.value);
+    if (response.success) {
+      success.value = isEdit.value
+        ? 'Friend updated successfully!'
+        : 'Friend added successfully!';
+      search.value = '';
+      currentPage.value = 1;
+      await fetchFriends();
+      closeModalAdd();
+    }
+  } catch (err) {
+    error.value = err.data?.message || 'An error occurred.';
+  } finally {
+    isLoading.value = false;
+  }
+};
+
 const createBill = async () => {
-  isLoading.value = true;
+  isLoadingConfirm.value = true;
   try {
     if (process.client) {
       const data = localStorage.getItem('billData');
@@ -413,7 +486,7 @@ const createBill = async () => {
   } catch (err) {
     error.value = err.data?.message || 'An unexpected error occurred.';
   } finally {
-    isLoading.value = false;
+    isLoadingConfirm.value = false;
   }
 };
 
@@ -473,6 +546,8 @@ const closeModal = () => {
   inviteFriendModal.value = false;
   friendSplitModal.value = false;
   loadSelectedFriends();
+  resetForm();
+  showModal.value = false;
 };
 
 const addOrUpdateParticipants = () => {
