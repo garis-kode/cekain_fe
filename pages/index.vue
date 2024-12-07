@@ -46,7 +46,7 @@
                     <NuxtLink to="/setting" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Setting</NuxtLink>
                   </li>
                   <li>
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Privacy Policy</a>
+                    <NuxtLink to="/privacy-policy"  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Privacy Policy</NuxtLink>
                   </li>
                 </ul>
                 <div class="py-2 px-2">
