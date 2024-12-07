@@ -130,7 +130,7 @@
               <span>x {{ item.quantity }}</span>
               <span>IDR {{ new Intl.NumberFormat().format(item.price) }}</span>
             </div>
-            <h5 class="text-xs font-bold mt-4 mb-2 dark:text-white">Other Charges</h5>
+            <h5 class="text-xs font-bold mt-4 mb-2 dark:text-white" v-if="participant.others && participant.others.length > 0">Other Charges</h5>
             <div
               v-for="other in participant.others"
               :key="other.name"
