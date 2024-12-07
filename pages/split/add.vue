@@ -38,7 +38,7 @@
                   :alt="friend.name" 
                 />
                 <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">
-                  {{ friend.name }}
+                  {{ friend.name || 'You'|| 'You'}}
                 </figure>
               </div>
             </SwiperSlide>
@@ -104,7 +104,7 @@
             <h4 class="text-sm font-semibold dark:text-white mb-2">Participants</h4>
             <ul class="list-none p-0">
               <li v-for="(participant, pIndex) in item.participants" :key="pIndex" class="flex justify-between items-center border-b pb-2">
-                <span class="text-sm font-light dark:text-white">{{ participant.name }} ({{ participant.quantity }})</span>
+                <span class="text-sm font-light dark:text-white">{{ participant.name || 'You' }} ({{ participant.quantity }})</span>
                 <div>
                   <button @click="removeParticipant(item, pIndex)" class="text-red-500 ml-2">
                     <Icon name="heroicons:trash" size="16px" class="mt-1" color="black" />
@@ -246,7 +246,7 @@
         <div class="p-8">
           <div class="flex justify-between items-center mb-6">
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-              Invite Friend
+              Split With
             </h3>
             <button @click="closeModal" class="flex align-middle text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg p-2">
               <Icon name="heroicons:x-mark" size="20px" />
@@ -293,7 +293,7 @@
                   :src="`https://api.dicebear.com/9.x/lorelei/jpg?seed=${friend.name}`"
                   alt=""
                 />
-                <span class="text-xs ps-3 font-semibold dark:text-white">{{ friend.name }}</span>
+                <span class="text-xs ps-3 font-semibold dark:text-white">{{ friend.name || 'You'}}</span>
               </div>
               <div>
                 <input
@@ -335,7 +335,7 @@
                   :src="`https://api.dicebear.com/9.x/lorelei/jpg?seed=${friend.name}`"
                   alt=""
                 />
-                <span class="text-sm ps-3 font-semibold dark:text-white">{{ friend.name }}</span>
+                <span class="text-sm ps-3 font-semibold dark:text-white">{{ friend.name || 'You' }}</span>
               </div>
               <div class="flex items-center">
                 <button
@@ -586,7 +586,7 @@ const fetchFriends = async (query = '', page = 1) => {
     skeletonLoading.value = page === 1;
     isLoadingMore.value = false;
 
-    const response = await fetchFriendsAPI(query, page);
+    const response = await fetchFriendsAPI(query, page, true);
     if (response.success) {
       friends.value = page === 1 ? response.data : [...friends.value, ...response.data];
       totalPages.value = response.meta.pagination.totalPages;

@@ -94,7 +94,7 @@
                 alt=""
               />
               <div class="ms-3">
-                <span class="text-xs font-semibold dark:text-white">{{ participant.name }}</span>
+                <span class="text-xs font-semibold dark:text-white">{{ participant.name || 'You' }}</span>
                 <h5 class="text-md font-bold tracking-tight text-gray-900 dark:text-white">
                   IDR {{ new Intl.NumberFormat().format(participant.total) }}
                 </h5>

@@ -8,10 +8,10 @@ export const useFriendAPI = () => {
   };
 
   return {
-    fetchFriendsAPI: async (query = '', page = 1) => {
+    fetchFriendsAPI: async (query = '', page = 1, self = false) => {
       const url = query
-        ? `${apiURL}/friend?search=${query}&page=${page}`
-        : `${apiURL}/friend?page=${page}`;
+        ? `${apiURL}/friend?search=${query}&page=${page}&include_self=${self}`
+        : `${apiURL}/friend?page=${page}&include_self=${self}`;
       return await $fetch(url, { headers: getAuthHeaders() });
     },
     fetchFriendDetailsAPI: async (id) => {
