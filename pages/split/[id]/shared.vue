@@ -90,55 +90,43 @@
     </div>
 
     <div v-else>
-      <div
+      <div 
         v-for="participant in participants"
         :key="participant.id"
         class="mb-3 block bg-white border border-gray-100 rounded-xl dark:bg-gray-800 dark:border-gray-700"
       >
         <div class="p-4">
-          <div class="flex justify-between">
-            <div class="flex">
-              <img
-                class="w-12 h-12 border-2 border-white rounded-lg dark:border-gray-800"
-                :src="`https://api.dicebear.com/9.x/lorelei/jpg?seed=${participant.name}`"
-                alt=""
-              />
-              <div class="ms-3">
-                <span class="text-xs font-semibold dark:text-white">{{ participant.name || 'You' }}</span>
-                <h5 class="text-md font-bold tracking-tight text-gray-900 dark:text-white">
-                  IDR {{ new Intl.NumberFormat().format(participant.total) }}
-                </h5>
-              </div>
+          <div class="flex">
+            <img
+              class="w-12 h-12 border-2 border-white rounded-lg dark:border-gray-800"
+              :src="`https://api.dicebear.com/9.x/lorelei/jpg?seed=${participant.name}`"
+              alt=""
+            />
+            <div class="ms-3">
+              <span class="text-xs font-semibold dark:text-white">{{ participant.name || 'You' }}</span>
+              <h5 class="text-md font-bold tracking-tight text-gray-900 dark:text-white">
+                IDR {{ new Intl.NumberFormat().format(participant.total) }}
+              </h5>
             </div>
           </div>
-          <hr class="border-1 my-4 border-dashed" />
-          <button
-            @click="toggleAccordion(participant.id)"
-            class="flex items-center justify-between w-full"
-          >
-            <span class="text-xs font-semibold dark:text-white">Details</span>
-            <Icon name="heroicons:arrow-down-circle" class="dark:text-white" size="18px" color="black" />
-          </button>
-          <div v-if="isOpen(participant.id)" class="mt-3">
-            <h5 class="text-xs font-bold mb-2 dark:text-white">Items</h5>
-            <div
-              v-for="item in participant.items"
-              :key="item.id"
-              class="flex justify-between text-xs text-gray-400 dark:text-gray-400 mb-3"
-            >
-              <span>{{ item.name }}</span>
-              <span>x {{ item.quantity }}</span>
-              <span>IDR {{ new Intl.NumberFormat().format(item.price) }}</span>
-            </div>
-            <h5 class="text-xs font-bold mt-4 mb-2 dark:text-white" v-if="participant.others && participant.others.length > 0">Other Charges</h5>
-            <div
-              v-for="other in participant.others"
-              :key="other.name"
-              class="flex justify-between text-xs text-gray-400 dark:text-gray-400 mb-3"
-            >
-              <span>{{ other.name }}</span>
-              <span>{{ other.type === 'addition' ? '+' : '-' }} IDR {{ new Intl.NumberFormat().format(other.amount) }}</span>
-            </div>
+          <hr class="border-1 my-4 border-dashed">
+          <h5 class="text-xs font-bold mb-2 dark:text-white">Items</h5>
+          <div 
+            v-for="item in participant.items"
+            :key="item.id"
+            class="flex justify-between text-xs text-gray-400 dark:text-gray-400 mb-3">
+            <span>{{ item.name }}</span>
+            <span>x {{ item.quantity }}</span>
+            <span>IDR {{ new Intl.NumberFormat().format(item.price) }}</span>
+          </div>
+          <h5 class="text-xs font-bold mt-4 mb-2 dark:text-white" v-if="participant.others && participant.others.length > 0">Other Charges</h5>
+          <div 
+          
+            v-for="other in participant.others"
+            :key="other.name"
+            class="flex justify-between text-xs text-gray-400 dark:text-gray-400 mb-3">
+            <span>{{ other.name }}</span>
+            <span>{{ other.type === 'addition' ? '+' : '-' }} IDR {{ new Intl.NumberFormat().format(other.amount) }}</span>
           </div>
         </div>
       </div>
