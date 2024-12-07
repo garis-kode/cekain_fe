@@ -238,7 +238,7 @@
       v-if="isPreviewDisabled"
       disabled
     >
-      confirm
+      Confirm
     </button>
 
     <div v-if="inviteFriendModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
@@ -346,10 +346,10 @@
                   <Icon name="heroicons:minus" size="14px" class="mt-1" color="black" />
                 </button>
                 <input
-                  type="number"
+                  readonly
                   v-model="friend.quantity"
                   :placeholder="'Quantity for ' + friend.name"
-                  class="w-14 h-8 border border-gray-300 rounded-md mx-1"
+                  class="w-10 h-8 border border-gray-300 rounded-md mx-1 text-center"
                   min="0"
                 />
                 <button

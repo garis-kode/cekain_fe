@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-col min-h-full">
     <ErrorToast v-if="error" :message="error" @close="error = null" />
-    <div class="font-semibold text-md dark:text-blue-500 flex justify-center">
-      <img :src="`/assets/img/icon/logo-bg-white.png`" class="h-20" alt="">
+    <div class="font-semibold text-md dark:text-blue-500 flex justify-center mb-5">
+      <img :src="`/assets/img/icon/logo-wide.svg`" class="h-8" alt="">
     </div>
     <div>
       <div v-if="isLoading" class="animate-pulse">
@@ -60,19 +60,6 @@
           <h1 class="text-xl font-bold dark:text-white">IDR {{ new Intl.NumberFormat().format(billDetails?.total) }}</h1>
         </div>
 
-        <div class="mb-6 flex items-center justify-between gap-x-4">
-          <div class="w-full bg-gray-200 rounded-full h-1 dark:bg-gray-400">
-            <div
-              class="bg-blue-900 h-1 rounded-full"
-              :style="{ width: billDetails?.paidPercentage + '%' }"
-            ></div>
-          </div>
-          <span
-            class="md:w-15 w-24 bg-blue-950 text-center text-blue-900 text-xs font-medium px-2 py-1 rounded dark:bg-blue-900 dark:text-blue-950"
-          >
-            {{ billDetails?.paidPercentage }}% Paid
-          </span>
-        </div>
       </div>
     </div>
 
@@ -123,12 +110,6 @@
                 </h5>
               </div>
             </div>
-            <input
-              type="checkbox"
-              v-model="participant.isPaid"
-              disabled
-              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-            />
           </div>
           <hr class="border-1 my-4 border-dashed" />
           <button
