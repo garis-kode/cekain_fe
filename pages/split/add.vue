@@ -230,7 +230,7 @@
         </svg>
         <span class="sr-only">Loading...</span>
       </span>
-      <span>{{ isLoadingConfirm ? 'Loading...' : 'Confirm' }}</span>
+      <span>{{ isLoadingConfirm ? 'Loading...' : 'Preview' }}</span>
     </button>
     <button 
       type="button" 
@@ -238,7 +238,7 @@
       v-if="isPreviewDisabled"
       disabled
     >
-      Confirm
+      Preview
     </button>
 
     <div v-if="inviteFriendModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
