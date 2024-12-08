@@ -2,18 +2,28 @@
   <div>
     <ErrorToast v-if="error" :message="error" @close="error = null" />
     <div class="md:mx-[-24px] mx-[-15px] mt-[-40px] bg-blue-1000 dark:bg-gray-700 p-5 rounded-b-[50px] bg-center bg-no-repeat bg-[url('/assets/img/shape/hero.svg')] dark:bg-[url('/assets/img/shape/hero-dark.svg')] bg-cover">
-      <div class="flex items-center	justify-between ">
+      <div class="flex items-center	justify-between mt-4">
         <span class="font-semibold text-md dark:text-blue-500">
-          <img :src="`/assets/img/icon/logo-bg-white.png`" class="h-20" alt="">
+          <img :src="`/assets/img/icon/logo-wide.svg`" class="h-5" alt="">
         </span>
         <div class="flex items-center	gap-x-4">
           <Icon name="heroicons:bell-alert" size="22px" class="text-sm text-gray-400 dark:text-gray-400" color="black" />
           
           <div class="relative inline-block text-left" ref="dropdownRef">
             <div>
-              <button @click="toggleDropdown" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" type="button">
+              <button 
+                @click="toggleDropdown" 
+                class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" 
+                type="button">
                 <span class="sr-only">Open user menu</span>
-                <img class="w-8 h-8 rounded-full" :src="user?.profilePictureUrl ||  defaultAvatar" alt="user photo">
+
+                <template v-if="loadingUser">
+                  <div class="w-8 h-8 bg-gray-300 rounded-full animate-pulse"></div> <!-- Skeleton loader -->
+                </template>
+
+                <template v-else>
+                  <img class="w-8 h-8 rounded-full" :src="user?.profilePictureUrl || defaultAvatar" alt="user photo">
+                </template>
               </button>
             </div>
 
@@ -36,7 +46,7 @@
                     <NuxtLink to="/setting" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Setting</NuxtLink>
                   </li>
                   <li>
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Privacy Policy</a>
+                    <NuxtLink to="/privacy-policy"  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Privacy Policy</NuxtLink>
                   </li>
                 </ul>
                 <div class="py-2 px-2">
@@ -48,9 +58,9 @@
 
         </div>
       </div>
-      <div class="text-center mb-10 mt-3">
-        <span class="text-sm text-gray-400 dark:text-gray-400">7 Friend are owing you</span>
-        <h1 class="font-bold text-4xl dark:text-white">IDR. 700,000</h1>
+      <div class="text-center mb-10 mt-8">
+        <span class="text-sm text-gray-400 dark:text-gray-400">5 Friend are owing you</span>
+        <h1 class="font-bold text-4xl dark:text-white">IDR. 467.000</h1>
         <div class="mt-8 flex justify-center gap-x-2">
           <NuxtLink to="split/add" class="flex gap-x-1 px-4 py-2.5 text-sm text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             <Icon name="mingcute:bill-2-line" size="20px" color="black" />
@@ -160,7 +170,7 @@
         <NuxtLink 
           v-for="bill in bills"
           :key="bill.id"
-          :to="`/split/${bill.id}/bill`"
+          :to="bill.status === 'draft' ? `/split/${bill.id}/preview` : `/split/${bill.id}/bill`"
           class="mb-3 block bg-white border border-gray-100 rounded-xl hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
           <div class="p-4">
             <div class="flex justify-between">
@@ -219,6 +229,9 @@
             <div class="bg-blue-900 h-1 rounded-full" :style="{ width: bill.paidPercentage + '%' }"></div>
           </div>
         </NuxtLink>
+        <div class="text-center" v-if="bills.length === 0">
+          <small class="text-gray-400 font-light dark:text-gray-400 hover:text-blue-700">~ No history yet ~</small>
+        </div>
       </div>
     </div>
   </div>
@@ -233,6 +246,11 @@ definePageMeta({
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import { useFriendAPI } from '~/api/friend';
 import { useBillAPI } from '~/api/bill';
+import { useHead } from '@vueuse/head';
+
+useHead({
+  title: 'Cekain - Hangout jadi enak'
+});
 
 const { fetchFriendsAPI } = useFriendAPI();
 const { fetchBillsAPI } = useBillAPI();
@@ -244,19 +262,28 @@ const bills = ref([]);
 const skeletonLoadingFriend = ref(true);
 const skeletonLoadingBill = ref(true);
 const error = ref(null);
+const loadingUser = ref(true);
+const user = ref(null);
 
-const user = computed(() => {
+const fetchUserData = () => {
   if (process.client) {
+    localStorage.removeItem('selectedFriends');
+    localStorage.removeItem('billData');
     try {
       const userData = localStorage.getItem('user');
-      return userData ? JSON.parse(userData) : null;
+      if (userData) {
+        user.value = JSON.parse(userData);
+      }
+      loadingUser.value = false;
     } catch (e) {
       console.error('Error parsing user data from localStorage:', e);
-      return null;
+      loadingUser.value = false;
     }
   }
-  return null;
-  
+};
+
+onMounted(() => {
+  fetchUserData(); 
 });
 
 const defaultAvatar = computed(() => {

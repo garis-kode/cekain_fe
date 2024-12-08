@@ -208,7 +208,7 @@
 
     <button v-if="!isPreviewDisabled" type="button"
       :disabled="isLoadingConfirm"
-      v-on:click="createBill"
+      v-on:click="updateBill"
       class="w-full flex justify-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
     >
       <span v-if="isLoadingConfirm" role="status" class="flex items-center">
@@ -230,7 +230,7 @@
         </svg>
         <span class="sr-only">Loading...</span>
       </span>
-      <span>{{ isLoadingConfirm ? 'Loading...' : 'Preview' }}</span>
+      <span>{{ isLoadingConfirm ? 'Loading...' : 'Confirm' }}</span>
     </button>
     <button 
       type="button" 
@@ -238,7 +238,7 @@
       v-if="isPreviewDisabled"
       disabled
     >
-      Preview
+      Confirm
     </button>
 
     <div v-if="inviteFriendModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
@@ -427,7 +427,9 @@ const router = useRouter();
 const showModalAdd = ref(false);
 
 const { fetchFriendsAPI, saveFriendAPI, } = useFriendAPI();
-const { createBillsAPI } = useBillAPI();
+const { updateBillsAPI } = useBillAPI();
+const route = useRoute();
+const billId = route.params.id;
 
 const schema = yup.object({
   name: yup.string().required('Name is required'),
@@ -471,12 +473,12 @@ const submitForm = async () => {
   }
 };
 
-const createBill = async () => {
+const updateBill = async () => {
   isLoadingConfirm.value = true;
   try {
     if (process.client) {
       const data = localStorage.getItem('billData');
-      const response = await createBillsAPI(data);
+      const response = await updateBillsAPI(billId, data);
       if (response.success) {
         localStorage.removeItem('selectedFriends');
         localStorage.removeItem('billData');

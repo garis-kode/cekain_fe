@@ -142,6 +142,11 @@ import FriendModal from '~/components/FriendModal.vue';
 import ErrorToast from '~/components/ErrorToast.vue';
 import SuccessToast from '~/components/SuccessToast.vue';
 import { useFriendAPI } from '~/api/friend';
+import { useHead } from '@vueuse/head';
+
+useHead({
+  title: 'Cekain - Friend List'
+});
 
 const schema = yup.object({
   name: yup.string().required('Name is required'),

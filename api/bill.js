@@ -21,9 +21,37 @@ export const useBillAPI = () => {
         : `${apiURL}/bill/history?page=${page}&limit=${limit}`;
       return await $fetch(url, { headers: getAuthHeaders() });
     },
+    createBillsAPI: async (data) => {
+      const url = `${apiURL}/bill/`;
+      return await $fetch(url, { 
+        method: 'POST',
+        headers: getAuthHeaders(),
+        body: data,
+        
+      });
+    },
+    updateBillsAPI: async (id, data) => {
+      const url = `${apiURL}/bill/${id}`;
+      return await $fetch(url, { 
+        method: 'put',
+        headers: getAuthHeaders(),
+        body: data,
+        
+      });
+    },
+    fetchBillShowAPI: async (id) => {
+      const url = `${apiURL}/bill/${id}`;
+      return await $fetch(url, { headers: getAuthHeaders() });
+    },
     fetchBillDetailsAPI: async (id) => {
       const url = `${apiURL}/bill/${id}/detail`;
       return await $fetch(url, { headers: getAuthHeaders() });
+    },
+    confirmBillsAPI: async (id) => {
+      return await $fetch(`${apiURL}/bill/${id}/confirm`, {
+        method: 'PUT',
+        headers: getAuthHeaders(),
+      });
     },
     markAsPaidAPI: async (billId, formData) => {
       return await $fetch(`${apiURL}/bill/${billId}/mark-paid`, {
@@ -31,6 +59,10 @@ export const useBillAPI = () => {
         headers: getAuthHeaders(),
         body: formData,
       });
+    },
+    shareBillAPI: async (id) => {
+      const url = `${apiURL}/bill/shareable/${id}`;
+      return await $fetch(url);
     },
   };
 };

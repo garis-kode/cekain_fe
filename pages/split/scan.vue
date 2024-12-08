@@ -75,6 +75,11 @@ definePageMeta({
   middleware: 'auth',
 });
 import { useBillAPI } from '@/api/bill';
+import { useHead } from '@vueuse/head';
+
+useHead({
+  title: 'Cekain - Quick Scan'
+});
 
 export default {
   data() {
@@ -139,13 +144,18 @@ export default {
 
             const { uploadBillPhotoAPI } = useBillAPI();
             const response = await uploadBillPhotoAPI(formData);
-            this.success = 'Photo uploaded successfully!';
-            localStorage.removeItem('billData');
             localStorage.setItem('billData', JSON.stringify(response.data));
-
+            this.success = 'Photo uploaded successfully!';
+            localStorage.removeItem('selectedFriends');
+            localStorage.removeItem('billData');
+            const currentDate = `Bill ${new Date().toLocaleString()}`;
+            const dataWithDate = {
+              name: currentDate,
+              ...response.data
+            };
+            localStorage.setItem('billData', JSON.stringify(dataWithDate));
             this.cameraStream.getTracks().forEach(track => track.stop());
             this.isCameraOpen = false;
-
             this.$router.push('/split/add');
           } catch (error) {
             this.error = error.data?.message || 'An error occurred.';
@@ -161,25 +171,28 @@ export default {
 
     async uploadPhoto(event) {
       const file = event.target.files[0];
-
       if (!file) {
         this.error = 'No file selected.';
         return;
       }
-
       this.isUploaded = true;
-
       const formData = new FormData();
       formData.append('image', file);
-
       try {
         const { uploadBillPhotoAPI } = useBillAPI();
         const response = await uploadBillPhotoAPI(formData);
         this.success = 'Photo uploaded successfully!';
-        localStorage.removeItem('billData');
-        localStorage.setItem('billData', JSON.stringify(response.data));
-
-        this.$router.push('/split/add');
+        localStorage.removeItem('selectedFriends');
+            localStorage.removeItem('billData');
+            const currentDate = `Bill ${new Date().toLocaleString()}`;
+            const dataWithDate = {
+              name: currentDate,
+              ...response.data
+            };
+            localStorage.setItem('billData', JSON.stringify(dataWithDate));
+            this.cameraStream.getTracks().forEach(track => track.stop());
+            this.isCameraOpen = false;
+            this.$router.push('/split/add');
       } catch (error) {
         this.error = error.data?.message || 'An error occurred.';
       } finally {
