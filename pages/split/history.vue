@@ -76,13 +76,13 @@
                 </div>
               </div>
               <div class="flex -space-x-4 rtl:space-x-reverse">
-                <img
-                  v-for="(participant,) in bill.participants.slice(0, 3)"
-                  :key="participant.id"
-                  class="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800" 
-                  :src="`https://api.dicebear.com/9.x/lorelei/jpg?seed=${participant.name}`"
-                  :alt="`${participant.name}`"
-                >
+                <Avatar 
+                  v-for="(participant) in bill.participants.slice(0, 3)" 
+                  :key="participant.id" 
+                  :friendName="`${participant.name}`" 
+                  customClass="text-xs border-2 border-white rounded-full dark:border-gray-800" 
+                  :size="'1.9rem'" 
+                />
                 <span
                   v-if="bill.participants.length > 3"
                   class="flex items-center justify-center w-8 h-8 text-xs font-medium text-gray-400 bg-gray-100 border-2 border-white rounded-full"

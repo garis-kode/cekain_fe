@@ -31,14 +31,9 @@
                   class="origin-top-right absolute right-0 me-2 z-10 flex items-center justify-center w-4 h-4 bg-red-700 hover:bg-red-800 dark:bg-red-600 dark:hover:bg-red-700 rounded-full">
                   <Icon name="heroicons:minus-16-solid" class="text-white" size="18px" color="black" />
                 </button>
-
-                <img 
-                  class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" 
-                  :src="`https://api.dicebear.com/9.x/lorelei/jpg?seed=${friend.name}`" 
-                  :alt="friend.name" 
-                />
+                <Avatar :friendName="`${friend.name}`" customClass="text-3xl p-2 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" :size="'4.3rem'" />
                 <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">
-                  {{ friend.name || 'You'|| 'You'}}
+                  {{ friend.name || 'You' }}
                 </figure>
               </div>
             </SwiperSlide>
@@ -67,10 +62,11 @@
               <label :for="'item-' + index" class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Item {{ index + 1 }}</label>
               <div class="flex -space-x-3 rtl:space-x-reverse mb-2">
                 <span v-for="(participant, pIndex) in item.participants" :key="pIndex" class="border rounded-full">
-                  <img  class="w-6 h-6 border-2 border-white rounded-full dark:border-gray-800" 
-                    :src="`https://api.dicebear.com/9.x/lorelei/jpg?seed=${participant.name}`" 
-                    :alt="participant.name"
-                  >
+                  <Avatar 
+                    :friendName="`${participant.name}`" 
+                    customClass="text-xs border-2 border-white rounded-full dark:border-gray-800" 
+                    :size="'1.5rem'" 
+                  />
                 </span>
                 <button @click="openFriendSplitModal(item)"  class="flex items-center justify-center w-6 h-6 bg-white border border-dashed border-blue-600 rounded-full dark:bg-gray-600">
                   <Icon name="heroicons:plus-16-solid" class="text-blue-700" color="black" />
@@ -95,7 +91,7 @@
             <input type="number" :value="item.quantity * item.price" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" readonly />
           </div>
           <div v-if="isQuantityMismatch(item)" class="text-xs text-red-500 flex items-center">
-            <span class="flex items-center justify-center me-2 w-4 h-4 bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 rounded-full">
+            <span class="flex items-center justify-center me-2 md:w-4 xs:w-5 w-6 h-4 bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 rounded-full">
              <span class="text-white font-bold">!</span>
             </span>
             Total quantity of participants does not match the item quantity.
@@ -288,11 +284,11 @@
             <div v-for="friend in friends" :key="friend.id" class="py-1">
               <div class="flex justify-between items-center ">
                 <div class="flex items-center">
-                <img
-                  class="w-8 h-8 border-2 border-white rounded-lg dark:border-gray-800"
-                  :src="`https://api.dicebear.com/9.x/lorelei/jpg?seed=${friend.name}`"
-                  alt=""
-                />
+                  <Avatar
+                    :friendName="`${friend.name}`" 
+                    customClass="text-xs border-2 border-white dark:border-gray-800" 
+                    :size="'2rem'" 
+                  />
                 <span class="text-xs ps-3 font-semibold dark:text-white">{{ friend.name || 'You'}}</span>
               </div>
               <div>
@@ -306,6 +302,11 @@
               </div>
               <div class="border-b border-dashed border-gray-200 dark:border-gray-700 py-1"></div>
             </div>
+          </div>
+          <div class="flex justify-between mt-4" v-if="!skeletonLoading">
+            <button @click="closeModal" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              Save
+            </button>
           </div>
 
           <div v-if="isLoadingMore" class="text-center py-3 text-gray-500">
@@ -330,11 +331,11 @@
           <div v-for="(friend, index) in selectedFriends" :key="index" class="py-3">
             <div class="flex justify-between items-center">
               <div class="flex items-center">
-                <img
-                  class="w-10 h-10 border-2 border-white rounded-lg dark:border-gray-800"
-                  :src="`https://api.dicebear.com/9.x/lorelei/jpg?seed=${friend.name}`"
-                  alt=""
-                />
+                <Avatar
+                    :friendName="`${friend.name}`" 
+                    customClass="text-xs border-2 border-white dark:border-gray-800" 
+                    :size="'2rem'" 
+                  />
                 <span class="text-sm ps-3 font-semibold dark:text-white">{{ friend.name || 'You' }}</span>
               </div>
               <div class="flex items-center">
@@ -397,6 +398,7 @@ import { useBillAPI } from "~/api/bill";
 import FriendModal from '~/components/FriendModal.vue';
 import ErrorToast from '~/components/ErrorToast.vue';
 import SuccessToast from '~/components/SuccessToast.vue';
+import Avatar from '~/components/Avatar.vue';
 
 // State variables
 const billName = ref('');

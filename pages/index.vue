@@ -60,7 +60,7 @@
       </div>
       <div class="text-center mb-10 mt-8">
         <span class="text-sm text-gray-400 dark:text-gray-400">5 Friend are owing you</span>
-        <h1 class="font-bold text-4xl dark:text-white">IDR. 467.000</h1>
+        <h1 class="font-bold text-4xl dark:text-white">IDR. 250.000</h1>
         <div class="mt-8 flex justify-center gap-x-2">
           <NuxtLink to="split/add" class="flex gap-x-1 px-4 py-2.5 text-sm text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             <Icon name="mingcute:bill-2-line" size="20px" color="black" />
@@ -106,11 +106,7 @@
         class="pt-1 ps-1"
       >
         <div class="pe-2">
-          <img
-            class="w-20 h-18 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
-            :src="`https://api.dicebear.com/9.x/lorelei/jpg?seed=${friend.name}`"
-            alt="Bordered avatar"
-          />
+          <Avatar :friendName="`${friend.name}`" customClass="text-3xl p-2 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" :size="'4.3rem'" />
           <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">
             {{ friend.name }}
           </figure>
@@ -193,13 +189,13 @@
                 </div>
               </div>
               <div class="flex -space-x-4 rtl:space-x-reverse">
-                <img
-                  v-for="(participant,) in bill.participants.slice(0, 3)"
-                  :key="participant.id"
-                  class="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800" 
-                  :src="`https://api.dicebear.com/9.x/lorelei/jpg?seed=${participant.name}`"
-                  :alt="`${participant.name}`"
-                >
+                <Avatar 
+                  v-for="(participant) in bill.participants.slice(0, 3)" 
+                  :key="participant.id" 
+                  :friendName="`${participant.name}`" 
+                  customClass="text-xs border-2 border-white rounded-full dark:border-gray-800" 
+                  :size="'1.9rem'" 
+                />
                 <span
                   v-if="bill.participants.length > 3"
                   class="flex items-center justify-center w-8 h-8 text-xs font-medium text-gray-400 bg-gray-100 border-2 border-white rounded-full"
@@ -244,6 +240,7 @@ definePageMeta({
 });
 
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
+import Avatar from '~/components/Avatar.vue';
 import { useFriendAPI } from '~/api/friend';
 import { useBillAPI } from '~/api/bill';
 import { useHead } from '@vueuse/head';

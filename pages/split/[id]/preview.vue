@@ -78,11 +78,12 @@
       >
         <div class="p-4">
           <div class="flex">
-            <img
-              class="w-12 h-12 border-2 border-white rounded-lg dark:border-gray-800"
-              :src="`https://api.dicebear.com/9.x/lorelei/jpg?seed=${participant.name}`"
-              alt=""
-            />
+              <Avatar
+                  :friendName="`${participant.name}`" 
+                  customClass="text-lg border-2 border-white dark:border-gray-800" 
+                  :size="'3rem'" 
+                  :radius="'20%'"
+              />
             <div class="ms-3">
               <span class="text-xs font-semibold dark:text-white">{{ participant.name || 'You' }}</span>
               <h5 class="text-md font-bold tracking-tight text-gray-900 dark:text-white">
@@ -179,6 +180,7 @@ import { ref, onMounted } from "vue";
 import { useBillAPI } from "~/api/bill";
 import ErrorToast from '~/components/ErrorToast.vue';
 import SuccessToast from '~/components/SuccessToast.vue';
+import Avatar from '~/components/Avatar.vue';
 import { useHead } from '@vueuse/head';
 
 useHead({

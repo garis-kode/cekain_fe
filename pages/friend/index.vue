@@ -60,10 +60,11 @@
         <div class="p-4">
           <div class="flex justify-between">
             <div class="flex align-middle">
-              <img
-                class="w-12 h-12 border-2 border-white rounded-lg dark:border-gray-800"
-                :src="`https://api.dicebear.com/9.x/lorelei/jpg?seed=${friend.name}`"
-                alt="Friend Avatar"
+              <Avatar
+                  :friendName="`${friend.name}`" 
+                  customClass="text-lg border-2 border-white dark:border-gray-800" 
+                  :size="'3.2rem'" 
+                  :radius="'20%'"
               />
               <div class="ms-3">
                 <h5
@@ -141,6 +142,7 @@ import DeleteModal from '~/components/DeleteModal.vue';
 import FriendModal from '~/components/FriendModal.vue';
 import ErrorToast from '~/components/ErrorToast.vue';
 import SuccessToast from '~/components/SuccessToast.vue';
+import Avatar from '~/components/Avatar.vue';
 import { useFriendAPI } from '~/api/friend';
 import { useHead } from '@vueuse/head';
 
