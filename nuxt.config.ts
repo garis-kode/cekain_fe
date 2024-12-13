@@ -29,7 +29,8 @@ export default defineNuxtConfig({
         { name: 'description', content: 'Aplikasi split bill berbasis A.I buat kamu yang sering hangout bareng teman' }
       ],
       link: [
-        { rel: 'icon', href: 'assets/img/icon/logo-bg-white.png' }
+        { rel: 'icon', href: 'assets/img/icon/logo-bg-white.png' },
+        { rel: 'manifest', href: '/manifest.webmanifest' }
       ]
     }
   },
@@ -45,27 +46,27 @@ export default defineNuxtConfig({
       theme_color: '#4DBA87',
       icons: [
         {
-          src: "assets/img/icons/icon_64x64.png",
+          src: "/assets/img/icons/icon_64x64.png",
           sizes: "64x64",
           type: "image/png",
         },
         {
-          src: "assets/img/icons/icon_144x144.png",
+          src: "/assets/img/icons/icon_144x144.png",
           sizes: "144x144",
           type: "image/png",
         },
         {
-          src: "assets/img/icons/icon_192x192.png",
+          src: "/assets/img/icons/icon_192x192.png",
           sizes: "192x192",
           type: "image/png",
         },
         {
-          src: "assets/img/icons/icon_384x384.png",
+          src: "/assets/img/icons/icon_384x384.png",
           sizes: "384x384",
           type: "image/png",
         },
         {
-          src: "assets/img/icons/icon_512x512.png",
+          src: "/assets/img/icons/icon_512x512.png",
           sizes: "512x512",
           type: "image/png",
         },
