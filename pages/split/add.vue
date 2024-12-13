@@ -31,7 +31,7 @@
                   class="origin-top-right absolute right-0 me-2 z-10 flex items-center justify-center w-4 h-4 bg-red-700 hover:bg-red-800 dark:bg-red-600 dark:hover:bg-red-700 rounded-full">
                   <Icon name="heroicons:minus-16-solid" class="text-white" size="18px" color="black" />
                 </button>
-                <Avatar :friendName="`${friend.name || 'You'}`" customClass="text-3xl p-2 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" :size="'4.3rem'" />
+                <Avatar :friendName="`${friend.name || 'You'}`" customClass="text-3xl p-2 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" :size="'3.8rem'" />
                 <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">
                   {{ friend.name || 'You' }}
                 </figure>

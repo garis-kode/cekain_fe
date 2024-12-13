@@ -105,9 +105,9 @@
         :key="friend.id"
         class="pt-1 ps-1"
       >
-        <div class="pe-2">
-          <Avatar :friendName="`${friend.name}`" customClass="text-3xl p-2 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" :size="'4.3rem'" />
-          <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">
+        <div class="text-center">
+          <Avatar :friendName="`${friend.name}`" customClass=" text-3xl p-2 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" :size="'4rem'" />
+          <figure class="text-sm mt-3 pe-4 text-xs text-gray-600 dark:text-gray-400">
             {{ friend.name }}
           </figure>
         </div>
