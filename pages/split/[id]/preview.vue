@@ -79,7 +79,7 @@
         <div class="p-4">
           <div class="flex">
               <Avatar
-                  :friendName="`${participant.name}`" 
+                  :friendName="`${participant.name || 'You'}`" 
                   customClass="text-lg border-2 border-white dark:border-gray-800" 
                   :size="'3rem'" 
                   :radius="'20%'"

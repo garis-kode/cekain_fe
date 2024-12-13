@@ -79,7 +79,7 @@
                 <Avatar 
                   v-for="(participant) in bill.participants.slice(0, 3)" 
                   :key="participant.id" 
-                  :friendName="`${participant.name}`" 
+                  :friendName="`${participant.name || 'You'}`" 
                   customClass="text-xs border-2 border-white rounded-full dark:border-gray-800" 
                   :size="'1.9rem'" 
                 />

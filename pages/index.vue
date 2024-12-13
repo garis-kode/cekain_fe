@@ -66,7 +66,7 @@
             <Icon name="mingcute:bill-2-line" size="20px" color="black" />
             Add Manually
           </NuxtLink>
-          <NuxtLink to="split/scan" class="flex gap-x-1 px-7 py-2.5 text-sm text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+          <NuxtLink to="split/scan" class="flex gap-x-1 px-7 py-2.5 text-sm text-center text-white rounded-lg hover:bg-blue-800 focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
             <Icon name="mingcute:scan-fill" size="18px" color="black" />
             Quick Scan
           </NuxtLink>
@@ -192,7 +192,7 @@
                 <Avatar 
                   v-for="(participant) in bill.participants.slice(0, 3)" 
                   :key="participant.id" 
-                  :friendName="`${participant.name}`" 
+                  :friendName="`${participant.name || 'You' }`" 
                   customClass="text-xs border-2 border-white rounded-full dark:border-gray-800" 
                   :size="'1.9rem'" 
                 />

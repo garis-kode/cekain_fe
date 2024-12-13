@@ -89,7 +89,7 @@
           <div class="flex justify-between">
             <div class="flex">
                 <Avatar
-                  :friendName="`${participant.name}`" 
+                  :friendName="`${participant.name  || 'You'}`" 
                   customClass="text-lg border-2 border-white dark:border-gray-800" 
                   :size="'3rem'" 
                   :radius="'20%'"
@@ -114,7 +114,8 @@
             class="flex items-center justify-between w-full"
           >
             <span class="text-xs font-semibold dark:text-white">Details</span>
-            <Icon name="heroicons:arrow-down-circle" class="dark:text-white" size="18px" color="black" />
+            <Icon v-if="!isOpen(participant.id)" name="heroicons:arrow-down-circle" class="dark:text-white" size="18px"  color="black"  />
+            <Icon v-if="isOpen(participant.id)" name="heroicons:arrow-up-circle" class="dark:text-white" size="18px"  color="black"  />
           </button>
           <div v-if="isOpen(participant.id)" class="mt-3">
             <h5 class="text-xs font-bold mb-2 dark:text-white">Items</h5>
@@ -146,7 +147,7 @@
         @click="downloadShared"
         :disabled="isDownloading"
         type="button"
-        class="flex items-center justify-center gap-x-2 w-full focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 disabled:opacity-50 disabled:cursor-not-allowed"
+        class="flex items-center justify-center gap-x-2 w-full focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <Icon
           v-if="!isDownloading"

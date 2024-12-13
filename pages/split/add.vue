@@ -31,7 +31,7 @@
                   class="origin-top-right absolute right-0 me-2 z-10 flex items-center justify-center w-4 h-4 bg-red-700 hover:bg-red-800 dark:bg-red-600 dark:hover:bg-red-700 rounded-full">
                   <Icon name="heroicons:minus-16-solid" class="text-white" size="18px" color="black" />
                 </button>
-                <Avatar :friendName="`${friend.name}`" customClass="text-3xl p-2 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" :size="'4.3rem'" />
+                <Avatar :friendName="`${friend.name || 'You'}`" customClass="text-3xl p-2 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" :size="'4.3rem'" />
                 <figure class="text-sm mt-3 text-center text-xs text-gray-600 dark:text-gray-400">
                   {{ friend.name || 'You' }}
                 </figure>
@@ -63,7 +63,7 @@
               <div class="flex -space-x-3 rtl:space-x-reverse mb-2">
                 <span v-for="(participant, pIndex) in item.participants" :key="pIndex" class="border rounded-full">
                   <Avatar 
-                    :friendName="`${participant.name}`" 
+                    :friendName="`${participant.name || 'You'}`" 
                     customClass="text-xs border-2 border-white rounded-full dark:border-gray-800" 
                     :size="'1.5rem'" 
                   />
@@ -285,7 +285,7 @@
               <div class="flex justify-between items-center ">
                 <div class="flex items-center">
                   <Avatar
-                    :friendName="`${friend.name}`" 
+                    :friendName="`${friend.name || 'You'}`" 
                     customClass="text-xs border-2 border-white dark:border-gray-800" 
                     :size="'2rem'" 
                   />
@@ -332,7 +332,7 @@
             <div class="flex justify-between items-center">
               <div class="flex items-center">
                 <Avatar
-                    :friendName="`${friend.name}`" 
+                    :friendName="`${friend.name || 'You'}`" 
                     customClass="text-xs border-2 border-white dark:border-gray-800" 
                     :size="'2rem'" 
                   />
