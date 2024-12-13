@@ -2,7 +2,10 @@
 export default defineNuxtConfig({
   compatibilityDate: '2024-07-12',
   devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss', "@nuxt/icon", 'nuxt-swiper', '@nuxtjs/color-mode', '@vite-pwa/nuxt', '@vee-validate/nuxt'],
+  modules: ['@nuxtjs/tailwindcss', "@nuxt/icon", 'nuxt-swiper', '@nuxtjs/color-mode', '@vite-pwa/nuxt', '@vee-validate/nuxt', 'nuxt-vue3-google-signin'],
+  googleSignIn: {
+    clientId: '313487503163-3th8801ldfn1ai05bfle09t3d9ps05io.apps.googleusercontent.com',
+  },
   runtimeConfig: {
     public: {
       apiURL: 'https://api.cekain.com',

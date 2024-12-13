@@ -20,5 +20,11 @@ export const useAuthAPI = () => {
         },
       });
     },
+    googleLoginAPI: async (googleToken) => {
+      return await $fetch(`${apiURL}/auth/google`, {
+        method: 'POST',
+        body: { googleToken },
+      });
+    },
   };
 };

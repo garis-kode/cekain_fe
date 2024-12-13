@@ -64,7 +64,7 @@
         <span class="mx-2 text-gray-400 text-xs text-gray-500">Or sign In with</span>
         <hr class="border-gray-300 flex-grow">
       </div>
-      <button type="button" class="flex items-center justify-center text-black w-full bg-white border border-gray-100 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+      <button :disabled="!isReady" @click="() => login()" type="button" class="flex items-center justify-center text-black w-full bg-white border border-gray-100 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
         <img src="/assets/img/icon/google.svg" alt="">
         <span class="ml-2">Google</span>
       </button>
@@ -88,6 +88,10 @@ import ErrorToast from '~/components/ErrorToast.vue';
 import SuccessToast from '~/components/SuccessToast.vue';
 import { useAuthAPI } from '~/api/auth';
 import { useHead } from '@vueuse/head';
+import {
+  useTokenClient
+} from "vue3-google-signin";
+
 
 useHead({
   title: 'Cekain - Sign In'
@@ -123,5 +127,19 @@ const handleLogin = async (values) => {
     isLoading.value = false;
   }
 };
+
+const handleOnSuccess = (response) => {
+  console.log("Access Token: ", response.access_token);
+};
+
+const handleOnError = (errorResponse) => {
+  console.log("Error: ", errorResponse);
+};
+
+const { isReady, login } = useTokenClient({
+  onSuccess: handleOnSuccess,
+  onError: handleOnError,
+  // other options
+});
 </script>
 
